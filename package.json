@@ -1,0 +1,33 @@
+{
+	"name": "jsxl",
+	"version": "0.2.10",
+	"description": "JavaScript filter, validation, and transformation language",
+	"main": "lib/jsxl.js",
+	"scripts": {
+		"test_coverage": "./node_modules/.bin/nyc ./node_modules/.bin/mocha test/sample.js",
+		"test": "./node_modules/.bin/mocha test/sample.js"
+	},
+	"keywords": [
+		"JavaScript",
+		"JSON",
+		"filter",
+		"filtering",
+		"validate",
+		"validating",
+		"validation",
+		"transform",
+		"transforming",
+		"transformation"
+	],
+	"author": "Poul-Jorgen Brinck <pjbrinck@jungle.io>",
+	"license": "MIT",
+	"dependencies": {
+		"async": "2.6.1"
+	},
+	"devDependencies": {
+		"nyc": "^15.1.0",
+		"sinon": "^11.1.1",
+		"chai": "^4.3.4",
+		"mocha": "^8.4.0"
+	}
+}
