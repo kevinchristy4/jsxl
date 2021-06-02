@@ -1,0 +1,15 @@
+using stub to check if the compiler is called on each execution
+
+$filter is to directlt filter out contents - if needed to transform we must use $type and call $tranform within that
+
+The direct filters usually represent each set of json (for each objects in the array)
+eg:In array1: [ { a: 1, b: 'x' } , { a: 2, b: 'y' }, { a: 3, b: 'z' } ], Here {a:1, b:x} is one set of json(first array object)
+So The filer will be [{a: number},{b: string}] -  this will be applied across all array objects
+
+
+If using explicit initial context - The values sent in target will get replaced by input values that passes the filter - based on the array index
+Suppose if 
+123456 is the target and in input if we have 
+789 - If 8 gets filtered out and only 7 and 9 passess, the output will be 
+729456
+
