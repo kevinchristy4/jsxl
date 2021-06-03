@@ -30,6 +30,7 @@ var jsxlfunction = function(){
     this.jsxlDirect = async(inputs,filter)=>{
 
         return new Promise((resolve)=>{
+            try{
             jsxl(
                 {
                     input: inputs
@@ -39,19 +40,38 @@ var jsxlfunction = function(){
                     if(err){
                         resolve(err)
                     }
+                    // console.log(output)
                     resolve(output)
                 }
             );
+            }
+            catch(err){
+                resolve(err)
+            }
         })
     }
 
-    this.jsxlAddFilter = async(filters)=>{
-        return new Promise((resolve)=>{
-            resolve(jsxl.useFilters({
-                jsonFilter : [ { ada: {test: {$type: null, $gt:8}, test1:String},foo:{one: Number, two:[Number, Number]}} ]
-            }))
-        })
-    }
+  this.jsxlExplicitContext = async(target, parameters, inputs, filter)=>{
+
+    return new Promise((resolve)=>{
+        jsxl({
+            target,
+            parameters,
+            key: 'input',
+            source: {input:inputs}
+        },
+        filter,
+        (err,output)=>{
+            if(err){
+                resolve(err)
+            }
+            // console.log(output)
+            resolve(target)
+        }
+        );
+    })
+
+  }
 
 
    

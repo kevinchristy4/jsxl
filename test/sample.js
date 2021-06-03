@@ -43,47 +43,6 @@ describe("Run examples from documentations",()=>{
                 expect(JSON.stringify(await result)).to.equal(JSON.stringify(input))
         })
 
-        // it('test',()=>{
-        //     const target = {
-        //         input: [ { number: 1 }, { number: 2 }, { number: 3 }, { number: 4 } ],
-        //         other: 'this is other stuff...'
-        //     };
-        //     const parameters = {
-        //         modulus: 2	
-        //     };
-        //     jsxl(
-        //         {	
-        //             target,
-        //             parameters,
-        //             key: 'input',
-        //             source: {
-        //                 input: [ { number: 7 }, { number: 8 }, { number: 9 },{number: 10},{number: 11} ]
-        //             }
-        //         }, // explicit context
-        //         [ { 
-        //             $filter: (context, object, next) => {
-        //                 // rejects parameter-numbered objects
-        //                 // note that explicit validation is necessary in $filter
-        //                 next(null, !(object && typeof object.number == 'number' && 
-        //                              object.number % context.parameters.modulus == 0)); 
-        //             },
-        //             $type: { number: Number }
-        //         } ], // filter
-        //         (err, output) => {
-        //             console.log(target);
-        //             // yields: { 
-        //             //    input: [ { number: 7 }, { number: 2 }, { number: 9 }, { number: 4 } ],
-        //             //    other: 'this is other stuff...' 
-        //             // }
-        //         }
-        //     );
-        // })
-    })
-
-
-
-
-
-
+    })  
     
 })

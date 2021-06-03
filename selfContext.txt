@@ -18,7 +18,7 @@ Scenarios:
 Regression:
 - before:
     - Add filters to jsxl - using useFilters()
-    - compile multiple filters - using compileMultiple()
+    - compile multiple filters - using compileMultiple() - useFilter already compiles the filters no need to do it again
 - Test:
     - execute multiple times using different filters
     - compile again using different filter(directly call jsxl) - execute 
@@ -33,4 +33,13 @@ Regression:
     - add a filter with many modifiers
 - Test:
     - compile and execute
+
+
+Have a set of regression scripts - these will include functionality scenarios.
+Then Seperate test cases based on the features:
+- filters - using multiple
+- transform
+- modifiers
+- context - explicit context
+- merge
 
