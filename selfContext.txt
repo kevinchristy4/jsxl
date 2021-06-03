@@ -1,6 +1,6 @@
 using stub to check if the compiler is called on each execution
 
-$filter is to directlt filter out contents - if needed to transform we must use $type and call $tranform within that
+$filter is to directlty filter out contents - if needed to transform we must use $type and call $tranform within that
 
 The direct filters usually represent each set of json (for each objects in the array)
 eg:In array1: [ { a: 1, b: 'x' } , { a: 2, b: 'y' }, { a: 3, b: 'z' } ], Here {a:1, b:x} is one set of json(first array object)
@@ -12,4 +12,25 @@ Suppose if
 123456 is the target and in input if we have 
 789 - If 8 gets filtered out and only 7 and 9 passess, the output will be 
 729456
+
+
+Scenarios:
+Regression:
+- before:
+    - Add filters to jsxl - using useFilters()
+    - compile multiple filters - using compileMultiple()
+- Test:
+    - execute multiple times using different filters
+    - compile again using different filter(directly call jsxl) - execute 
+    - execute again using the previously added filter
+
+- before:
+    - add a filter and tranform function
+- Test:
+    - perform validation by setting an explicit context
+
+- before:
+    - add a filter with many modifiers
+- Test:
+    - compile and execute
 

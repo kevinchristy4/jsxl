@@ -1,12 +1,44 @@
 {
-	"name": "jsxl",
-	"version": "0.2.10",
-	"description": "JavaScript filter, validation, and transformation language",
-	"main": "lib/jsxl.js",
-	"scripts": {
-		"test_coverage": "./node_modules/.bin/nyc ./node_modules/.bin/mocha test/sample.js",
-		"test": "./node_modules/.bin/mocha test/sample.js"
+	"_from": "jsxl",
+	"_id": "jsxl@0.2.12",
+	"_inBundle": false,
+	"_integrity": "sha512-bWsImHPDo8Aiz2iuOspyn3LvSS6aW0Edj/bOXchjFepD7ZEdhJpTI+o7qvq8QxTd0Qh29bA0u8cFdzPhUDSQ6A==",
+	"_location": "/jsxl",
+	"_phantomChildren": {},
+	"_requested": {
+		"type": "tag",
+		"registry": true,
+		"raw": "jsxl",
+		"name": "jsxl",
+		"escapedName": "jsxl",
+		"rawSpec": "",
+		"saveSpec": null,
+		"fetchSpec": "latest"
 	},
+	"_requiredBy": [
+		"#DEV:/",
+		"#USER"
+	],
+	"_resolved": "https://registry.npmjs.org/jsxl/-/jsxl-0.2.12.tgz",
+	"_shasum": "fd115968b74e2ececbdeb6e6292644014f7f35fe",
+	"_spec": "jsxl",
+	"_where": "C:\\jsxl",
+	"author": {
+		"name": "Poul-Jorgen Brinck",
+		"email": "pjbrinck@jungle.io"
+	},
+	"bundleDependencies": false,
+	"dependencies": {
+		"async": "2.6.1"
+	},
+	"devDependencies": {
+		"nyc": "^15.1.0",
+		"sinon": "^11.1.1",
+		"chai": "^4.3.4",
+		"mocha": "^8.4.0"
+	},
+	"deprecated": false,
+	"description": "JavaScript filter, validation, and transformation language",
 	"keywords": [
 		"JavaScript",
 		"JSON",
@@ -19,15 +51,12 @@
 		"transforming",
 		"transformation"
 	],
-	"author": "Poul-Jorgen Brinck <pjbrinck@jungle.io>",
 	"license": "MIT",
-	"dependencies": {
-		"async": "2.6.1"
+	"main": "lib/jsxl.js",
+	"name": "jsxl",
+	"scripts": {
+		"test_coverage": "./node_modules/.bin/nyc ./node_modules/.bin/mocha test/sample.js",
+		"test": "./node_modules/.bin/mocha test/sample.js"
 	},
-	"devDependencies": {
-		"nyc": "^15.1.0",
-		"sinon": "^11.1.1",
-		"chai": "^4.3.4",
-		"mocha": "^8.4.0"
-	}
+	"version": "0.2.12"
 }

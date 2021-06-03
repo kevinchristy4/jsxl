@@ -5,27 +5,27 @@ const jsxlFunction = require('./jsxlfunction')
 
 describe("Run examples from documentations",()=>{
 
-    // describe("Compile first and execute",()=>{
-    //     var filter = [{
-    //         $filter: (context, object, next) => {
-    //             next(null, !(object && typeof object.number == 'number' && object.number % 2 == 0)); 
-    //         },
-    //         $type: {
-    //             number: {
-    //                 $type: Number,
-    //                 $transform: (context, object, next) => {
-    //                     next(null, object * 3);
-    //                 }
-    //             }
-    //         },
-    //     }];
-    //     var input = [ { number: 7 }, { number: 8 }, { number: 9 } ]
+    describe("Compile first and execute",()=>{
+        var filter = [{
+            $filter: (context, object, next) => {
+                next(null, !(object && typeof object.number == 'number' && object.number % 2 == 0)); 
+            },
+            $type: {
+                number: {
+                    $type: Number,
+                    $transform: (context, object, next) => {
+                        next(null, object * 3);
+                    }
+                }
+            },
+        }];
+        var input = [ { number: 7 }, { number: 8 }, { number: 9 } ]
     
-    //     it('Filter and Transform',async()=>{
-    //         var results = await jsxlFunction.jsxlCompileAndExecute(filter,input)
-    //         expect(await results).to.eql([ { number: 21 }, { number: 27 } ])
-    //     })
-    // })
+        it('Filter and Transform',async()=>{
+            var results = await jsxlFunction.jsxlCompileAndExecute(filter,input)
+            expect(await results).to.eql([ { number: 21 }, { number: 27 } ])
+        })
+    })
 
     describe("Calling jsxl directly",()=>{
 
