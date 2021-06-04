@@ -35,11 +35,13 @@ Regression:
     - compile and execute
 
 
-Have a set of regression scripts - these will include functionality scenarios.
-Then Seperate test cases based on the features:
+Have a set of regression scripts - these will include generic functionality scenarios.
+Then have Seperate test cases based on the features:
 - filters - using multiple
 - transform
 - modifiers
 - context - explicit context
 - merge
+
+
 

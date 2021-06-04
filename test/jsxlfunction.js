@@ -40,7 +40,7 @@ var jsxlfunction = function(){
                     if(err){
                         resolve(err)
                     }
-                    // console.log(output)
+                    // console.log(output[0])
                     resolve(output)
                 }
             );

@@ -56,7 +56,7 @@
 	"name": "jsxl",
 	"scripts": {
 		"test_with_coverage": "./node_modules/.bin/nyc ./node_modules/.bin/mocha test/sample.js",
-		"regression": "./node_modules/.bin/mocha test/regression*",
+		"regression": "./node_modules/.bin/mocha test/regression/regression",
 		"featureTests": "./node_modules/.bin/mocha test/featuresTests*",
 		"test":"npm run regression && npm run featureTests"
 	},

@@ -60,7 +60,21 @@ describe('Test Group - Regression - Compile and execute multiple filters',()=>{
 
         // Add 4 filters
         await jsxl.useFilters({
-            requestFilter : [ { ada: {test: {$type: null, $gt:8}, test1:String},foo:{one: Number, two:[Number, Number]}} ],
+            requestFilter : [ { 
+                ada: {
+                    test: {
+                        $type: null, 
+                        $gt:8
+                    }, 
+                    test1:String
+                },
+                foo:
+                {
+                    one: Number, 
+                    two:[Number, Number]
+                }
+            }
+         ],
             filterFromExample: [{
                 $filter: (context, object, next) => {
                     next(null, !(object && typeof object.number == 'number' && object.number % 2 == 0)); 
