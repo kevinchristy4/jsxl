@@ -1,4 +1,8 @@
 const jsxl = require('../lib/jsxl');
+const { expect } = require('chai');
+const util = require('util')
+
+
 
 var jsxlfunction = function(){
 
@@ -70,6 +74,31 @@ var jsxlfunction = function(){
         }
         );
     })
+
+  }
+
+  this.directCallWrapper = async(inputs,filters,expects,expValue,errMsg)=>{
+
+    describe('WrapperFunction',()=>{
+        it('ada',async()=>{
+            var result = await this.jsxlDirect(inputs,filters)
+            // console.log(util.inspect(await result,{showHidden: false, depth: null}))
+            if(expects.toLowerCase() == 'pass' && (expValue != null)){
+                expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
+            }else 
+            if(expects.toLowerCase() == 'error' && errMsg != null){
+                expect(await result).to.be.a('error')
+                expect(await result.message).to.deep.equal(errMsg)
+            }
+            else{
+                throw new Error('Either expected - condition or values are missing');
+            }
+        })
+    })
+  
+
+
+   
 
   }
 

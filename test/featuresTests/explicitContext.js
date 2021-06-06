@@ -2,6 +2,8 @@ const jsxl = require('../../lib/jsxl');
 const { expect } = require('chai');
 const jsxlFunction = require('../jsxlfunction')
 const util = require('util')
+const inputJson = require('../test_data/inputs.json')
+const filters = require('../test_data/filters')
 
 
 describe('Test Group - feature/context',()=>{
@@ -70,13 +72,14 @@ describe('Test Group - feature/context',()=>{
 
     it('test',async()=>{
 
-        var input = {a:7}
-        var filt = {a:String}
-        var test = await jsxlFunction.jsxlDirect(input,filt)
-        console.log(test.message)
-        // expect(test).to.be.()
-        expect(test).to.be.an('error');
-        expect(test.message).to.eq('(execute v2) input.a must be type String (not Number)');
+        var input = 7
+        var filt = Number
+        jsxlFunction.directCallWrapper(inputJson.input3,filters.filter1,"Pass","")
+        // console.log(test)
+        // expect(test).to.be.an('Error');
+        // expect(test.message).to.eq('test');
+        // console.log(typeof filters.filter1)
+
 
     })
 })

@@ -1,0 +1,67 @@
+{
+    "input1":{
+        "options": [
+            {
+                "label": "Options",
+                "score": 22,
+                "value": 1
+            }
+        ]
+    },
+    "input2":{
+        "options": [
+            {
+                "label": "Options",
+                "score": 10,
+                "value": 1,
+                "default": "",
+                "allowTypeIn": "",
+                "affectedOptions": [2,3,4]
+            }
+        ]
+    },
+    "input3": {
+        "inputTest": {
+            "planId": "c619ea31",
+            "planKey": "test123",
+            "jFormData": {
+                "key": "test123",
+                "title": "Test",
+                "objToArr":{
+                    "one":1,
+                    "two":2
+                }
+            }
+        }
+    },
+    "input4": {
+        "planId": "c619ea31",
+        "planKey": "test123",
+        "jFormData": {
+            "key": "test123",
+            "title": "Test",
+            "fieldConfigs": [
+                {
+                    "key": "single_select",
+                    "type": "single",
+                    "className": "page-input-field",
+                    "templateOptions": {
+                        "type": "single",
+                        "label": "Single select",
+                        "logics": [],
+                        "options": [
+                            {
+                                "label": "Options",
+                                "score": 10,
+                                "value": 1,
+                                "default": "",
+                                "allowTypeIn": "",
+                                "affectedOptions": [2,3,4]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

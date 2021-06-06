@@ -2,10 +2,12 @@ const jsxl = require('../../lib/jsxl');
 const { expect } = require('chai');
 const jsxlFunction = require('../jsxlfunction')
 const util = require('util')
+const inputJson = require('../test_data/inputs.json')
+const filters = require('../test_data/filters')
 
 describe('Test Group - feature/modifiers',()=>{
 
-    var inputJson = [{
+    var inputJsonsss = {
         inputTest: {
             "planId": "c619ea31",
             "planKey": "test123",
@@ -18,18 +20,35 @@ describe('Test Group - feature/modifiers',()=>{
                 }
             }
         }
-    }]
+    }
 
-    var initialFilter = [{
+    var initialFilter = {
         $filter:(context,object,next)=>{
             next(null, Object.keys(object)[0].includes('inputTest'))
         },
-        $any:[{
-            $type: Object
-        }]
-    }]
+        $type:{
+            $:{
+                planId:String,
+                planKey:{
+                    $remove: true
+                },
+                jFormData:{
+                    key:{
+                        $remove:true
+                    },
+                    title:{
+                        $insert:'adadai'
+                    },
+                    objToArr:{
+                        $type:Object,
+                        $inc:'one'
+                    }
+                }
+            }
+        }
+    }
 
-    var secondFilter = [{
+    var secondFilter = {
 
         $type:{
             inputTest:{
@@ -51,7 +70,14 @@ describe('Test Group - feature/modifiers',()=>{
                 }
             }
         }
-    }]
+    }
+
+    var output = {
+        inputTest: {
+          planId: 'c619ea31',
+          jFormData: { title: 'adadai', objToArr: { one: 1, two: 2 } }
+        }
+      };
 
     
 
@@ -59,9 +85,12 @@ describe('Test Group - feature/modifiers',()=>{
 
     it('Filter with remove, insert and include modifier',async()=>{
 
-        var result = await jsxlFunction.jsxlDirect(inputJson,initialFilter)
-        var result1 = await jsxlFunction.jsxlDirect(result,secondFilter)
-        console.log(util.inspect(await result1, {showHidden: false, depth: null}))
+        // var result = await jsxlFunction.jsxlDirect(inputJsonsss,initialFilter)
+        // var result1 = await jsxlFunction.jsxlDirect(result,secondFilter)
+        // console.log(util.inspect(await result, {showHidden: false, depth: null}))
+        // console.log(util.inspect(await result1, {showHidden: false, depth: null}))
+        jsxlFunction.directCallWrapper(inputJson.input3,filters.filter1,"Pass",output);
+      
 
     })
 

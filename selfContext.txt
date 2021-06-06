@@ -44,4 +44,10 @@ Then have Seperate test cases based on the features:
 - merge
 
 
+wrapper function:
+- created a function that can execute calling jsxl directly
+To do:
+- Create a logic to map inputjson with the filter and output values by embedding some values in the inputdata itself
+- In the wrapper function get those filter, output values and verify 
+
 
