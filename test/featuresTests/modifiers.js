@@ -89,7 +89,7 @@ describe('Test Group - feature/modifiers',()=>{
         // var result1 = await jsxlFunction.jsxlDirect(result,secondFilter)
         // console.log(util.inspect(await result, {showHidden: false, depth: null}))
         // console.log(util.inspect(await result1, {showHidden: false, depth: null}))
-        jsxlFunction.directCallWrapper(inputJson.input3,filters.filter1,"Pass",output);
+        // jsxlFunction.directCall(inputJson.input3,filters.filter1,"Pass",output);
       
 
     })

@@ -7,15 +7,15 @@ const util = require('util')
 var jsxlfunction = function(){
 
 
-    this.jsxlCompileAndExecute = async(...args)=>{
+    this.jsxlCompileAndExecute = async(inputs,filters)=>{
 
        return new Promise((resolve)=>{
         jsxl.compile(
-            args[0],
+            filters,
             async(err,filter)=>{
                 if (err) return console.log(err);
                 jsxl.execute({
-                    input: args[1]
+                    input: inputs
                 },
                 filter,
                 async(err, output) => {
@@ -34,7 +34,6 @@ var jsxlfunction = function(){
     this.jsxlDirect = async(inputs,filter)=>{
 
         return new Promise((resolve)=>{
-            try{
             jsxl(
                 {
                     input: inputs
@@ -48,10 +47,6 @@ var jsxlfunction = function(){
                     resolve(output)
                 }
             );
-            }
-            catch(err){
-                resolve(err)
-            }
         })
     }
 
@@ -77,21 +72,36 @@ var jsxlfunction = function(){
 
   }
 
-  this.directCallWrapper = async(inputs,filters,expects,expValue,errMsg)=>{
 
-    describe('WrapperFunction',()=>{
-        it('ada',async()=>{
-            var result = await this.jsxlDirect(inputs,filters)
+  this.verifyResult = async(testName,result,expects,expValue,errMsg)=>{
+
+    describe(testName,()=>{
+        it(testName,async()=>{
+            // var result = await this.jsxlDirect(inputs,filters)
             // console.log(util.inspect(await result,{showHidden: false, depth: null}))
-            if(expects.toLowerCase() == 'pass' && (expValue != null)){
-                expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
+            if(expects.toLowerCase() == 'pass' && expValue != null){
+                try{
+                    expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
+                }catch(err){
+                    console.log("Assertion error ------> "+err.message)
+                    if(await result.message != undefined){
+                        throw new Error('Expected to pass but jsxl gave an error  ------> ' +result.message );
+                    }
+                } 
             }else 
-            if(expects.toLowerCase() == 'error' && errMsg != null){
-                expect(await result).to.be.a('error')
-                expect(await result.message).to.deep.equal(errMsg)
+            if(expects.toLowerCase() == 'fail' && errMsg != null){
+                try{
+                    expect(await result).to.be.a('error')
+                    expect(await result.message).to.deep.equal(errMsg)
+                }catch(err){
+                    console.log("Assertion error ------> "+err.message)
+                    if(await result.message == undefined){
+                        throw new Error('Expected to fail but jsxl did not return any error');
+                    }
+                }
             }
             else{
-                throw new Error('Either expected - condition or values are missing');
+                throw new Error('Expected condition or expected values are not defined properly');
             }
         })
     })

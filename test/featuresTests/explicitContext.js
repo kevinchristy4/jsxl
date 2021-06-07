@@ -3,7 +3,8 @@ const { expect } = require('chai');
 const jsxlFunction = require('../jsxlfunction')
 const util = require('util')
 const inputJson = require('../test_data/inputs.json')
-const filters = require('../test_data/filters')
+const filters = require('../test_data/filters');
+const { test } = require('mocha');
 
 
 describe('Test Group - feature/context',()=>{
@@ -53,6 +54,16 @@ describe('Test Group - feature/context',()=>{
         ten:10
     }
 
+    var output = {
+        inputTest: {
+          planId: 'c619ea31',
+          jFormData: { title: 'adadai', objToArr: { one: 1, two: 2 } }
+        }
+      };
+
+      var testName = 'explicitContext'
+      var errorMessage = '(execute v2) input.inputTest.planId must be type Number (not String)';
+
     // it('Filter with explicit inputs',async()=>{
 
     //     var result = await jsxlFunction.jsxlExplicitContext(target,parameters,inputs,filter)
@@ -72,9 +83,11 @@ describe('Test Group - feature/context',()=>{
 
     it('test',async()=>{
 
-        var input = 7
-        var filt = Number
-        jsxlFunction.directCallWrapper(inputJson.input3,filters.filter1,"Pass","")
+        // var input = 7
+        // var filt = Number
+        // console.log(process.env.compiler)
+        jsxlFunction.verifyResult(testName,await jsxlFunction.jsxlDirect(inputJson.input3,filters.filter1),"pass",output,errorMessage)
+       
         // console.log(test)
         // expect(test).to.be.an('Error');
         // expect(test.message).to.eq('test');
