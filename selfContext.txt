@@ -49,7 +49,9 @@ wrapper function:
 - In the wrapper function get those filter, output values and verify 
 
 To do:
-- create different combinations of test inputs and filters
-- 
+- split the input, filter and output into smaller samples - and form sets
+- each set will have an 2-3 inputs, one filter, 2-3 outputs
+
+
 
 

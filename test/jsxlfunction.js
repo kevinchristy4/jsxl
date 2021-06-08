@@ -85,7 +85,7 @@ var jsxlfunction = function(){
                 }catch(err){
                     console.log("Assertion error ------> "+err.message)
                     if(await result.message != undefined){
-                        throw new Error('Expected to pass but jsxl gave an error  ------> ' +result.message );
+                        throw new Error('Expected to pass but jsxl gave an error  ------> ' + await result.message );
                     }
                 } 
             }else 

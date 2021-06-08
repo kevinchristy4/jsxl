@@ -34,31 +34,18 @@
             }
         }
     },
-    "input4": {
-        "planId": "c619ea31",
-        "planKey": "test123",
+    "modifier1": {
+        "insert": "modifier",
+        "remove": "test123",
         "jFormData": {
-            "key": "test123",
-            "title": "Test",
             "fieldConfigs": [
                 {
-                    "key": "single_select",
-                    "type": "single",
+                    "map": "triple_select",
+                    "mapTo": 3,
                     "className": "page-input-field",
                     "templateOptions": {
-                        "type": "single",
-                        "label": "Single select",
-                        "logics": [],
-                        "options": [
-                            {
-                                "label": "Options",
-                                "score": 10,
-                                "value": 1,
-                                "default": "",
-                                "allowTypeIn": "",
-                                "affectedOptions": [2,3,4]
-                            }
-                        ]
+                        "equal": "triple",
+                        "any_gt_in": [10,"b",30]
                     }
                 }
             ]

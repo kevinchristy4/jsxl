@@ -79,6 +79,24 @@ describe('Test Group - feature/modifiers',()=>{
         }
       };
 
+      var outpt = {
+        "insert": "insertedID",
+        "jFormData": {
+            "default": "test123",
+            "fieldConfigs": [
+                {
+                    "map": 3,
+                    "mapTo": "triple",
+                    "className": "page-input-field",
+                    "templateOptions": {
+                        "equal": "triple",
+                        "any_gt_in": [10,"b",30]
+                    }
+                }
+            ]
+        }
+    }
+
     
 
 
@@ -90,6 +108,7 @@ describe('Test Group - feature/modifiers',()=>{
         // console.log(util.inspect(await result, {showHidden: false, depth: null}))
         // console.log(util.inspect(await result1, {showHidden: false, depth: null}))
         // jsxlFunction.directCall(inputJson.input3,filters.filter1,"Pass",output);
+        jsxlFunction.verifyResult('Filter with modifiers',jsxlFunction.jsxlDirect(inputJson.modifier1,filters.modifierFilter1),'pass',outpt)
       
 
     })
