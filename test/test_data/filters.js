@@ -2,32 +2,6 @@ const { filter } = require("async")
 
 var filters = function(){
 
-    this.filter1 = {
-        $filter:(context,object,next)=>{
-            next(null, Object.keys(object)[0].includes('inputTest'))
-        },
-        $type:{
-            $:{
-                planId:String,
-                planKey:{
-                    $remove: true
-                },
-                jFormData:{
-                    key:{
-                        $remove:true
-                    },
-                    title:{
-                        $insert:'adadai'
-                    },
-                    objToArr:{
-                        $type:Object,
-                        $inc:'one'
-                    }
-                }
-            }
-        }
-    };
-  
     this.modifierFilter1 = {
         $filter:(context,object,next)=>{
                 next(null,(typeof object == 'object' && typeof object.insert == 'string'))
@@ -92,36 +66,87 @@ var filters = function(){
             }
             }
         }
-    
-    }
-
-
-    //merge question:
-    this.tst1 = {
-        id:{
-            $insert:'insertedID'
-        },
-        planKey:{
-            $remove:true
-        }
     };
-    this.tst2 = {
-         jFormData:{
-                    key:{
-                        $type:String,
-                        $default:'test123'
-                    },
-                    title:{
-                        $type:String,
-                        $optional:true      
-                    },
-                    fieldConfigs:Array
-            }
+
+    this.typeFilter = {
+
+        $type:{
+            string:String,
+            number:Number,
+            boolean:Boolean,
+            date:{
+                $type: Date, 
+                $transform: (context, date, next) => {
+                    next(null, date.toString());
+                }  
+            },
+            array:[Number],
+            object:{"a":Number}
+        }
     }
 
-    
+    this.typeFilter2 = {
+
+        $type:{
+            string:String,
+            $type:null,
+            number:Number,
+            boolean:Boolean,
+            date:{
+                $type: Date, 
+                $transform: (context, date, next) => {
+                    next(null, date.toString());
+                }  
+            },
+            array:[Number],
+            object:{"a":Number}
+        }
+    }
+
+    this.filterFilter={
+
+        $filter:(context,data,next)=>{
+            next(null, typeof data == 'object')
+        },
+        $type:{
+           $:[{
+               $filter:(context,data,next)=>{
+                    next(null,data %2 == 0)
+               }
+           }]
+        }
+    }
+
+
+    this.transformFilter={
+
+        $transform:(context,data,next)=>{
+            for(let i in data){
+                if(Number(i)%2 != 0){
+                    delete data[i]
+                }
+            }
+            next(null,data)
+        },
+        $type:{
+           $:[{
+                $filter:(context,data,next)=>{
+                    next(null,data %2 == 0)
+                },
+               $transform:(context,data,next)=>{
+                    next(null,data*10)
+               }
+           }]
+        }
+    }
 
 }
+
+
+
+    
+
+
 module.exports = new filters();        
        
     

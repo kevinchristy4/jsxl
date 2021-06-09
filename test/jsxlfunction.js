@@ -41,7 +41,8 @@ var jsxlfunction = function(){
                 filter,
                 async (err, output) => {
                     if(err){
-                        resolve(err)
+                        // console.log(err.message)
+                        resolve([err,err.message])
                     }
                     // console.log(output[0])
                     resolve(output)
@@ -77,25 +78,24 @@ var jsxlfunction = function(){
 
     describe(testName,()=>{
         it(testName,async()=>{
-            // var result = await this.jsxlDirect(inputs,filters)
-            // console.log(util.inspect(await result,{showHidden: false, depth: null}))
+            // console.log(util.inspect(Object.values(await result)[0],{showHidden: false, depth: null}))
             if(expects.toLowerCase() == 'pass' && expValue != null){
                 try{
                     expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
                 }catch(err){
                     console.log("Assertion error ------> "+err.message)
-                    if(await result.message != undefined){
-                        throw new Error('Expected to pass but jsxl gave an error  ------> ' + await result.message );
+                    if(Object.values(await result)[0].toString().includes('Error')){
+                        throw new Error('Expected to pass but jsxl gave an error  ------> ' + Object.values(await result)[1] );
                     }
                 } 
             }else 
             if(expects.toLowerCase() == 'fail' && errMsg != null){
                 try{
-                    expect(await result).to.be.a('error')
-                    expect(await result.message).to.deep.equal(errMsg)
+                    expect(Object.values(await result)[0]).to.be.a('error')
+                    expect(Object.values(await result)[1]).to.deep.equal(errMsg)
                 }catch(err){
                     console.log("Assertion error ------> "+err.message)
-                    if(await result.message == undefined){
+                    if(!(Object.values(await result)[0].toString().includes('Error'))){
                         throw new Error('Expected to fail but jsxl did not return any error');
                     }
                 }

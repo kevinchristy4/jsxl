@@ -2,7 +2,7 @@ const jsxl = require('../../lib/jsxl');
 const { expect } = require('chai');
 const jsxlFunction = require('../jsxlfunction')
 const util = require('util')
-const inputJson = require('../test_data/inputs.json')
+const inputJson = require('../test_data/inputs')
 const filters = require('../test_data/filters');
 const { test } = require('mocha');
 
