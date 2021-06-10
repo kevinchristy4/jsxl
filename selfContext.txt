@@ -13,6 +13,11 @@ Suppose if
 789 - If 8 gets filtered out and only 7 and 9 passess, the output will be 
 729456
 
+You filter the keys and tranform an whole object - filter is used to filter the values of an object or array - transform is used to convert the whole object
+{a:{one:1,two:2},b:{four:4,five:5}}
+In the above example - we can iterate through the values of a and b using filter but cannot iterate as whole key:value pair 
+To do that we have to use transform to modify the whole object
+
 
 Scenarios:
 Regression:

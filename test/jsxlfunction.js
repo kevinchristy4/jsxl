@@ -41,10 +41,10 @@ var jsxlfunction = function(){
                 filter,
                 async (err, output) => {
                     if(err){
-                        // console.log(err.message)
+                        console.log(err.message)
                         resolve([err,err.message])
                     }
-                    // console.log(output[0])
+                    console.log(output)
                     resolve(output)
                 }
             );

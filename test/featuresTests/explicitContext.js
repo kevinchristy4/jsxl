@@ -86,12 +86,53 @@ describe('Test Group - feature/context',()=>{
         // var input = 7
         // var filt = Number
         // console.log(process.env.compiler)
-        jsxlFunction.verifyResult(testName,await jsxlFunction.jsxlDirect(inputJson.input3,filters.filter1),"pass",output,errorMessage)
+        // jsxlFunction.verifyResult(testName,await jsxlFunction.jsxlDirect(inputJson.input3,filters.filter1),"pass",output,errorMessage)
        
         // console.log(test)
         // expect(test).to.be.an('Error');
         // expect(test.message).to.eq('test');
         // console.log(typeof filters.filter1)
+
+        console.log(process.env.compiler)
+        const jsxl = require('../../lib/jsxl')
+
+        jsxl({
+            input:{
+                a:{one:1,two:2},
+                b:{four:4,five:5}
+        },
+        },
+        {
+           $filter:(context,data,next)=>{
+               console.log(data)
+               console.log(Object.keys(data).includes('c'))
+                    next(null,Object.keys(data).includes('c'))
+           },
+           $type:{
+               $:{
+                $filter:(context,data,next)=>{
+                    console.log(data)
+                    next(null,true)
+                   },
+                   $type:{
+                       $:{
+                        $type:Number,
+                        $filter:(context,data,next)=>{
+                            console.log(data)
+                            next(null,false)
+                           }
+                       }
+                   }
+               }, 
+           }
+        }
+        
+        ,(err,output)=>{
+        // console.log(output)
+        console.log(err)
+        
+        }
+        )
 
 
     })

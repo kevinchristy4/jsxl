@@ -9,7 +9,22 @@ describe('Test Group - feature/modifiers',()=>{
 
     it('TypeModifier',async()=>{
 
-        // jsxlFunction.verifyResult('TypeModifier_pass',jsxlFunction.jsxlDirect(inputs.typeInput_pass,filters.typeFilter),"pass",outputs.typeOutput_pass)
+        var input = {
+            a:"one"
+        }
+        var filter = {
+
+            a:{
+                $type:String,
+                $in:(context,data,next)=>{
+                    // console.log(data)
+                    next(null,8)
+                }
+            }
+        }
+        jsxlFunction.jsxlDirect(input,filter)
+
+        // jsxlFunction.verifyResult('TypeModifier_pass',jsxlFunction.jsxlDirect(inputs.typeInput_pass,filters.typeFilter),"fail",outputs.typeOutput_pass,"")
         // jsxlFunction.verifyResult('TypeModifier_fail',jsxlFunction.jsxlDirect(inputs.typeInput_pass,filters.typeFilter2),"fail",null,outputs.typeError)
         // jsxlFunction.verifyResult('TypeModifier_fail',jsxlFunction.jsxlDirect(inputs.typeInput_fail,filters.typeFilter),"fail",null,outputs.typeError2)
 
