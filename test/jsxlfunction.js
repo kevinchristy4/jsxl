@@ -41,9 +41,10 @@ var jsxlfunction = function(){
                 filter,
                 async (err, output) => {
                     if(err){
-                        console.log(err.message)
+                        console.log(err)
                         resolve([err,err.message])
                     }
+                    // console.log(util.inspect(output,{showHidden: false, depth: null}))
                     console.log(output)
                     resolve(output)
                 }

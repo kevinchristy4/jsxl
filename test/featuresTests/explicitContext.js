@@ -5,6 +5,7 @@ const util = require('util')
 const inputJson = require('../test_data/inputs')
 const filters = require('../test_data/filters');
 const { test } = require('mocha');
+const { any } = require('async');
 
 
 describe('Test Group - feature/context',()=>{
@@ -92,46 +93,77 @@ describe('Test Group - feature/context',()=>{
         // expect(test).to.be.an('Error');
         // expect(test.message).to.eq('test');
         // console.log(typeof filters.filter1)
+       
 
         console.log(process.env.compiler)
         const jsxl = require('../../lib/jsxl')
 
-        jsxl({
-            input:{
-                a:{one:1,two:2},
-                b:{four:4,five:5}
-        },
-        },
-        {
-           $filter:(context,data,next)=>{
-               console.log(data)
-               console.log(Object.keys(data).includes('c'))
-                    next(null,Object.keys(data).includes('c'))
-           },
-           $type:{
-               $:{
+        // jsxl({
+        //     input:{
+        //         a:{one:1,two:2},
+        //         b:{four:4,five:5}
+        // },
+        // },
+        // {
+        //    $filter:(context,data,next)=>{
+        //        console.log(data)
+        //        console.log(Object.keys(data).includes('c'))
+        //             next(null,Object.keys(data).includes('b'))
+        //    },
+        //    $type:{
+        //        $:{
+        //         $filter:(context,data,next)=>{
+        //             console.log(data)
+        //             next(null,true)
+        //            },
+        //            $type:{
+        //                $:{
+        //                 $type:Number,
+        //                 $filter:(context,data,next)=>{
+        //                     console.log(typeof data)
+        //                     next(null,true)
+        //                    }
+        //                }
+        //            }
+        //        }, 
+        //    }
+        // }
+        
+        // ,(err,output)=>{
+        // // console.log(output)
+        // console.log(err)
+        
+        // }
+        // )
+        this.aaa =()=>{
+            return new Error('podu')
+        }
+
+        jsxlFunction.jsxlDirect(
+            {ada:[5,6,7],aaa:[1,2,3]},{
+                $type:{
+                        $:{
+                            // $type:[Number],
+                            $filter:(context,data,next)=>{
+                                // console.log(data)
+                                next(null,true)
+                            },
+                            $transform:(context,data,next)=>{
+                                console.log(data)
+                                
+                                next(null,'null')
+                            }
+                        }
+                    },
                 $filter:(context,data,next)=>{
-                    console.log(data)
                     next(null,true)
-                   },
-                   $type:{
-                       $:{
-                        $type:Number,
-                        $filter:(context,data,next)=>{
-                            console.log(data)
-                            next(null,false)
-                           }
-                       }
-                   }
-               }, 
-           }
-        }
-        
-        ,(err,output)=>{
-        // console.log(output)
-        console.log(err)
-        
-        }
+                },
+            $transform:(context,data,next)=>{
+                // console.log(data()+"aaa");
+                // console.log(data.aaa = 'ada')
+                
+                next(null, data)
+            }}
         )
 
 

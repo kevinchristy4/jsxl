@@ -49,13 +49,18 @@ Then have Seperate test cases based on the features:
 - merge
 
 
-wrapper function:
-- created a function that can execute calling jsxl directly
-- In the wrapper function get those filter, output values and verify 
+
 
 To do:
 - split the input, filter and output into smaller samples - and form sets
-- each set will have an 2-3 inputs, one filter, 2-3 outputs
+- develop various inputs and filters to test all the possibilities and working of each modifiers
+        - Create inputs and filter for all other modifiers using boundary values
+        - Create filters and inputs to reproduce various errors:
+            - next() loop
+            - map modifier - data not present
+            - $filter - boolean error
+            
+
 
 
 
