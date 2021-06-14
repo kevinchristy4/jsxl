@@ -140,7 +140,7 @@ describe('Test Group - feature/context',()=>{
         }
 
         jsxlFunction.jsxlDirect(
-            {ada:{b:55},aaa:{}},{
+            {ada:{a:'lll'},aaa:{b:'kkkjjj'}},{
                 $type:{
                         $:{
                             $type:{
@@ -154,37 +154,59 @@ describe('Test Group - feature/context',()=>{
                                     //             next(null,data)
                                     //         }
                                     // },
-                                    // $eq:(context,data,next)=>{
-                                    //     console.log(data)
-                                    //     next(null,)
+                                    // $lt:(context,data,next)=>{
+                                        // console.log(typeof data)
+                                        // console.log('s' < 'tt')
+                                        // next(null,-5)
                                     // },
-                                    $eq:[],
+                                    // $eq:undefined,
+                                    // $match:(context,data,next)=>{
+                                    //     next(null, [1,5])
+                                    // },
+                                    // $maxlen:(context,data,next)=>{next(null,null)},
+                                    // $message:'aaaa+\n',
                                     $filter:(context,data,next)=>{
+                                        // var tt = [2,3,4,5,[6]]
                                             next(null,true)
-                                        // console.log(data)
+                                            // console.log(data)
+                                        // console.log(tt.includes([6]))
                                     },
+                                    // $inc:(context,data,next)=>{
+                                    //     console.log(data)
+                                    //     next(null,['abcd','efgh'])
+                                    // }
                                     // $default:(context,data,next)=>{
                                     //     next(null, 'dd')
                                     // }
                                     // $remove:true
                                 }
                             },
+
                             // $optional:true,
+                            $rename:(context,data,next)=>{
+                                next(null,undefined)
+                            },
+
                             $filter:(context,data,next)=>{
                                 console.log(data)
                                 next(null,true)
                             },
                             $transform:(context,data,next)=>{
-                                // console.log(data)
                                 
                                 next(null,data)
                             },
-                            $default:{c:9}
+                            // $default:{c:9}
+                            $eq:(context,data,next)=>{
+                                // console.log(tt == { b: '4' })
+
+                                next(null,data)
+                            }
 
                             // $remove:false,
                             // $insert:{d:4},
                         }
                     },
+
                 $filter:(context,data,next)=>{
                     next(null,true)
                 },

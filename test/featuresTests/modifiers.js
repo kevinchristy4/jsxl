@@ -33,21 +33,23 @@ describe('Test Group - feature/modifiers',()=>{
 
     it('FilterModifier',async()=>{
 
-        expect(typeof "aa").to.be.equal('number');
+        // expect(typeof "aa").to.be.equal('number');
         // jsxlFunction.verifyResult('FilterModifier_pass',jsxlFunction.jsxlDirect(inputs.filterInput_pass,filters.filterFilter),"pass",outputs.filterOutput)
 
     })
 
     it('Transform_Modifier',async()=>{
 
-        expect(typeof "aa").to.be.equal('string');
+        // expect(typeof "aa").to.be.equal('string');
 
         // jsxlFunction.verifyResult('Transform_Modifier',jsxlFunction.jsxlDirect(inputs.transformInputPass,filters.transformFilter),"pass",outputs.transFormOutput)
 
     })
 
     it('test',()=>{
-        expect(56).to.equal(57)
+        var tt = {a:undefined,b:'test'}
+        console.log(typeof tt.a)
+        // expect({a:5}).to.deep.eq(tt)
     })
 
 })
