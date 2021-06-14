@@ -7,7 +7,7 @@ const util = require('util')
 var jsxlfunction = function(){
 
 
-    this.jsxlCompileAndExecute = async(inputs,filters)=>{
+    this.jsxlCompileOnceAndExecute = async(inputs,filters)=>{
 
        return new Promise((resolve)=>{
         jsxl.compile(

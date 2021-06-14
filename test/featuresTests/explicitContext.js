@@ -136,23 +136,53 @@ describe('Test Group - feature/context',()=>{
         // }
         // )
         this.aaa =()=>{
-            return new Error('podu')
+            return 55
         }
 
         jsxlFunction.jsxlDirect(
-            {ada:[5,6,7],aaa:[1,2,3]},{
+            {ada:{b:55},aaa:{}},{
                 $type:{
                         $:{
-                            // $type:[Number],
+                            $type:{
+                                $:{
+                                    // $type:String,
+                                    // $optional:true,
+                                    // $insert:(context,data,next)=>{
+                                    //         if(data == 'tter'){
+                                    //             next(null,('aaa'))
+                                    //         }else{
+                                    //             next(null,data)
+                                    //         }
+                                    // },
+                                    // $eq:(context,data,next)=>{
+                                    //     console.log(data)
+                                    //     next(null,)
+                                    // },
+                                    $eq:[],
+                                    $filter:(context,data,next)=>{
+                                            next(null,true)
+                                        // console.log(data)
+                                    },
+                                    // $default:(context,data,next)=>{
+                                    //     next(null, 'dd')
+                                    // }
+                                    // $remove:true
+                                }
+                            },
+                            // $optional:true,
                             $filter:(context,data,next)=>{
-                                // console.log(data)
+                                console.log(data)
                                 next(null,true)
                             },
                             $transform:(context,data,next)=>{
-                                console.log(data)
+                                // console.log(data)
                                 
-                                next(null,'null')
-                            }
+                                next(null,data)
+                            },
+                            $default:{c:9}
+
+                            // $remove:false,
+                            // $insert:{d:4},
                         }
                     },
                 $filter:(context,data,next)=>{
