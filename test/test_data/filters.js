@@ -140,6 +140,106 @@ var filters = function(){
         }
     }
 
+    //////////////// Filters for $type modifier /////////////////////
+
+    this.stringString = {
+        lvl0:String,
+        lvl1:{
+            $type:{
+                arrStr:[String],
+                lvl2:{
+                    $type:{
+                        str:String
+                    }
+                }
+            }
+        }
+    }
+
+    this.numberNumber = {
+        lvl0:Number,
+        lvl1:{
+            $type:{
+                arrStr:[Number],
+                lvl2:{
+                    $type:{
+                        str:Number
+                    }
+                }
+            }
+        }
+    }
+
+    this.boolean = {
+        lvl0:Boolean,
+        lvl1:{
+            $type:{
+                arrStr:[Boolean],
+                lvl2:{
+                    $type:{
+                        str:Boolean
+                    }
+                }
+            }
+        }
+    }
+
+    this.date = {
+        lvl0:Date,
+        lvl1:{
+            $type:{
+                arrStr:[Date],
+                lvl2:{
+                    $type:{
+                        str:Date
+                    }
+                }
+            }
+        }
+    }
+
+    this.function = {
+        lvl0:Function,
+        lvl1:{
+            $type:{
+                arrStr:[Function],
+                lvl2:{
+                    $type:{
+                        str:Function
+                    }
+                }
+            }
+        }
+    }
+
+    this.array = {
+        lvl0:Array,
+        lvl1:{
+            $type:{
+                arrStr:Array,
+                lvl2:{
+                    $type:{
+                        str:Array
+                    }
+                }
+            }
+        }
+    }
+
+    this.object = {
+        lvl0:Object,
+        lvl1:{
+            $type:{
+                arrStr:[Object],
+                lvl2:{
+                    $type:{
+                        str:Object
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 

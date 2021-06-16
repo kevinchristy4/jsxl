@@ -41,11 +41,11 @@ var jsxlfunction = function(){
                 filter,
                 async (err, output) => {
                     if(err){
-                        console.log(err)
+                        // console.log(err)
                         resolve([err,err.message])
                     }
                     // console.log(util.inspect(output,{showHidden: false, depth: null}))
-                    console.log(output)
+                    // console.log(output)
                     resolve(output)
                 }
             );
@@ -77,7 +77,7 @@ var jsxlfunction = function(){
 
   this.verifyResult = async(testName,result,expects,expValue,errMsg)=>{
 
-    describe(testName,()=>{
+    describe('',()=>{
         it(testName,async()=>{
             // console.log(util.inspect(Object.values(await result)[0],{showHidden: false, depth: null}))
             if(expects.toLowerCase() == 'pass' && expValue != null){

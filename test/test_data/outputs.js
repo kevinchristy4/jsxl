@@ -1,37 +1,29 @@
 var outputs = function(){
 
-    this.outputTest= {
-        "insert": "insertedID",
-        "jFormData": {
-            "default": "test123",
-            "fieldConfigs": [
-                {
-                    "map": 3,
-                    "mapTo": "triple",
-                    "className": "page-input-field",
-                    "templateOptions": {
-                        "equal": "triple",
-                        "any_gt_in": [10,"b",30]
-                    }
-                }
-            ]
-        }
-    };
 
-    this.typeOutput_pass = {
-        "string":"stringTest",
-        "number": 5,
-        "boolean": true,
-        "date":new Date().toString(),
-        "array": [ 1, 2, 3 ],
-        "object": { "a": 1 }
+    /////////////// Outputs for $type modifier  /////////////////////
+    this.capitalize = (string) =>{
+        if(string != null){
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+      }
+
+    this.outputForType = (level,mustBe,not)=>{
+        var lvl = null;
+        (level == '0') ? lvl = 'lvl0' : lvl = 'lvl1.lvl2.str';
+        if(not != 'null'){
+            return `(execute v2) input.${lvl} must be type ${this.capitalize(mustBe)} (not ${this.capitalize(not)})`
+        }else{
+            return `(execute v2) input.${lvl} must be type ${this.capitalize(mustBe)} (not ${not})`
+        }
+
     }
 
-    this.typeError = "(compile) (execute v2) filter.$type mixes modifier ($type) with non-modifier (string)";
-    this.typeError2 = "(execute v2) input.array[2] must be type Number (not String)";
+    //outputs for undefined errors 
+    this.stringUndefined = "(execute v2) input.lvl0 must be provided";
+    this.stringUndefinedlvl2 = "(execute v2) input.lvl1.lvl2.str must be provided";
+   
 
-    this.filterOutput = { one: [ 2, 4 ], two: [ 6, 8 ], three: [ 10, 12 ], four: [ 14, 16 ] };
 
-    this.transFormOutput = { '2': [ 60, 80 ], '4': [ 140, 160 ] };
 }
 module.exports = new outputs();
