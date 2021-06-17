@@ -45,7 +45,7 @@ var jsxlfunction = function(){
                         resolve([err,err.message])
                     }
                     // console.log(util.inspect(output,{showHidden: false, depth: null}))
-                    // console.log(output)
+                    console.log(output)
                     resolve(output)
                 }
             );
@@ -74,18 +74,19 @@ var jsxlfunction = function(){
 
   }
 
+    //Use await wherever result variable is called
 
   this.verifyResult = async(testName,result,expects,expValue,errMsg)=>{
 
     describe('',()=>{
         it(testName,async()=>{
-            // console.log(util.inspect(Object.values(await result)[0],{showHidden: false, depth: null}))
+            // console.log(util.inspect(Object.values(await result),{showHidden: false, depth: null}))
             if(expects.toLowerCase() == 'pass' && expValue != null){
                 try{
                     expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
                 }catch(err){
                     console.log("Assertion error ------> "+err.message)
-                    if(Object.values(await result)[0].toString().includes('Error')){
+                    if(Object.keys(await result).length != 0 && Object.values(await result)[0].toString().includes('Error')){
                         throw new Error('Expected to pass but jsxl gave an error  ------> ' + Object.values(await result)[1] );
                     }
                 } 

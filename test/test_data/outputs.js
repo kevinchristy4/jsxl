@@ -22,7 +22,28 @@ var outputs = function(){
     //outputs for undefined errors 
     this.stringUndefined = "(execute v2) input.lvl0 must be provided";
     this.stringUndefinedlvl2 = "(execute v2) input.lvl1.lvl2.str must be provided";
-   
+
+
+    ///////////////////////// Outputs for $filter modifier //////////////////////////
+
+    this.filterTrue = {
+        lvl0: 'true',
+        lvl1: {
+          arrStr: [ true, true, 'test', 34 ],
+          lvl2: { str: 'true' }
+        }
+    }
+
+    this.filterFalse = {
+        lvl1: {
+            arrStr: [ true, true, 'test', 34 ],
+            lvl2: {}
+        }
+    }
+
+    this.ifString = "(compile) (execute v2) filter.$type.lvl0.$filter must be type Function (not String)";
+    this.ifBoolean = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr[0].$filter must be type Function (not Boolean)";
+    this.useAlongsideANonModifier = "(compile) (execute v2) filter.$type mixes modifier ($filter) with non-modifier (lvl0)";
 
 
 }

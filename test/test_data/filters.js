@@ -103,19 +103,19 @@ var filters = function(){
         }
     }
 
-    this.filterFilter={
+    // this.filterFilter={
 
-        $filter:(context,data,next)=>{
-            next(null, typeof data == 'object')
-        },
-        $type:{
-           $:[{
-               $filter:(context,data,next)=>{
-                    next(null,data %2 == 0)
-               }
-           }]
-        }
-    }
+    //     $filter:(context,data,next)=>{
+    //         next(null, typeof data == 'object')
+    //     },
+    //     $type:{
+    //        $:[{
+    //            $filter:(context,data,next)=>{
+    //                 next(null,data %2 == 0)
+    //            }
+    //        }]
+    //     }
+    // }
 
 
     this.transformFilter={
@@ -240,10 +240,227 @@ var filters = function(){
         }
     }
 
+//////////////////// Filters for $filter modifier ////////////////////////////
+
+this.filter = {
+    $filter:(context,data,next)=>{
+        next(null,true)
+    },
+    $type:{
+        lvl0:{
+            $filter:(context,data,next)=>{
+                next(null,data == 'true')
+            },
+        },
+        lvl1:{
+            $filter:(context,data,next)=>{
+                next(null,Object.keys(data).includes('lvl2'))
+            },
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,data)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        str:{
+                            $filter:(context,data,next)=>{
+                                next(null,data == 'true')
+                            }
+                        }
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.filterFalseAtTop = {
+    $filter:(context,data,next)=>{
+        next(null,false)
+    },
+    $type:{
+        lvl0:{
+            $filter:(context,data,next)=>{
+                next(null,data == 'true')
+            },
+        },
+        lvl1:{
+            $filter:(context,data,next)=>{
+                next(null,Object.keys(data).includes('lvl2'))
+            },
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,data)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        str:{
+                            $filter:(context,data,next)=>{
+                                next(null,data == 'true')
+                            }
+                        }
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.filterPassString = {
+    $filter:(context,data,next)=>{
+        next(null,true)
+    },
+    $type:{
+        lvl0:{
+            $filter:'string',
+        },
+        lvl1:{
+            $filter:(context,data,next)=>{
+                next(null,Object.keys(data).includes('lvl2'))
+            },
+            $type:{
+                arrStr:[{
+                    $filter:123
+                }],
+                lvl2:{
+                    $type:{
+                        str:{
+                            $filter:(context,data,next)=>{
+                                next(null,data == 'true')
+                            }
+                        }
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.filterPassBoolean = {
+    $filter:(context,data,next)=>{
+        next(null,true)
+    },
+    $type:{
+        lvl0:{
+            $filter:(context,data,next)=>{
+                next(null,true)
+            },
+        },
+        lvl1:{
+            $filter:(context,data,next)=>{
+                next(null,Object.keys(data).includes('lvl2'))
+            },
+            $type:{
+                arrStr:[{
+                    $filter:false
+                }],
+                lvl2:{
+                    $type:{
+                        str:{
+                            $filter:(context,data,next)=>{
+                                next(null,data == 'true')
+                            }
+                        }
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.filterPassUndefined = {
+    $filter:(context,data,next)=>{
+        next(null,true)
+    },
+    $type:{
+        lvl0:{
+            $filter:(context,data,next)=>{
+                next(null,true)
+            },
+        },
+        lvl1:{
+            $filter:(context,data,next)=>{
+                next(null,Object.keys(data).includes('lvl2'))
+            },
+            $type:{
+                arrStr:[{
+                    $filter:undefined
+                }],
+                lvl2:{
+                    $type:{
+                        str:{
+                            $filter:(context,data,next)=>{
+                                next(null,data == 'true')
+                            }
+                        }
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.filterAlongNonModifier = {
+    $filter:(context,data,next)=>{
+        next(null,true)
+    },
+    $type:{
+        lvl0:{
+            $filter:(context,data,next)=>{
+                next(null,true)
+            },
+        },
+        $filter:(context,data,next)=>{
+            next(null,true)
+        },
+        lvl1:{
+            $filter:(context,data,next)=>{
+                next(null,Object.keys(data).includes('lvl2'))
+            },
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        str:{
+                            $filter:(context,data,next)=>{
+                                next(null,data == 'true')
+                            }
+                        }
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        }
+    }
 }
 
 
-
+}
     
 
 

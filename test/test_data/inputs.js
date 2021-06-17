@@ -236,6 +236,28 @@ var inputs = function(){
         }
     }
 
+    ////////////////////// Inputs for Filter modifier ///////////////////////
+    
+    this.filterTrue = {
+        lvl0:'true',
+        lvl1:{
+            arrStr:[false,true,false,true,null,'test',34,0,NaN],
+            lvl2:{
+                str:'true'
+            }
+        }
+    }
+
+    this.filterFalse = {
+        lvl0:'false',
+        lvl1:{
+            arrStr:[false,true,false,true,null,'test',34,0,NaN],
+            lvl2:{
+                str:'false'
+            }
+        }
+    }
+
 
 
 }

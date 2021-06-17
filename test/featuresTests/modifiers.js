@@ -41,37 +41,59 @@ describe('Test Group - feature/modifiers',()=>{
    
 
     it('test',()=>{
-        // var tt = {a:undefined,b:'test'}
-        // console.log(typeof tt.a)
-        // expect({a:5}).to.deep.eq(tt)
+       
         var inp = {
-            lvl0:"test",
-        lvl1:{
-            arrStr:[-NaN,-Infinity,-50,-5^-5,-0.25,-0,0,0.25,5^5,50,Infinity,NaN],
-            lvl2:{
-                str:5
+            lvl0:'false',
+            lvl1:{
+                arrStr:[false,true,false,true,null,'test',34,0,NaN],
+                lvl2:{
+                    str:'false'
+                }
             }
-        }
         }
 
         var filter = {
-            lvl0:null,
-            lvl1:{
-                $type:{
-                    arrStr:[Number],
-                    lvl2:{
-                        $type:{
-                            str:Number
+            $filter:(context,data,next)=>{
+                next(null,true)
+            },
+            $type:{
+                lvl0:{
+                    $filter:undefined,
+                },
+                $filter:(context,data,next)=>{
+                    next(null,true)
+                },
+                lvl1:{
+                    $filter:(context,data,next)=>{
+                        next(null,Object.keys(data).includes('lvl2'))
+                    },
+                    $type:{
+                        arrStr:[{
+                            $filter:(context,data,next)=>{
+                                next(null,true)
+                            }
+                        }],
+                        lvl2:{
+                            $type:{
+                                str:{
+                                    $filter:(context,data,next)=>{
+                                        next(null,data == 'true')
+                                    }
+                                }
+                            },
+                            $filter:(context,data,next)=>{
+                                next(null,true)
+                            }
                         }
                     }
                 }
             }
         }
-        console.log(new Date())
-        // jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",inp)
-        console.log(outputs.outputForType("0","string","number"))
-        console.log(outputs.outputForType("2","string","null"))
-        console.log(outputs.outputForType("2","date","function"))
+        // console.log(new Date())
+        jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",inp)
+        // console.log(outputs.outputForType("0","string","number"))
+        // console.log(outputs.outputForType("2","string","null"))
+        // console.log(outputs.outputForType("2","date","function"))
 
 
 
