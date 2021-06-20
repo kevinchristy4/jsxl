@@ -43,50 +43,55 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:'false',
+            lvl0:false,
             lvl1:{
                 arrStr:[false,true,false,true,null,'test',34,0,NaN],
                 lvl2:{
-                    str:'false'
+                    test:'true'
                 }
             }
         }
 
         var filter = {
-            $filter:(context,data,next)=>{
-                next(null,true)
-            },
+            // $remove:true,
             $type:{
-                lvl0:{
-                    $filter:undefined,
-                },
-                $filter:(context,data,next)=>{
-                    next(null,true)
+                lvl0:{   
+                    // $remove:true,        
+                    $transform:(context,data,next)=>{
+                        next(null,'trueT')
+                    }
                 },
                 lvl1:{
-                    $filter:(context,data,next)=>{
-                        next(null,Object.keys(data).includes('lvl2'))
+                    $transform:(context,data,next)=>{
+                        next(null,data)
                     },
+                    $remove:true,
                     $type:{
+                        
                         arrStr:[{
-                            $filter:(context,data,next)=>{
-                                next(null,true)
-                            }
+                            $transform:(context,data,next)=>{
+                                if(data != false){
+                                    next(null,data)
+                                }else{
+                                    next(null,null)
+                                }
+                            },
+                            $remove:true
                         }],
                         lvl2:{
                             $type:{
-                                str:{
-                                    $filter:(context,data,next)=>{
-                                        next(null,data == 'true')
+                                test:{
+                                    $transform:(context,data,next)=>{
+                                        next(null,'trueT')
                                     }
-                                }
+                                },
                             },
                             $filter:(context,data,next)=>{
                                 next(null,true)
                             }
                         }
                     }
-                }
+                },
             }
         }
         // console.log(new Date())

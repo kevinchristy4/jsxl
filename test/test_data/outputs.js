@@ -45,6 +45,46 @@ var outputs = function(){
     this.ifBoolean = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr[0].$filter must be type Function (not Boolean)";
     this.useAlongsideANonModifier = "(compile) (execute v2) filter.$type mixes modifier ($filter) with non-modifier (lvl0)";
 
+    //////////////////////// Outputs for $transform ////////////////////////////////////
+
+    this.transform1 = {
+        lvl0: 'trueT',
+        lvl1: {
+          arrStr: [
+            'falseT', 'trueT',
+            'falseT', 'trueT',
+            'nullT',  'testT',
+            '34T',    '0T',
+            'NaNT'
+          ],
+          lvl2: { test: 'trueT' }
+        }
+      };
+
+    this.removeValue = {
+        lvl1:{one:1}
+    };
+
+    this.nullUndefined = {
+        lvl0:"false"
+    }
+
+    this.verifyMofifiedValue = {
+        lvl0:"fromTransform"
+    }
+
+    this.typeError = "(compile) (execute v2) filter.$type.lvl0.$transform must be type Function (not Number)";
+
+
+    //////////////////////////// Outputs for $remove /////////////////////////////////////////
+
+    this.remove_test = {
+        lvl0:'true'
+    }
+
+    this.stringerror = "(compile) (execute v2) filter.$type.lvl1.$remove must be type Boolean (not String)"
+    this.nullError = "(compile) (execute v2) filter.$type.lvl1.$remove must be type Boolean (not null)"
+
 
 }
 module.exports = new outputs();

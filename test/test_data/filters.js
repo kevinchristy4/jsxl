@@ -259,7 +259,7 @@ this.filter = {
             $type:{
                 arrStr:[{
                     $filter:(context,data,next)=>{
-                        next(null,data)
+                        next(null,false)
                     }
                 }],
                 lvl2:{
@@ -458,6 +458,164 @@ this.filterAlongNonModifier = {
         }
     }
 }
+
+///////////////////////// Filters for $transform /////////////////////////////
+
+this.transformObject = {
+    $transform:(context,data,next)=>{
+        next(null,data)
+    },
+    $type:{
+        lvl0:{           
+            $transform:(context,data,next)=>{
+                next(null,'trueT')
+            }
+        },
+        lvl1:{
+            $transform:(context,data,next)=>{
+                next(null,null)
+            },
+            $type:{
+                arrStr:[{
+                    $transform:(context,data,next)=>{
+                        next(null,data+'T')
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $transform:(context,data,next)=>{
+                                next(null,'trueT')
+                            }
+                        },
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }
+            }
+        },
+    }
+}
+
+
+this.removeAnKeyValue = {
+    $transform:(context,data,next)=>{
+        delete data.lvl0
+        next(null,data)
+    },
+    $type:{
+        lvl0:String,
+        lvl1:Object
+    }
+}
+
+this.pass_null_Undefined = {
+    $transform:(context,data,next)=>{
+        next(null,null)
+    },
+    $type:{
+        lvl0:{           
+                $transform:(context,data,next)=>{
+                    next(null,undefined)
+                }
+        }
+    }
+}
+
+this.passOtherDataTypes = {
+    $transform:null,
+    $type:{
+        lvl0:{           
+                $transform:123
+        }
+    }
+}
+
+this.passdownModifiedValues = {
+    $transform:(context,data,next)=>{
+        data.lvl0 = 'fromTransform'
+        next(null,data)
+    },
+    $type:{
+        lvl0:{           
+            $filter:(context,data,next)=>{
+                if(data == 'fromInput'){
+                    next(null,true);
+                }else{
+                    next(null,false)
+                }
+            }
+        }
+    }
+}
+
+
+/////////////////////////// Filters for $remove /////////////////////////
+
+this.removeFilter = {
+    
+    $type:{
+        lvl0:{           
+            $remove:false
+        },
+        lvl1:{
+            $remove:true,
+            $type:{
+                arrStr:[{
+                    $transform:(context,data,next)=>{
+                        next(null,data+'T')
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $transform:(context,data,next)=>{
+                                next(null,'trueT')
+                            }
+                        },
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.remove_stringDatatype = {
+    $type:{
+        lvl0:{           
+            $remove:false
+        },
+        lvl1:{
+            $remove:'true'
+        }
+    }
+}
+
+this.remove_null_undefined = {
+    $type:{
+        lvl0:{           
+            $remove:undefined
+        },
+        lvl1:{
+            $remove:null,
+        }
+    }
+}
+
+this.remove_topLevel = {
+    $remove:true,
+    $type:{
+        lvl0:{           
+            $remove:false
+        },
+        lvl1:{
+            $remove:false,
+        }
+    }
+}
+
+
 
 
 }

@@ -62,6 +62,11 @@ To do:
             
 
 
-
+- positive - all true
+- transform some values
+- pass null and undefined
+- pass string or boolean directly
+- Use along side non-modifier
+- verify if the lower sections recieve the modified values - by adding a validation step in the $filter itself
 
 

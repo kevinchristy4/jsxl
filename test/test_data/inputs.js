@@ -258,7 +258,48 @@ var inputs = function(){
         }
     }
 
+    //////////////////////////// Inputs for $transform //////////////////////
 
+    this.transform1 = {
+        lvl0:'false',
+        lvl1:{
+            arrStr:[false,true,false,true,null,'test',34,0,NaN],
+            lvl2:{
+                test:'false'
+            }
+        }
+    }
+    
+    this.transform_removeValue = {
+        lvl0:'false',
+        lvl1:{
+            'one':1
+        }
+    }
+
+    this.transform_null_undefined = {
+        lvl0:'false',
+    }
+
+    this.transform_otherDataTypes = {
+        lvl0:'false'
+    }
+
+    this.transform_validateModifiedValues = {
+        lvl0:'fromInput'
+    }
+
+    ////////////////////////// Inputs for $remove //////////////////////////////////
+
+    this.removeInput = {
+        lvl0:'true',
+        lvl1:{
+            arrStr:[false,true,false,true,null,'test',34,0,NaN],
+            lvl2:{
+                str:'true'
+            }
+        }
+    }
 
 }
 
