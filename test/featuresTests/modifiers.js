@@ -43,59 +43,59 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:false,
+            lvl0:undefined,
             lvl1:{
-                arrStr:[false,true,false,true,null,'test',34,0,NaN],
+                arrStr:[false,undefined,false,null,'test',34,0,NaN],
                 lvl2:{
-                    test:'true'
                 }
             }
         }
 
         var filter = {
-            // $remove:true,
+            $default:"test",
             $type:{
-                lvl0:{   
-                    // $remove:true,        
-                    $transform:(context,data,next)=>{
-                        next(null,'trueT')
+                lvl0:{
+                    $type:Number,   
+                    $default:"test",
+                    // $remove:false
+                    $filter:(context,data,next)=>{
+                        console.log(data)
+
+                        next(null,false)
                     }
                 },
                 lvl1:{
-                    $transform:(context,data,next)=>{
-                        next(null,data)
-                    },
-                    $remove:true,
                     $type:{
-                        
                         arrStr:[{
-                            $transform:(context,data,next)=>{
-                                if(data != false){
-                                    next(null,data)
-                                }else{
-                                    next(null,null)
-                                }
+                            // $type:Object,
+                            $default:(context,data,next)=>{
+
+                                next(null,undefined)
                             },
-                            $remove:true
+                            // $remove:true
                         }],
                         lvl2:{
                             $type:{
                                 test:{
-                                    $transform:(context,data,next)=>{
-                                        next(null,'trueT')
-                                    }
+                                   $default:(context,data,next)=>{
+                                        next(null,null)
+                                   },
+                                   $type:Array
                                 },
                             },
-                            $filter:(context,data,next)=>{
-                                next(null,true)
-                            }
                         }
                     }
                 },
-            }
+            },
         }
         // console.log(new Date())
-        jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",inp)
+        jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",{
+            lvl0: 'Inserted value',
+            lvl1: {
+              arrStr: [ 'inserted', 'value', 1, true, false, undefined, null ],
+              lvl2: { test: Infinity }
+            }
+          },"(execute v2) input (source) must be like type Object (not String)")
         // console.log(outputs.outputForType("0","string","number"))
         // console.log(outputs.outputForType("2","string","null"))
         // console.log(outputs.outputForType("2","date","function"))

@@ -41,7 +41,7 @@ var jsxlfunction = function(){
                 filter,
                 async (err, output) => {
                     if(err){
-                        console.log(err)
+                        // console.log(err)
                         resolve([err,err.message])
                     }
                     // console.log(util.inspect(output,{showHidden: false, depth: null}))
@@ -86,7 +86,7 @@ var jsxlfunction = function(){
                     expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
                 }catch(err){
                     console.log("Assertion error ------> "+err.message)
-                    if((await result != undefined || null) && Object.keys(await result).length != 0 && Object.values(await result)[0].toString().includes('Error')){
+                    if((await result != undefined || null) && Object.keys(await result).length != 0 && (Object.values(await result)[0] != null||undefined) && Object.values(await result)[0].toString().includes('Error')){
                         throw new Error('Expected to pass but jsxl gave an error  ------> ' + Object.values(await result)[1] );
                     }
                 } 

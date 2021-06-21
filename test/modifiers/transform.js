@@ -15,6 +15,7 @@ describe('Transform filter tests',()=>{
 
     it('$transform - Pass other data types',()=>{
 
+        //Currently passing "undefined" and "null" even as string has no effect on output from transform
         jsxlFunction.verifyResult('pass null and undefined in next()',jsxlFunction.jsxlDirect(input.transform_null_undefined,filter.pass_null_Undefined),'pass',output.nullUndefined);
         jsxlFunction.verifyResult('pass values directly',jsxlFunction.jsxlDirect(input.transform_otherDataTypes,filter.passOtherDataTypes),'fail',null,output.typeError);
 

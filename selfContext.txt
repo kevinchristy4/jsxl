@@ -62,11 +62,21 @@ To do:
             
 
 
-- positive - all true
-- transform some values
-- pass null and undefined
-- pass string or boolean directly
-- Use along side non-modifier
-- verify if the lower sections recieve the modified values - by adding a validation step in the $filter itself
+- using insert at the top level
+- Full positive flow - changing and inserting values
+- pass different values directly - null, undefined, function, 0 , infinity
+- use $filter and $insert together
+- use $insert along with $remove and $default
+
+
+
+- verify transform overides default
+- use default to insert values tha are not present in input or undefined
+- use default to insert key and values that are not present in input or undefined
+- pass different values directly - null, undefined, function, 0 , infinity
+- use $filter and $insert together
+- use $insert along with $remove and $default
+
+
 
 

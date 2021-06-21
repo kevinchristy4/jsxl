@@ -517,7 +517,7 @@ this.pass_null_Undefined = {
     $type:{
         lvl0:{           
                 $transform:(context,data,next)=>{
-                    next(null,undefined)
+                    next(null,"undefined")
                 }
         }
     }
@@ -615,12 +615,326 @@ this.remove_topLevel = {
     }
 }
 
+/////////////////////////// $insert Filters //////////////////////////////////
 
+this.insertFilterAtTop = {
+    $insert:{
+        lvl:"test level"
+    },
+    $type:{
+        lvl0:{   
+            $type:Boolean
+        },
+        lvl1:{
+            $type:{
+                arrStr:Array,
+                lvl2:{
+                    $type:{
+                        test:String
+                    }
+                }
+            }
+        }
+    }
+},
 
+this.insertAtAllLvl = {
+    $type:{
+        lvl0:{   
+            $type:String,
+            $insert:"Inserted value"
+        },
+        lvl1:{
+            $transform:(context,data,next)=>{
+                next(null,data)
+            },
+            $type:{
+                arrStr:{
+                    $insert:(context,data,next)=>{
+                        next(null,["inserted","value",1,true,false,undefined,null])
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $type:String,
+                           $insert:"Inserted"+"\n"+55
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
 
+this.insertNullUndefined = {
+    $type:{
+        lvl0:{   
+            $insert:null
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $insert:(context,data,next)=>{
+                        next(null,undefined)
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        str:{
+                           $insert:(context,data,next)=>{
+                                next(null,[undefined,0,null])
+                           }
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+this.insertUseAlongType = {
+    $type:{
+        lvl0:{
+            $type:Number,   
+            $insert:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:Object,
+                    $insert:(context,data,next)=>{
+                        next(null,[])
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $insert:(context,data,next)=>{
+                                next(null,[undefined,0])
+                           },
+                           $type:Array
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+this.useInsertWithRemoveDefault = {
+
+    $type:{
+        lvl0:{
+            $type:Number,   
+            $insert:0,
+            $remove:false
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:Object,
+                    $insert:(context,data,next)=>{
+                        next(null,[])
+                    },
+                    $default:true
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $insert:(context,data,next)=>{
+                                next(null,[undefined,0])
+                           },
+                           $type:Array
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+this.insertValuesNotPresent = {
+    $type:{
+        lvl0:{
+            $insert:"test",
+            $transform:(context,data,next)=>{
+                console.log(data)
+                next(null,25)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $insert:(context,data,next)=>{
+                        next(null,[1,2])
+                    },
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $insert:(context,data,next)=>{
+                                next(null,[undefined,0])
+                           },
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+///////////////////////////// $default filters ///////////////////////////////
+
+this.defaultMissingvalues =  {
+    $type:{
+        lvl0:{
+            $default:"test",
+            $transform:(context,data,next)=>{
+                console.log(data)
+                next(null,25)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $default:(context,data,next)=>{
+                        next(null,[1,2])
+                    },
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $default:(context,data,next)=>{
+                                next(null,[undefined,0])
+                           }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.defaultFilter = {
+    $type:{
+        lvl0:{
+            $default:"Defaulted value",
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $default:(context,data,next)=>{
+                        next(null,"Defaulted value")
+                    },
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $default:(context,data,next)=>{
+                                next(null,["Defaulted value"])
+                           },
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+this.defaultUndefinedFilter = {
+    $type:{
+        lvl0:{
+            $default:"undefined"+"\n"
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $default:(context,data,next)=>{
+                        next(null,undefined)
+                    },
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $default:(context,data,next)=>{
+                                next(null,null)
+                           },
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+this.defaultAtTop = {
+    $default:{"one":1},
+    $type:{
+        one:Number
+    }
+}
+
+this.defaultWithFilter_Type = {
+    $type:{
+        lvl0:{
+            $type:Number,   
+            $default:"test",
+            $filter:(context,data,next)=>{
+                next(null,false)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $default:(context,data,next)=>{
+                        next(null,undefined)
+                    },
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $default:(context,data,next)=>{
+                                next(null,null)
+                           },
+                           $type:Array
+                        },
+                    },
+                }
+            }
+        },
+    },
+}
+
+this.defaultwithInsert_remove = {
+    $type:{
+        lvl0:{
+            $default:"Defaulted value",
+            $remove:true
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $default:(context,data,next)=>{
+                        next(null,"Defaulted value")
+                    },
+                    $insert:"test"
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $default:(context,data,next)=>{
+                                next(null,["Defaulted value"])
+                           },
+                        },
+                    },
+                }
+            }
+        },
+    },
 }
     
-
+}
 
 module.exports = new filters();        
        

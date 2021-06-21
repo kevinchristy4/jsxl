@@ -301,7 +301,45 @@ var inputs = function(){
         }
     }
 
+    /////////////////////////// Inputs for $insert, $default and $optional /////////////////////////////////
+
+    this.insertInput = {
+        lvl0:'true',
+        lvl1:{
+            arrStr:[false,true,false,true,null,'test',34,0,NaN],
+            lvl2:{
+                str:'true'
+            }
+        }
+    }
+
+    this.insertPartialInput = {
+        lvl1:{
+            lvl2:{
+            }
+        }
+    }
+
+    this.defaultInput = {
+        lvl0:undefined,
+        lvl1:{
+            arrStr:[false,undefined,false,null,'test',34,0,NaN],
+            lvl2:{
+            }
+        }
+    }
+
+
+this.defaultWithValues = {
+    lvl0:'true',
+    lvl1:{
+        arrStr:[false,true,false,true,null,'test',34,0,NaN],
+        lvl2:{
+            test:'true'
+        }
+    }
 }
 
+}
 
 module.exports = new inputs();        
