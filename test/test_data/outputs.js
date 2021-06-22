@@ -145,5 +145,28 @@ var outputs = function(){
   this.optionalAlongWithOtherModifiers = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr.$type filter.$type.lvl1.$type.arrStr.$type holds any of $remove, $insert, or $default modifiers but is explicitly non-optional while transforming"
   this.optionalWithOtherDatatype = "(compile) (execute v2) filter.$type.lvl0.$optional must be type Boolean (not Number)";
 
+  /////////////////////////////////////// $map outputs ///////////////////////////////////////
+
+  this.mapWithString = {
+    lvl0: 0,
+    lvl1: { 
+      arrStr: [ [ 'Mapped', undefined, 1, {} ], { '1': undefined, '2': { n: 'g' }, '3': null } ],
+      lvl2: { 
+        test: true 
+      }
+    }
+  }
+
+  this.mapUndefinedError = "(execute v2) input.lvl1.arrStr[0] cannot map into type undefined, is not Object or Array";
+  this.mapOtherdirectly = "(compile) (execute v2) one of\nfilter.$type.lvl0.$map must be type Function (not null),\nfilter.$type.lvl0.$map must be type Array (not null), or\nfilter.$type.lvl0.$map must be type Object (not null)"
+
+  this.mapNumberToArray = {
+    lvl0: 44,
+    lvl1: {
+      arrStr: [ ['a','b'], {1:1}, null],
+      lvl2: { test: null }
+    }
+  }
+
 }
 module.exports = new outputs();

@@ -78,7 +78,13 @@ To do:
 - use $insert along with $remove and $default
 
 
+- use along with insert, transform and others
+- pass different data types - "test"+"\n" and [undefined] ....
+- send values that are not present in map object
 - 
+
+(compile) (execute v2) one of\nfilter.$type.lvl0.$map must be type Function (not null),\nfilter.$type.lvl0.$map must be type Array (not null), or\nfilter.$type.lvl0.$map must be type Object (not null)' 
+(compile) (execute v2) one of filter.$type.lvl0.$map must be type Function (not null), filter.$type.lvl0.$map must be type Array (not null), or filter.$type.lvl0.$map must be type Object (not null)
 
 
 

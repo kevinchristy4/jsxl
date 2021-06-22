@@ -5,6 +5,7 @@ const inputs = require('../test_data/inputs')
 const filters = require('../test_data/filters')
 const outputs = require('../test_data/outputs');
 const exp = require('constants');
+const { date } = require('../test_data/inputs');
 
 describe('Test Group - feature/modifiers',()=>{
 
@@ -43,50 +44,56 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:'undefined',
+            lvl0:null,
             lvl1:{
-                arrStr:[false,undefined,false,null,'test',34,0,NaN],
+                arrStr:[1,undefined,()=>{}],
                 lvl2:{
-                    test:true
+                    test:[]
                 }
             }
         }
 
         var filter = {
-            $optional:"test",
+            // $map:(context,data,next)=>{
+            //     console.log(data)
+            //     next(null,undefined)
+            // },
             $type:{
                 lvl0:{
-                    // $type:Number,   
-                    $insert:'test',
+                    // $type:String,   
+                    $default:1,
                     // $remove:false
-                    $transform:(context,data,next)=>{
-                        console.log(data)
-                        next(null,'transformed value')
-                    },
-                    $optional:123,
+                    // $transform:(context,data,next)=>{
+                    //     console.log(data)
+                    //     next(null,'testiiiiiiiiii')
+                    // },
+                    $map:['q',44,['a','b'],{1:1},new Date(),null,undefined,()=>{}]
                 },
                 lvl1:{
                     $type:{
-                        arrStr:{
-                            // $type:Object,
-                            $optional:()=>{},
-                            $default:'test'
-                            // $remove:true
-                        },
+                        arrStr:[{
+                            $type:null,
+                            // $optional:()=>{},
+                            $map:['q',44,['a','b'],{1:1},new Date(),null,undefined,()=>{}]
+                            // $remove:false
+                        }],
                         lvl2:{
                             $type:{
                                 test:{
-                                //    $insert:(context,data,next)=>{
-                                //         next(null,'test')
-                                //    },
-                                   $remove:true,
-                                   $optional:new Date()
-                                //    $type:Array
+                                   $insert:(context,data,next)=>{
+                                        next(null,5)
+                                   },
+                                //    $remove:true,
+                                //    $optional:new Date()
+                                //    $type:String,
+                                    $map:(context,data,next)=>{
+                                        next(null,['q',44,['a','b'],{1:1},new Date(),null,undefined])
+                                    }
                                 },
                             },
                         }
                     },
-                    $optional:[{},{}]
+                    // $optional:[{},{}]
                 },
             },
         }

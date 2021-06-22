@@ -1053,6 +1053,146 @@ this.optionalWithOtherDatatype =  {
         },
     },
 }
+
+///////////////////////////// $map Filters //////////////////////////////
+
+this.mapSimpleFilter = {
+    $type:{
+        lvl0:{
+            $insert:'test',
+            $map:{"test":0,true:new Date(),"qwe":'test'+'n'}
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $default:'test',
+                    $map:{
+                        'test':['Mapped',console.log(44),1,new Error('ada')],
+                        'test1':{1:undefined,2:{"n": 'g'},3:null}
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $type:Boolean,
+                            $map:(context,data,next)=>{
+                                next(null,{'true':true})
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.mapOtherDatatypes = {
+    $type:{
+        lvl0:{
+            $map:{0:0,true:new Date(),"qwe":'test'+'n'}
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $default:'test',
+                    $map:{
+                        [1]:['Mapped',console.log(44),1,new Error('ada')],
+                        0:{1:undefined,2:{"n": 'g'},3:null}
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $type:Boolean,
+                            $map:(context,data,next)=>{
+                                next(null,{55:true})
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.mapPassUndefinedDirectly = {
+    $type:{
+        lvl0:{
+            $remove:true,
+            $map:undefined
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $map:undefined
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $map:(context,data,next)=>{
+                                next(null,undefined)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.mapPassOtherDiretcly = {
+    $type:{
+        lvl0:{
+            $remove:true,
+            $map:null
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $map:0
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $map:(context,data,next)=>{
+                                next(null,'undefined')
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.mapNumberToArray = {
+    $type:{
+        lvl0:{
+            $default:1,
+            $map:['q',44,['a','b'],{1:1},new Date(),null,undefined,()=>{}]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $type:null,
+                    $map:['q',44,['a','b'],{1:1},new Date(),null,undefined]
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                           $insert:(context,data,next)=>{
+                                next(null,5)
+                           },
+                            $map:(context,data,next)=>{
+                                next(null,['q',44,['a','b'],{1:1},new Date(),null,undefined])
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
     
 }
 

@@ -350,6 +350,67 @@ this.optionalNoInputValues = {
 }
 
 
+////////////////////////////// $map Inputs ///////////////////////////////////////////
+
+this.mapStringInput = {
+    lvl0:'qwe',
+    lvl1:{
+        arrStr:['test','test1'],
+        lvl2:{
+            test:'true'
+        }
+    }
+}
+
+this.mapOtherDatatype = {
+    lvl0:0,
+    lvl1:{
+        arrStr:[0,[1],{}],
+        lvl2:{
+            test:new Date()
+        }
+    }
+}
+
+this.mapToValuesNotPresent = {
+    lvl0:'test',
+    lvl1:{
+        arrStr:['test','test1','test2'],
+        lvl2:{
+            test:'false'
+        }
+    }
+}
+
+this.mapNumberToArray =  {
+    lvl0:undefined,
+    lvl1:{
+        arrStr:[2,3,5],
+        lvl2:{
+            test:undefined
+        }
+    }
+}
+
+this.mapNumberOutOfRange ={
+    lvl0:0.1,
+    lvl1:{
+        arrStr:[2,3,5,8],
+        lvl2:{
+            test:-9
+        }
+    }
+}
+
+this.mapOtherToArray = {
+    lvl0:null,
+    lvl1:{
+        arrStr:[1,undefined,()=>{}],
+        lvl2:{
+            test:[]
+        }
+    }
+}
 
 }
 
