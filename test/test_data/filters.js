@@ -933,6 +933,126 @@ this.defaultwithInsert_remove = {
         },
     },
 }
+
+//////////////////////////////// $optional filters /////////////////////////////////
+
+this.optionalTrue = {
+    $type:{
+        lvl0:{
+            $transform:(context,data,next)=>{
+                console.log(data)
+                next(null,'transformed value')
+            },
+            $optional:true,
+            $default:'test'
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $optional:true,
+                    $insert:'Inserted value'
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $optional:true,
+                           $default:true
+                        }
+                    },
+                    $optional:true
+                }
+            },
+        }
+    }
+}
+
+this.optionalAtTopandFalse = {
+    $optional:true,
+    $type:{
+        lvl0:{
+            $optional:false,
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $optional:false,
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $optional:false,
+                        }
+                    },
+                    $optional:true
+                }
+            },
+        }
+    }
+}
+
+this.optionalAlongWithInsertDefault = {
+    $default:"test",
+    $insert:"InsertThis",
+    $optional:false,
+    $type:{
+        lvl0:{
+            $insert:'test',
+            $transform:(context,data,next)=>{
+                console.log(data)
+                next(null,'transformed value')
+            },
+            $optional:true,
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $optional:false,
+                    $default:'test'
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $remove:true,
+                           $optional:false
+                        },
+                    },
+                }
+            },
+            $optional:false
+        },
+    },
+}
+
+this.optionalWithOtherDatatype =  {
+    $optional:"test",
+    $type:{
+        lvl0:{
+            $insert:'test',
+            $transform:(context,data,next)=>{
+                console.log(data)
+                next(null,'transformed value')
+            },
+            $optional:123,
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $optional:()=>{},
+                    $default:'test'
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                           $remove:true,
+                           $optional:new Date()
+                        },
+                    },
+                }
+            },
+            $optional:[{},{}]
+        },
+    },
+}
     
 }
 

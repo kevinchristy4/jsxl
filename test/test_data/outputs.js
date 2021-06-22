@@ -133,5 +133,17 @@ var outputs = function(){
 
     this.defaultErrorWithType = "(execute v2) input.lvl1.lvl2.test must be type Array (not null)"
 
+
+   //////////////////////////////////// $optional outputs ////////////////////////////////
+
+   this.optionalTrue = {
+    lvl0: 'transformed value',
+    lvl1: { arrStr: 'Inserted value', lvl2: { test: true } }
+  }
+
+  this.optionalAtTopError = "(execute v2) input.lvl0 must be provided";
+  this.optionalAlongWithOtherModifiers = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr.$type filter.$type.lvl1.$type.arrStr.$type holds any of $remove, $insert, or $default modifiers but is explicitly non-optional while transforming"
+  this.optionalWithOtherDatatype = "(compile) (execute v2) filter.$type.lvl0.$optional must be type Boolean (not Number)";
+
 }
 module.exports = new outputs();

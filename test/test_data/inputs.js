@@ -340,6 +340,17 @@ this.defaultWithValues = {
     }
 }
 
+//////////////////////////// $Optional Inputs //////////////////////////////////
+
+this.optionalNoInputValues = { 
+    lvl1:{
+        lvl2:{
+        }
+    }
+}
+
+
+
 }
 
 module.exports = new inputs();        

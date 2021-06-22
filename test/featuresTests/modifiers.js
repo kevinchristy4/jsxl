@@ -43,48 +43,50 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:undefined,
+            lvl0:'undefined',
             lvl1:{
                 arrStr:[false,undefined,false,null,'test',34,0,NaN],
                 lvl2:{
+                    test:true
                 }
             }
         }
 
         var filter = {
-            $default:"test",
+            $optional:"test",
             $type:{
                 lvl0:{
-                    $type:Number,   
-                    $default:"test",
+                    // $type:Number,   
+                    $insert:'test',
                     // $remove:false
-                    $filter:(context,data,next)=>{
+                    $transform:(context,data,next)=>{
                         console.log(data)
-
-                        next(null,false)
-                    }
+                        next(null,'transformed value')
+                    },
+                    $optional:123,
                 },
                 lvl1:{
                     $type:{
-                        arrStr:[{
+                        arrStr:{
                             // $type:Object,
-                            $default:(context,data,next)=>{
-
-                                next(null,undefined)
-                            },
+                            $optional:()=>{},
+                            $default:'test'
                             // $remove:true
-                        }],
+                        },
                         lvl2:{
                             $type:{
                                 test:{
-                                   $default:(context,data,next)=>{
-                                        next(null,null)
-                                   },
-                                   $type:Array
+                                //    $insert:(context,data,next)=>{
+                                //         next(null,'test')
+                                //    },
+                                   $remove:true,
+                                   $optional:new Date()
+                                //    $type:Array
                                 },
                             },
                         }
-                    }
+                    },
+                    $optional:[{},{}]
                 },
             },
         }
