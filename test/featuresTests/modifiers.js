@@ -44,67 +44,49 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:null,
+            lvl0:'test66',
             lvl1:{
-                arrStr:[1,undefined,()=>{}],
+                arrStr:['b','a'],
                 lvl2:{
-                    test:[]
+                    test:'undefined',
                 }
             }
         }
 
         var filter = {
-            // $map:(context,data,next)=>{
-            //     console.log(data)
-            //     next(null,undefined)
-            // },
+            $rename:"renameAtTop",
             $type:{
                 lvl0:{
-                    // $type:String,   
-                    $default:1,
-                    // $remove:false
-                    // $transform:(context,data,next)=>{
-                    //     console.log(data)
-                    //     next(null,'testiiiiiiiiii')
-                    // },
-                    $map:['q',44,['a','b'],{1:1},new Date(),null,undefined,()=>{}]
+                    $transform:(context,data,next)=>{
+                        next(null,'123')
+                    },
+                    $rename:"renamed",
+                    $remove:true
                 },
                 lvl1:{
                     $type:{
-                        arrStr:[{
-                            $type:null,
-                            // $optional:()=>{},
-                            $map:['q',44,['a','b'],{1:1},new Date(),null,undefined,()=>{}]
-                            // $remove:false
-                        }],
+                        arrStr:{
+                            $rename:'renameArr',
+                            $type:[String]
+                        },
                         lvl2:{
                             $type:{
                                 test:{
-                                   $insert:(context,data,next)=>{
-                                        next(null,5)
-                                   },
-                                //    $remove:true,
-                                //    $optional:new Date()
-                                //    $type:String,
-                                    $map:(context,data,next)=>{
-                                        next(null,['q',44,['a','b'],{1:1},new Date(),null,undefined])
-                                    }
-                                },
+                                    $insert:'22',
+                                    $rename:(context,data,next)=>{
+                                        next(null,'Function')
+                                    }   
+                                }
                             },
+                            $rename:'renameLvl2'
                         }
                     },
-                    // $optional:[{},{}]
-                },
-            },
+                    $rename:'renamelvl1'
+                }
+            }
         }
         // console.log(new Date())
-        jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",{
-            lvl0: 'Inserted value',
-            lvl1: {
-              arrStr: [ 'inserted', 'value', 1, true, false, undefined, null ],
-              lvl2: { test: Infinity }
-            }
-          },"(execute v2) input (source) must be like type Object (not String)")
+        jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",inp,"(execute v2) input (source) must be like type Object (not String)")
         // console.log(outputs.outputForType("0","string","number"))
         // console.log(outputs.outputForType("2","string","null"))
         // console.log(outputs.outputForType("2","date","function"))

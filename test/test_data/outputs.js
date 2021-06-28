@@ -168,5 +168,75 @@ var outputs = function(){
     }
   }
 
+  ///////////////////////////// Comparison outputs ///////////////////////////
+
+  this.compareError = "(execute v2) input.lvl0 must be greater than 25";
+  this.compareError1 = "(execute v2) input.lvl1.arrStr[0] must be greater than or equal to 'b'";
+  this.compareUndefinedFunc = "(execute v2) input.lvl0 must be equal to undefined";
+  this.compareundefinedDir = "";
+  this.compareNewLineFunc = "(execute v2) input.lvl1.arrStr[0] must be equal to '\n'";
+  this.compareNewLineDir = "";
+
+  this.compareOtherModifiers = {
+    lvl0: 'transformedValue',
+    lvl1: {
+      arrStr: ['c','d','g'],
+      lvl2: { test: 'default', test1: 'test' }
+    }
+  }
+
+  ///////////////////////////// Match outputs ////////////////////////////
+
+  this.matchRegexFunc = "(execute v2) input.lvl0 must match /[test][0-5]/"
+  this.matchRegexDir = "(execute v2) input.lvl1.arrStr[2] must match /[a-f]/"
+  this.matchString = "(execute v2) input.lvl1.lvl2.test1 must match 'rty'"
+  this.matchUndefined = "(execute v2) input.lvl0 must match undefined"
+  this.matchOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl1.$type.arrStr[0].$match must be type Function (not Number),\nfilter.$type.lvl1.$type.arrStr[0].$match must be type String (not Number), or\nfilter.$type.lvl1.$type.arrStr[0].$match must be type RegExp (not Number)"
+  this.matchWithOthermodifier = {
+    lvl0: 'test5',
+    lvl1: { arrStr: [ true, true, true ], lvl2: { test: 'undefined' } }
+  }
+  
+
+  //////////////////////////////////// Message outputs ///////////////////////////////
+
+  this.message = "(execute v2) input.lvl0 Test message from $message"
+  this.messageTypeError = "(compile) (execute v2) filter.$type.lvl0.$message must be type String (not Number)"; 
+  this.messageTypeError1 = "(compile) (execute v2) filter.$type.lvl0.$message must be type String (not null)";
+  this.messageTypeError2 = "(compile) (execute v2) filter.$type.lvl0.$message must be type String (not Function)"
+
+
+  //////////////////////////////////// Rename outputs ///////////////////////////////////////
+
+  this.renameKeys = {
+    RenameAt0: 'test66',
+    lvl1: { arrStr: [ 'b', 5 ], lvl2: { RenamedAt2: 'undefined' } }
+  }
+
+  this.renameInsideArray = {
+    RenameAt0: 'test66',
+    lvl1: { arrStr: [ 5 ], lvl2: { RenamedAt2: 'undefined' } }
+  }
+
+  this.renameOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl0.$rename must be type Function (not Number) or\nfilter.$type.lvl0.$rename must be type String (not Number)"
+  this.renamePassNull = "(compile) (execute v2) one of\nfilter.$type.lvl0.$rename must be type Function (not null) or\nfilter.$type.lvl0.$rename must be type String (not null)"
+
+  this.renameUndefined = {
+    lvl0: 'test66',
+    lvl1: { arrStr: [ 5 ], lvl2: { RenamedAt2: 'undefined' } }
+  }
+
+  this.renameOtherDatatypesFunc = {
+    '123': 'test66',
+    lvl1: {
+      arrStr: [ 5 ],
+      lvl2: { 'function Function() { [native code] }': 'undefined' }
+    }
+  }
+
+  this.renameOtherModifiers = {
+    renamelvl1: { renameArr: [ 'b', 'a' ], renameLvl2: { Function: '22' } }
+  }
+
 }
 module.exports = new outputs();

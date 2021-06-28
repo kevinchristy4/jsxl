@@ -1,5 +1,12 @@
 using stub to check if the compiler is called on each execution
 
+//docker steps
+docker build -t jsxl .
+docker run -p 8081:8081 jsxl
+docker system prune -a
+
+./node_modules/.bin/mocha sample.js
+
 $filter is to directlty filter out contents - if needed to transform we must use $type and call $tranform within that
 
 The direct filters usually represent each set of json (for each objects in the array)
@@ -86,6 +93,13 @@ To do:
 (compile) (execute v2) one of\nfilter.$type.lvl0.$map must be type Function (not null),\nfilter.$type.lvl0.$map must be type Array (not null), or\nfilter.$type.lvl0.$map must be type Object (not null)' 
 (compile) (execute v2) one of filter.$type.lvl0.$map must be type Function (not null), filter.$type.lvl0.$map must be type Array (not null), or filter.$type.lvl0.$map must be type Object (not null)
 
+- in one set
+- Have one filter with all the modifiers
+    - posiive flow
+    - negative flow
+    - undefined and null    
+    - along with overwrite modifiers
+    - at top level
 
 
 

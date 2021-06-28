@@ -412,6 +412,163 @@ this.mapOtherToArray = {
     }
 }
 
+/////////////////////////// Comparison Inputs //////////////////////////////
+
+this.comparisonPositive = {
+    lvl0:30,
+    lvl1:{
+        arrStr:['b','f','i'],
+        lvl2:{
+            test:{
+                'one':1,
+                'two':2
+            },
+            test1:new Date().getDate()
+        }
+    }
+}
+
+this.compareErrorInput ={
+    lvl0:20,
+    lvl1:{
+        arrStr:['a','b','f','i'],
+        lvl2:{
+            test:{
+                'one':1,
+                'two':2
+            },
+            test1:new Date().getDate()
+        }
+    }
+}
+
+this.compareError1Input ={
+    lvl0:30,
+    lvl1:{
+        arrStr:['a','b','f','i'],
+        lvl2:{
+            test:{
+                'one':1,
+                'two':2
+            },
+            test1:new Date().getDate()
+        }
+    }
+}
+
+this.compareUndefine = {
+    lvl0:30
+}
+
+this.compareNewLine = {
+    lvl0:30,
+    lvl1:{
+        arrStr:['a','b','f','i'],
+    }
+}
+
+this.compareOtherModifiers = {
+    lvl0:35,
+    lvl1:{
+        arrStr:['b','f','i'],
+        lvl2:{
+            test:undefined,
+            test1:1
+        }
+    }
+}
+
+//////////////////////////// Match modifiers input ////////////////////////////
+
+this.matchPass = {
+    lvl0:'test123',
+    lvl1:{
+        arrStr:['b','f','i'],
+        lvl2:{
+            test:'undefined',
+            test1:'qwerty'
+        }
+    }
+}
+
+this.matchFailFunc = {
+    lvl0:'test66',
+    lvl1:{
+        arrStr:['b','f','i'],
+        lvl2:{
+            test:'undefined',
+            test1:'qwerty'
+        }
+    }
+}
+
+this.matchFailDir = {
+    lvl0:'test55',
+    lvl1:{
+        arrStr:['b','f','i'],
+        lvl2:{
+            test:'undefined',
+            test1:'qwerty'
+        }
+    }
+}
+
+this.matchFailStr = {
+    lvl0:'test55',
+    lvl1:{
+        arrStr:['b','f'],
+        lvl2:{
+            test:'undefined',
+            test1:'qwe'
+        }
+    }
+}
+
+
+/////////////////////////////////// Message modifier ///////////////////////////////
+
+this.message = {
+    lvl0:'test66',
+    lvl1:{
+        arrStr:['b','f'],
+        lvl2:{
+            test:'undefined',
+        }
+    }
+}
+
+this.messageNoError = {
+    lvl0:'test55',
+    lvl1:{
+        arrStr:['b','f'],
+        lvl2:{
+            test:'undefined',
+        }
+    }
+}
+
+///////////////////////////////////// Rename modifier input /////////////////////////////
+
+this.renameKeys = {
+    lvl0:'test66',
+    lvl1:{
+        arrStr:['b',5],
+        lvl2:{
+            test:'undefined',
+        }
+    }
+}
+
+this.renameWithModifiers = {
+    lvl0:'test66',
+    lvl1:{
+        arrStr:['b','a'],
+        lvl2:{
+            test:'undefined',
+        }
+    }
+}
+
 }
 
 module.exports = new inputs();        

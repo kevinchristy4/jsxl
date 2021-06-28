@@ -1193,7 +1193,696 @@ this.mapNumberToArray = {
         }
     }
 }
-    
+
+///////////////////////// Comparision filters /////////////////////////////////////
+
+this.comparisionFilter = {
+    $type:{
+        lvl0:{
+            $type:Number,
+            $gt:(context,data,next)=>{
+                next(null,25)
+            },
+            $lt:40,
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $type:String,
+                    $gte:"b",
+                    $lte:(context,data,next)=>{
+                        next(null,"i")
+                    },
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $ne:(context,data,next)=>{
+                               next(null,{'one':1,'two':2})
+                            }
+                        },
+                        test1:{
+                            $type:Number,
+                            $eq:new Date().getDate()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.comparisonUndefined = {
+    $type:{
+        lvl0:{
+            $type:Number,
+            $eq:(context,data,next)=>{
+                next(null,undefined)
+            },
+        }
+    }
+}
+
+this.comparisonUndefinedDirect = {
+    $type:{
+        lvl0:{
+            $type:Number,
+            $lt:undefined,
+        }
+    }
+}
+
+this.comparisonNewLine = {
+    lvl0:{
+        $type:Number,
+        $gt:(context,data,next)=>{
+            next(null,25)
+        },
+        $lt:40,
+    },
+    lvl1:{
+        $type:{
+            arrStr:[{
+                $type:String,
+                $eq:(context,data,next)=>{
+                    next(null,"\n")
+                },
+            }],
+        }
+    }
+}
+
+this.comparisonNewLineDirect = {
+    lvl0:{
+        $type:Number,
+        $gt:(context,data,next)=>{
+            next(null,25)
+        },
+        $lt:40,
+    },
+    lvl1:{
+        $type:{
+            arrStr:[{
+                $type:String,
+                $eq:"\n",
+            }],
+        }
+    }
+}
+
+this.comparisonOtherModifiers = {
+    $type:{
+        lvl0:{
+            $type:Number,
+            $gt:(context,data,next)=>{
+                next(null,30)
+            },
+            $transform:(context,data,next)=>{
+                next(null,'transformedValue')
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $insert:['c','d','g'],
+                    $gte:"c",
+                    $lte:(context,data,next)=>{
+                        next(null,"g")
+                    },
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $default:'default',
+                            $ne:undefined
+                        },
+                        test1:{
+                            $map:['ada','test'],
+                            $eq:'test'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+////////////////////////// Match modifiers filter /////////////////////////////////////
+
+this.matchPass = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/^[test][\d]*/)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                   $match:/\w/
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $match:undefined
+                        },
+                        test1:{
+                            $match:'rty'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.matchFail = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                   $match:/[a-f]/
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $match:undefined
+                        },
+                        test1:{
+                            $match:'rty'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.matchFailUndefined = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,undefined)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                   $match:/[a-f]/
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $match:undefined
+                        },
+                        test1:{
+                            $match:'rty'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.matchFailOtherdatatype = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                   $match:123
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $match:undefined
+                        },
+                        test1:{
+                            $match:'rty'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.matchWithOtherModifiers = {
+    $type:{
+        lvl0:{
+            $insert:0,
+            $map:['test5'],
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $transform:(context,data,next)=>{
+                        next(null,true)
+                    },
+                   $match:/[a-i]/
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $match:undefined
+                        },
+                        test1:{
+                            $filter:(context,data,next)=>{
+                                next(null,false)
+                            },
+                            $match:'rty'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+///////////////////////////////////////// Message modifer filters /////////////////////////////////
+
+this.message = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            },
+            $message:"Test message from $message"
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,data)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:String
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+this.messageNumber = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            },
+            $message:123
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:String
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.messageNull = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            },
+            $message:null
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:String
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.messageFunc = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            },
+            $message:(context,data,next)=>{
+                next(null,'test')
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:String
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.messageNewLine = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-5]/)
+            },
+            $message:"\n"
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $filter:(context,data,next)=>{
+                        next(null,true)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:String
+                    }
+                }
+            }
+        }
+    }
+}
+
+/////////////////////////////////// Rename modifier filters /////////////////////////////////////
+
+this.rename = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:'RenameAt0'
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $type:null
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:'RenamedAt2'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renameInsideArray = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:'RenameAt0'
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:'5'
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:'RenamedAt2'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renamePassNumber = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:123
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:'5'
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:'RenamedAt2'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renamePassNull = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:null
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:'5'
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:'RenamedAt2'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renamePassUndefined = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:undefined
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:'5'
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:'RenamedAt2'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renameDatatypesViaFunc = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:(context,data,next)=>{
+                next(null,123)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:(context,data,next)=>{
+                        next(null,[1])
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:(context,data,next)=>{
+                                next(null,Function)
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renamePassConstruc = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:(context,data,next)=>{
+                next(null,Function)
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:(context,data,next)=>{
+                        next(null,[1])
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:(context,data,next)=>{
+                                next(null,Function)
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renamePassFunctionKeyword = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:Function
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:(context,data,next)=>{
+                        next(null,[1])
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:(context,data,next)=>{
+                                next(null,Function)
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renamePassNewLine = {
+    $type:{
+        lvl0:{
+            $match:(context,data,next)=>{
+                next(null,/[test][0-6]/)
+            },
+            $rename:"\n"
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $rename:(context,data,next)=>{
+                        next(null,[1])
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:(context,data,next)=>{
+                                next(null,Function)
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.renameWithOtherModifiers = {
+    $rename:"renameAtTop",
+    $type:{
+        lvl0:{
+            $transform:(context,data,next)=>{
+                next(null,'123')
+            },
+            $rename:"renamed",
+            $remove:true
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $rename:'renameArr',
+                    $type:[String]
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $insert:'22',
+                            $rename:(context,data,next)=>{
+                                next(null,'Function')
+                            }   
+                        }
+                    },
+                    $rename:'renameLvl2'
+                }
+            },
+            $rename:'renamelvl1'
+        }
+    }
+}
+
 }
 
 module.exports = new filters();        
