@@ -44,48 +44,64 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:['test',1,2,undefined],
+            lvl0:[undefined,null,Infinity,true],
             lvl1:{
-                arrStr:['b','a','c'],
+                arrStr:undefined,
                 lvl2:{
-                    test:1,
+                    test:{
+                        'one':1,
+                        true:false
+                    },
                 }
             }
         }
 
         var filter = {
             // $rename:"renameAtTop",
-            // $maxlen:1,
+            // $inc:(context,data,next)=>{
+            //     next(null,Function)
+            // },
             $type:{
                 lvl0:{
                     // $transform:(context,data,next)=>{
-                    //     next(null,'123')
+                    //     next(null,'data')
                     // },
                     // $rename:"renamed",
-                    // $remove:true
-                    $insert:[0,1,2],
-                    $maxlen:3
+                    // $remove:true,
+                    $insert:[6],
+                    // $maxlen:3
+                    $inc:6,
+                    $ninc:0
                 },
                 lvl1:{
                     $type:{
                         arrStr:{
-                            // $rename:'renameArr',
+                            $default:{'b':1},
                             $transform:(context,data,next)=>{
                                 next(null,'123')
                             },
-                            $minlen:(context,data,next)=>{
-                                    next(null,'\n')
-                                }   
+                            $inc:(context,data,next)=>{
+                                next(null,'b')
+                            },
+                            $ninc:(context,data,next)=>{
+                                next(null,'Test')
+                            } 
                         },
                         lvl2:{
                             $type:{
                                 test:{
-                                    $length:2,
+                                    // $length:2,
                                     // $insert:'22',
-                                    $map:[1,[1,2]] 
+                                    // $map:[1,[12]],
+                                    $rename:"renamed",
+                                    $inc:(context,data,next)=>{
+                                        next(null,'one')
+                                    },
+                                    $ninc:1
                                 }
                             },
                             // $rename:'renameLvl2'
+                            $ninc:'renamed'
                         }
                     },
                     // $rename:'renamelvl1'

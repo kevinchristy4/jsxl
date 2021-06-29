@@ -621,6 +621,132 @@ this.lengthWithOther = {
     }
 }
 
+
+//////////////////////////////////// Includes modifier inputs //////////////////////////////////
+
+this.inPass = {
+    lvl0:null,
+    lvl1:{
+        arrStr:['b',['a'],0],
+        lvl2:{
+            test:Infinity,
+        }
+    }
+}
+
+this.ninFail = {
+    lvl0:null,
+    lvl1:{
+        arrStr:['b',['a'],0,true],
+        lvl2:{
+            test:Infinity,
+        }
+    }
+}
+
+this.inFail = {
+    lvl0:'null',
+    lvl1:{
+        arrStr:['b',['a'],0],
+        lvl2:{
+            test:Infinity,
+        }
+    }
+}
+
+this.inWithOtherModifier = {
+    lvl0:null,
+    lvl1:{
+        arrStr:undefined,
+        lvl2:{
+            test:1,
+        }
+    }
+}
+
+this.incPass = {
+    lvl0:[undefined,true,null,Infinity],
+    lvl1:{
+        arrStr:['test',1],
+        lvl2:{
+            test:{
+                'one':1,
+                true:false
+            },
+        }
+    }
+}
+
+this.incFail =  {
+    lvl0:[undefined,null,Infinity],
+    lvl1:{
+        arrStr:['test',1],
+        lvl2:{
+            test:{
+                'one':1,
+                true:false
+            },
+        }
+    }
+}
+
+this.incFailAtTop =  {
+    lvl0:[undefined,null,Infinity,true],
+}
+
+this.nincFail =  {
+    lvl0:[undefined,null,Infinity,true],
+    lvl1:{
+        arrStr:['test',1],
+        lvl2:{
+            test:{
+                'one':1,
+                true:false,
+                1:'one'
+            },
+        }
+    }
+}
+
+this.incNumbe = {
+    lvl0:[undefined,true,null,Infinity],
+    lvl1:{
+        arrStr:5,
+        lvl2:{
+            test:{
+                'one':1,
+                true:false
+            },
+        }
+    }
+}
+
+this.incString = {
+    lvl0:'test',
+    lvl1:{
+        arrStr:['test',1],
+        lvl2:{
+            test:{
+                'one':1,
+                true:false
+            },
+        }
+    }
+}
+
+this.incWithOtherModifiers = {
+    lvl0:[undefined,null,Infinity,true],
+    lvl1:{
+        arrStr:undefined,
+        lvl2:{
+            test:{
+                'one':1,
+                true:false
+            },
+        }
+    }
+}
+
 }
 
 module.exports = new inputs();        

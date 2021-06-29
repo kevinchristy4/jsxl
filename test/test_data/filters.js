@@ -2078,6 +2078,430 @@ this.lengthWithOtherModifiers = {
     }
 }
 
+////////////////////////////////////// Includes modifier filters ///////////////////////////////////////
+
+this.in_nin = {
+    $type:{
+        lvl0:{
+            $in:[null,0],
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $in:(context,data,next)=>{
+                            next(null,{"a":1,"b":2,0:3,true:0})
+                        },
+                    $nin:(context,data,next)=>{
+                        next(null,{true:1})
+                    },   
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $in:{Infinity:0},
+                            $nin:{NaN:0}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inNewLineArr = {
+    $type:{
+        lvl0:{
+            $in:[null,0,'\n'],
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inNewLineObj = {
+    $type:{
+        lvl0:{
+            $in:[null,0],
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $in:{Infinity:0,'\n':0},
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inFuncDir = {
+    $type:{
+        lvl0:{
+            $in:[null,0],
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $in:Function
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $in:{Infinity:0},
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inStringDir = {
+    $type:{
+        lvl0:{
+            $in:'test',
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $in:{Infinity:0},
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inUndefinedDir = {
+    $type:{
+        lvl0:{
+            $in:undefined,
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $nin:undefined
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $in:{Infinity:0},
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inNumViaFunc = {
+    $type:{
+        lvl0:{
+            $in:[null],
+            $nin:[0]
+        },
+        lvl1:{
+            $type:{
+                arrStr:[{
+                    $in:(context,data,next)=>{
+                        next(null,55)
+                    }
+                }],
+                lvl2:{
+                    $type:{
+                        test:{
+                            $in:{Infinity:0},
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.inOtherModifier = {
+    $inc:'lvl0',
+    $type:{
+        lvl0:{
+            $insert:5,
+            $in:[5],
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $default:'b',
+                    $transform:(context,data,next)=>{
+                        next(null,'123')
+                    },
+                    $in:(context,data,next)=>{
+                            next(null,['a','b',0])
+                        },  
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $map:[1,[12]],
+                            $in:{Infinity:0,[12]:0},
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incPass = {
+    $inc:'lvl1',
+    $type:{
+        lvl0:{
+            $inc:true,
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $inc:(context,data,next)=>{
+                        next(null,1)
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $inc:(context,data,next)=>{
+                                next(null,'one')
+                            },
+                            $ninc:1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incNewLine = {
+    $inc:'lvl1',
+    $type:{
+        lvl0:{
+            $inc:'\n',
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $inc:(context,data,next)=>{
+                        next(null,1)
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $inc:(context,data,next)=>{
+                                next(null,'one')
+                            },
+                            $ninc:1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incFuncDir = {
+    $inc:'lvl1',
+    $type:{
+        lvl0:{
+            $inc:true,
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $inc:(context,data,next)=>{
+                        next(null,1)
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $inc:Function,
+                            $ninc:1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incPassArrDir = {
+    $inc:'lvl1',
+    $type:{
+        lvl0:{
+            $inc:[],
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $inc:(context,data,next)=>{
+                        next(null,1)
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $inc:(context,data,next)=>{
+                                next(null,'one')
+                            },
+                            $ninc:1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incPassObjDir = {
+    $inc:'lvl1',
+    $type:{
+        lvl0:{
+            $inc:true,
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $inc:(context,data,next)=>{
+                        next(null,1)
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $inc:{},
+                            $ninc:1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incOtherDataTypesViafunc = {
+    $inc:'lvl1',
+    $type:{
+        lvl0:{
+            $inc:true,
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $inc:(context,data,next)=>{
+                        next(null,()=>{})
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $inc:(context,data,next)=>{
+                                next(null,{})
+                            },
+                            $ninc:1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.incWithOtherModifiers = {
+    $type:{
+        lvl0:{
+            $insert:[6],
+            $inc:6,
+            $ninc:0
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $default:{'b':1},
+                    $transform:(context,data,next)=>{
+                        next(null,'123')
+                    },
+                    $inc:(context,data,next)=>{
+                        next(null,'b')
+                    },
+                    $ninc:(context,data,next)=>{
+                        next(null,'Test')
+                    } 
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $rename:"renamed",
+                            $inc:(context,data,next)=>{
+                                next(null,'one')
+                            },
+                            $ninc:1
+                        }
+                    },
+                    $ninc:'renamed'
+                }
+            }
+        }
+    }
+}
+
 
 }
 

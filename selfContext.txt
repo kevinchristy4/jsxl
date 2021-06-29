@@ -102,4 +102,23 @@ To do:
     - at top level
 
 
+- $in $inc:
+
+    - positive flow $in and $nin
+    - negative 
+    - 
+
+    - '\n' inside an array or as a key in object
+    - pass Function directly
+    - pass string,null and undefined directly
+    - pass string or number via next
+
+    - same goes for nin
+
+    - pass '\n' Function directly
+    - pass other datatypes through next()
+    - use datatypes other than [] or {} as input
+    - pass undefined
+
+
 

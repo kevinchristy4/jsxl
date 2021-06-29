@@ -253,5 +253,26 @@ var outputs = function(){
   this.lengthUndefined = "(execute v2) input.lvl1.arrStr must have minimum length undefined";
 
   this.lengthWithOtherModifier = { lvl0: [ 0, 1, 2 ], lvl1: { arrStr: '123', lvl2: { test: [ 1, 2 ] } } }
+
+////////////////////////////////////  Includes Outputs  ///////////////////////////////////////////
+
+this.inFail = "(execute v2) input.lvl0 must be included in [ null, 0 ]"
+this.ninFail = "(execute v2) input.lvl1.arrStr[3] must be excluded from {\n\ttrue: 1\n}"
+
+this.inStringError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$in must be type Function (not String),\nfilter.$type.lvl0.$in must be type Array (not String), or\nfilter.$type.lvl0.$in must be type Object (not String)"
+this.inNullError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$in must be type Function (not null),\nfilter.$type.lvl0.$in must be type Array (not null), or\nfilter.$type.lvl0.$in must be type Object (not null)"
+
+this.inOtherModifier = { lvl0: 5, lvl1: { arrStr: '123', lvl2: { test: [12] } } }
+
+this.incError = "(execute v2) input.lvl0 must include true"
+this.incFailAtTop = "(execute v2) input.lvl1 must be provided"
+this.nincFail = "(execute v2) input.lvl1.lvl2.test must exclude 1"
+
+this.incTypeError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$inc must be type Function (not Array),\nfilter.$type.lvl0.$inc must be type Boolean (not Array),\nfilter.$type.lvl0.$inc must be type Number (not Array),\nfilter.$type.lvl0.$inc must be type String (not Array),\nfilter.$type.lvl0.$inc must be type RegExp (not Array), or\nfilter.$type.lvl0.$inc must be type Date (not Array)"
+this.incTypeError1 = "(compile) (execute v2) one of\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Function (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Boolean (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Number (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type String (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type RegExp (not Object), or\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Date (not Object)"
+this.incTypError2 = "(execute v2) input.lvl1.arrStr must include ()=>{}";
+
+this.incWithOtherModifier = { lvl0: [ 6 ], lvl1: { arrStr: '123', lvl2: { renamed:{'one':1,true:false } } }};
+
 }
 module.exports = new outputs();
