@@ -17,7 +17,7 @@ describe('Comparision modifier tests',()=>{
     it('Pass null or Undefined as input',()=>{
 
         //passing undefined and new line operator
-        //Passing undefined and "\n" as direct values has no effect on the output - but they are evaluated while passed within function
+        //Passing undefined and "\n" as direct values has no effect on the output - but they are converted to string while passed within function
 
         jsxlFunction.verifyResult('Pass undefined as value in a function',jsxlFunction.jsxlDirect(input.compareUndefine,filter.comparisonUndefined),'fail',null,output.compareUndefinedFunc);
         // jsxlFunction.verifyResult('Pass undefined as value directly',jsxlFunction.jsxlDirect(input.compareUndefine,filter.comparisonUndefinedDirect),'fail',null,output.compareundefinedDir);

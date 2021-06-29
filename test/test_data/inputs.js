@@ -569,6 +569,58 @@ this.renameWithModifiers = {
     }
 }
 
+/////////////////////////////////// Length modifier input ///////////////////////////////////////
+
+this.length = {
+    lvl0:['test',1,2],
+    lvl1:{
+        arrStr:['b','a','c'],
+        lvl2:{
+            test:[undefined],
+        }
+    }
+}
+
+this.lengthFailMax = {
+    lvl0:['test',1,2,3],
+    lvl1:{
+        arrStr:['b','a','c'],
+        lvl2:{
+            test:[undefined],
+        }
+    }
+}
+
+this.lengthFailMin = {
+    lvl0:['test',1,2],
+    lvl1:{
+        arrStr:['b','a'],
+        lvl2:{
+            test:[undefined],
+        }
+    }
+}
+
+this.lengthFail = {
+    lvl0:['test',1,2],
+    lvl1:{
+        arrStr:['b','a','c'],
+        lvl2:{
+            test:[],
+        }
+    }
+}
+
+this.lengthWithOther = {
+    lvl0:['test',1,2,undefined],
+    lvl1:{
+        arrStr:['b','a','c'],
+        lvl2:{
+            test:1,
+        }
+    }
+}
+
 }
 
 module.exports = new inputs();        

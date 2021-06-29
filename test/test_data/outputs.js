@@ -238,5 +238,20 @@ var outputs = function(){
     renamelvl1: { renameArr: [ 'b', 'a' ], renameLvl2: { Function: '22' } }
   }
 
+
+  ////////////////////////////////// Array length outputs ///////////////////////////////////
+
+  this.lengthMax = "(execute v2) input.lvl0 must have maximum length '3'"
+  this.lengthMin = "(execute v2) input.lvl1.arrStr must have minimum length 3"
+  this.lengthLen = "(execute v2) input.lvl1.lvl2.test must have exact length 1"
+
+  this.lengthTypeError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$maxlen must be type Function (not String) or\nfilter.$type.lvl0.$maxlen must be type Number (not String)"
+  this.lengthTypeError1 = "(compile) (execute v2) one of\nfilter.$type.lvl0.$maxlen must be type Function (not null) or\nfilter.$type.lvl0.$maxlen must be type Number (not null)"
+
+  this.lengthErrorFunc = "(execute v2) input.lvl1.arrStr must have minimum length Function";
+  this.lengthErrorObj = "(execute v2) input.lvl1.arrStr must have minimum length {\n\tone: 1\n}"
+  this.lengthUndefined = "(execute v2) input.lvl1.arrStr must have minimum length undefined";
+
+  this.lengthWithOtherModifier = { lvl0: [ 0, 1, 2 ], lvl1: { arrStr: '123', lvl2: { test: [ 1, 2 ] } } }
 }
 module.exports = new outputs();

@@ -44,44 +44,51 @@ describe('Test Group - feature/modifiers',()=>{
     it('test',()=>{
        
         var inp = {
-            lvl0:'test66',
+            lvl0:['test',1,2,undefined],
             lvl1:{
-                arrStr:['b','a'],
+                arrStr:['b','a','c'],
                 lvl2:{
-                    test:'undefined',
+                    test:1,
                 }
             }
         }
 
         var filter = {
-            $rename:"renameAtTop",
+            // $rename:"renameAtTop",
+            // $maxlen:1,
             $type:{
                 lvl0:{
-                    $transform:(context,data,next)=>{
-                        next(null,'123')
-                    },
-                    $rename:"renamed",
-                    $remove:true
+                    // $transform:(context,data,next)=>{
+                    //     next(null,'123')
+                    // },
+                    // $rename:"renamed",
+                    // $remove:true
+                    $insert:[0,1,2],
+                    $maxlen:3
                 },
                 lvl1:{
                     $type:{
                         arrStr:{
-                            $rename:'renameArr',
-                            $type:[String]
+                            // $rename:'renameArr',
+                            $transform:(context,data,next)=>{
+                                next(null,'123')
+                            },
+                            $minlen:(context,data,next)=>{
+                                    next(null,'\n')
+                                }   
                         },
                         lvl2:{
                             $type:{
                                 test:{
-                                    $insert:'22',
-                                    $rename:(context,data,next)=>{
-                                        next(null,'Function')
-                                    }   
+                                    $length:2,
+                                    // $insert:'22',
+                                    $map:[1,[1,2]] 
                                 }
                             },
-                            $rename:'renameLvl2'
+                            // $rename:'renameLvl2'
                         }
                     },
-                    $rename:'renamelvl1'
+                    // $rename:'renamelvl1'
                 }
             }
         }

@@ -1883,6 +1883,202 @@ this.renameWithOtherModifiers = {
     }
 }
 
+////////////////////////////////////// Length modifier filters ///////////////////////////////////
+
+this.lengthPass = {
+    $type:{
+        lvl0:{
+                $maxlen:(context,data,next)=>{
+                next(null,'3')
+            }
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:3
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:1  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthString = {
+    $type:{
+        lvl0:{
+                $maxlen:'3'
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:3
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:1  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthNull = {
+    $type:{
+        lvl0:{
+                $maxlen:null
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:3
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:1  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthOtherDataFunc = {
+    $type:{
+        lvl0:{
+                $maxlen:3
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:(context,data,next)=>{
+                        next(null,Function)
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:1  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthFuncDir = {
+    $type:{
+        lvl0:{
+                $maxlen:Function
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:(context,data,next)=>{
+                        next(null,Function)
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:1  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthOtherDataObj = {
+    $type:{
+        lvl0:{
+                $maxlen:3
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:(context,data,next)=>{
+                        next(null,{'one':1})
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:1  
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthOtherUndefined = {
+    $type:{
+        lvl0:{
+                $maxlen:3
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $minlen:(context,data,next)=>{
+                        next(null,undefined)
+                    }
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:undefined
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+this.lengthWithOtherModifiers = {
+    $type:{
+        lvl0:{
+            $insert:[0,1,2],
+            $maxlen:3
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $transform:(context,data,next)=>{
+                        next(null,'123')
+                    },
+                    $minlen:(context,data,next)=>{
+                            next(null,'\n')
+                    }   
+                },
+                lvl2:{
+                    $type:{
+                        test:{
+                            $length:2,
+                            $map:[1,[1,2]] 
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 }
 
 module.exports = new filters();        
