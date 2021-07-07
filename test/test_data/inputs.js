@@ -747,6 +747,64 @@ this.incWithOtherModifiers = {
     }
 }
 
+///////////////////////////////////// $toObject Inputs ////////////////////////////////////////////
+
+this.toObjectPass = {
+    lvl0:[{'test':'55'}],
+    lvl1:{
+        arrObj:[{lvl1:'99',test1:56,4:8,'test':55},{lvl1:'kkll',55:88,true:false}],
+    }
+}
+
+this.toObjectString = {
+    lvl0:'test',
+    lvl1:{
+        arrObj:'55',
+    }
+}
+
+this.toObjectStringlvl1 = {
+    lvl0:[{test:'123'}],
+    lvl1:{
+        arrObj:'55',
+    }
+}
+
+this.toObjectEmpArr = {
+    lvl0:[],
+    lvl1:{
+        arrObj:[{lvl1:'321'}],
+    }
+}
+
+this.toObjectArrNoKey = {
+    lvl0:[{test1:'test'}],
+    lvl1:{
+        arrObj:'55',
+    }
+}
+
+this.toObjectNumberValue = {
+    lvl0:[{test:55}],
+    lvl1:{
+        arrStr:[{lvl1:'\n',test1:56,4:8,'test':55},{lvl1:'kkll',55:88,true:false}],
+    }
+}
+
+this.toObjectundefinedValue = {
+    lvl0:[{test:'55'}],
+    lvl1:{
+        arrObj:[{lvl1:undefined,test1:56,4:8,'test':55},{lvl1:'kkll',55:88,true:false}],
+    }
+}
+
+this.toObjectWithotherModifier = {
+    lvl0:[{test:'55'}],
+    lvl1:{
+        arrStr:[{lvl2:[{lvl3:'11'}]}],
+    }
+}
+
 }
 
 module.exports = new inputs();        

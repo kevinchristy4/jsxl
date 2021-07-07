@@ -274,5 +274,32 @@ this.incTypError2 = "(execute v2) input.lvl1.arrStr must include ()=>{}";
 
 this.incWithOtherModifier = { lvl0: [ 6 ], lvl1: { arrStr: '123', lvl2: { renamed:{'one':1,true:false } } }};
 
+
+///////////////////////////////// $toObject Outputs ///////////////////////////////////////
+
+this.toObjectPass = {
+  lvl0: { '55': {} },
+  lvl1: {
+    arrObj: {
+      '99': { '4': 8, test1: 56, test: 55 },
+      kkll: { '55': 88, true: false }
+    }
+  }
+}
+
+this.toObjFailNumber = "(compile) (execute v2) filter.$type.lvl0.$toObject must be type String (not Number)"
+this.toObjFailFunc = "(compile) (execute v2) filter.$type.lvl0.$toObject must be type String (not Function)"
+this.toObjStrInput = "(execute v2) input.lvl0 cannot convert to Object, is not an Array"
+this.toObjStrInputlvl1 = "(execute v2) input.lvl1.arrObj cannot convert to Object, is not an Array"
+this.toObjNoKey = "(execute v2) input.lvl0[0] has no object key: test"
+this.toObjStrKey = "(execute v2) input.lvl0[0] has non-String object key: test"
+this.toObjUndefinedKey = "(execute v2) input.lvl1.arrObj[0] has no object key: lvl1"
+
+this.toObjectWithOtherModifier = {
+  lvl0: { '66': {} },
+  lvl1: {
+    arrStr: [ { lvl2: { '11': {} } } ]
+  }
+}
 }
 module.exports = new outputs();

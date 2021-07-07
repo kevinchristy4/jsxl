@@ -44,8 +44,8 @@ var jsxlfunction = function(){
                         // console.log(err)
                         resolve([err,err.message])
                     }
-                    // console.log(util.inspect(output,{showHidden: false, depth: null}))
-                    console.log(output)
+                    console.log(util.inspect(output,{showHidden: false, depth: null}))
+                    // console.log(output)
                     resolve(output)
                 }
             );

@@ -2502,6 +2502,84 @@ this.incWithOtherModifiers = {
     }
 }
 
+/////////////////////////////////// $toObject Filters //////////////////////////////////////
+
+this.toObjPass = {
+        $type:{
+            lvl0:{
+                $toObject:'test',
+            },
+            lvl1:{
+                $type:{
+                    arrObj:{
+                        $toObject:'lvl1'
+                    }
+                }
+            }
+        }
+}
+
+this.toObjFailNumber = {
+    $type:{
+        lvl0:{
+            $toObject:55,
+            $type:Array,
+        },
+        lvl1:{
+            $type:{
+                arrObj:{
+                    $toObject:Infinity
+                }
+            }
+        }
+    }
+}
+
+this.toObjFailFunction = {
+    $type:{
+        lvl0:{
+            $toObject:(context,data,next)=>{
+                next(null,'test')
+            },
+            $type:Array,
+        },
+        lvl1:{
+            $type:{
+                arrObj:{
+                    $toObject:Infinity
+                }
+            }
+        }
+    }
+}
+
+this.toObjOthModifier = {
+    $type:{
+        lvl0:{
+            $toObject:'test',
+            $type:[{
+                $transform:(context,data,next)=>{
+                    next(null,{'test':'66'})
+                }
+            }],
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:[{
+                        lvl2:{
+                            $type:[{
+                                lvl3:String
+                            }],
+                            $toObject:'lvl3',
+                            $ninc:'11'
+                        }
+                    }]
+                }
+            }
+        }
+    }
+}
 
 }
 

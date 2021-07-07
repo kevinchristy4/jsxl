@@ -121,4 +121,13 @@ To do:
     - pass undefined
 
 
+- $toObject:
+    - Pass different datatypes in filter 
+    - Pass different data types in input
+        - string, empty array, array with no object
+    - Pass objects with no key that's specified in the filter
+    - In input pass object with values other than string
+    - With other modifiers
+
+
 
