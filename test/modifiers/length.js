@@ -21,6 +21,7 @@ describe('Array Length Modifiers tests',()=>{
         jsxlFunction.verifyResult('Pass null directly',jsxlFunction.jsxlDirect(input.length,filter.lengthNull),'fail',null,output.lengthTypeError1);
 
         //passing Function keyword breaks the application
+        //Not Fixed
         // jsxlFunction.verifyResult('Pass Function keyword directly',jsxlFunction.jsxlDirect(input.length,filter.lengthFuncDir),'fail',null,"TBD");
 
         //Pass other data types via next()

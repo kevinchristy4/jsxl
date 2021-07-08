@@ -17,10 +17,11 @@ describe('Message modifier tests',()=>{
     it('Pass other data types',()=>{
 
         jsxlFunction.verifyResult('Pass Number',jsxlFunction.jsxlDirect(input.message,filter.messageNumber),'fail',null,output.messageTypeError);
-        jsxlFunction.verifyResult('Pass Number',jsxlFunction.jsxlDirect(input.message,filter.messageNull),'fail',null,output.messageTypeError1);
-        jsxlFunction.verifyResult('Pass Number',jsxlFunction.jsxlDirect(input.message,filter.messageFunc),'fail',null,output.messageTypeError2);
+        jsxlFunction.verifyResult('Pass Null',jsxlFunction.jsxlDirect(input.message,filter.messageNull),'fail',null,output.messageTypeError1);
+        jsxlFunction.verifyResult('Pass Function',jsxlFunction.jsxlDirect(input.message,filter.messageFunc),'fail',null,output.messageTypeError2);
 
         //Passing "\n" as a message causes the application to break
+        //Not Fixed
         // jsxlFunction.verifyResult('Verify message present in error',jsxlFunction.jsxlDirect(input.message,filter.messageNewLine),'fail',null,"TBD");
 
 

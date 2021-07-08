@@ -22,7 +22,7 @@ var outputs = function(){
     //outputs for undefined errors 
     this.stringUndefined = "(execute v2) input.lvl0 must be provided";
     this.stringUndefinedlvl2 = "(execute v2) input.lvl1.lvl2.str must be provided";
-
+   
 
     ///////////////////////// Outputs for $filter modifier //////////////////////////
 
@@ -45,9 +45,9 @@ var outputs = function(){
     this.ifBoolean = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr[0].$filter must be type Function (not Boolean)";
     this.useAlongsideANonModifier = "(compile) (execute v2) filter.$type mixes modifier ($filter) with non-modifier (lvl0)";
 
-    //////////////////////// Outputs for $transform ////////////////////////////////////
+     //////////////////////// Outputs for $transform ////////////////////////////////////
 
-    this.transform1 = {
+     this.transform1 = {
         lvl0: 'trueT',
         lvl1: {
           arrStr: [
@@ -69,9 +69,7 @@ var outputs = function(){
         lvl0:"false"
     }
 
-    this.verifyMofifiedValue = {
-        lvl0:"fromTransform"
-    }
+    this.verifyMofifiedValue = { lvl1: { lvl2: 44 }, lvl0: 'fromTransform' }
 
     this.typeError = "(compile) (execute v2) filter.$type.lvl0.$transform must be type Function (not Number)";
 
@@ -85,56 +83,59 @@ var outputs = function(){
     this.stringerror = "(compile) (execute v2) filter.$type.lvl1.$remove must be type Boolean (not String)"
     this.nullError = "(compile) (execute v2) filter.$type.lvl1.$remove must be type Boolean (not null)"
 
+     /////////////////////////// $insert, $default outputs /////////////////////////////////
 
-    /////////////////////////// $insert, $default outputs /////////////////////////////////
+     this.topLvlInsert = "(execute v2) input.lvl0 must be provided";
 
-    this.topLvlInsert = "(execute v2) input.lvl0 must be provided";
+     this.insertAlllvl = {
+      lvl0: 'Inserted value',
+      lvl1: { arrStr: '\n', lvl2: { str: 'Inserted\n55' } }
+    }
+ 
+     this.insertNullUndefined = {
+         lvl0: null, 
+         lvl1: { 
+             arrStr: undefined, 
+             lvl2: { 
+                 str: [undefined, 0, null]  
+             } 
+         } 
+     }
+ 
+     this.insertDifferentTypeError = "(execute v2) input.lvl1.arrStr must be type Object (not Array)";
+     this.useInsertWithRemoveDefault = "(compile) (execute v2) filter.$type.lvl0.$type filter.$type.lvl0.$type holds multiple of $remove, $insert, or $default modifiers while transforming";
+ 
+     this.insertValues = { lvl0: 25, lvl1: { arrStr: [ 1, 2 ], lvl2: { test: [undefined,0] } } }
+ 
+     this.defaultOutput = {
+         lvl0: 'Defaulted value',
+         lvl1: {
+           arrStr: [ false, 'Defaulted value', false, null, 'test', 34, 0, NaN ],
+           lvl2: { test: ["Defaulted value"] }
+         }
+       }
 
-    this.insertAlllvl = {
-        lvl0: 'Inserted value',
-        lvl1: {
-          arrStr: [ 'inserted', 'value', 1, true, false, undefined, null ],
-          lvl2: { 
-              test: "Inserted\n55"
+       this.defaultValuePresemt = {
+        lvl0:'true',
+        lvl1:{
+            arrStr:[false,true,false,true,null,'test',34,0,NaN],
+            lvl2:{
+                test:'true'
             }
         }
-      }
-
-    this.insertNullUndefined = {
-        lvl0: null, 
-        lvl1: { 
-            arrStr: undefined, 
-            lvl2: { 
-                str: [undefined, 0, null]  
-            } 
-        } 
     }
+ 
+     this.defaultUndefinedOutput = {
+         lvl0: 'undefined\n',
+         lvl1: {
+           arrStr: [ false, undefined, false, null, 'test', 34, 0, NaN ],
+           lvl2: { test: null }
+         }
+       }
+ 
+     this.defaultErrorWithType = "(execute v2) input.lvl1.lvl2.test must be type Array (not null)"
 
-    this.insertDifferentTypeError = "(execute v2) input.lvl1.arrStr must be type Object (not Array)";
-    this.useInsertWithRemoveDefault = "(compile) (execute v2) filter.$type.lvl0.$type filter.$type.lvl0.$type holds multiple of $remove, $insert, or $default modifiers while transforming";
-
-    this.insertValues = { lvl0: 25, lvl1: { arrStr: [ 1, 2 ], lvl2: { test: [undefined,0] } } }
-
-    this.defaultOutput = {
-        lvl0: 'Defaulted value',
-        lvl1: {
-          arrStr: [ false, 'Defaulted value', false, null, 'test', 34, 0, NaN ],
-          lvl2: { test: ["Defaulted value"] }
-        }
-      }
-
-    this.defaultUndefinedOutput = {
-        lvl0: 'undefined',
-        lvl1: {
-          arrStr: [ false, undefined, false, null, 'test', 34, 0, NaN ],
-          lvl2: { test: null }
-        }
-      }
-
-    this.defaultErrorWithType = "(execute v2) input.lvl1.lvl2.test must be type Array (not null)"
-
-
-   //////////////////////////////////// $optional outputs ////////////////////////////////
+  //////////////////////////////////// $optional outputs ////////////////////////////////
 
    this.optionalTrue = {
     lvl0: 'transformed value',
@@ -142,7 +143,7 @@ var outputs = function(){
   }
 
   this.optionalAtTopError = "(execute v2) input.lvl0 must be provided";
-  this.optionalAlongWithOtherModifiers = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr.$type filter.$type.lvl1.$type.arrStr.$type holds any of $remove, $insert, or $default modifiers but is explicitly non-optional while transforming"
+  this.optionalAlongWithOtherModifiers = "(compile) (execute v2) filter.$type.lvl1.$type.arrStr.$type filter.$type.lvl1.$type.arrStr.$type holds any of $remove, $insert, or $default modifiers but is explicitly mandatory (non-optional) while transforming"
   this.optionalWithOtherDatatype = "(compile) (execute v2) filter.$type.lvl0.$optional must be type Boolean (not Number)";
 
   /////////////////////////////////////// $map outputs ///////////////////////////////////////
@@ -168,14 +169,19 @@ var outputs = function(){
     }
   }
 
+  this.mapOtherDattypeInput = "(execute v2) input.lvl0 must map with type String (not Number)"
+  this.mapInputNotPresentInFilter = "(execute v2) input.lvl1.arrStr[2] must be included in [ \'test\', \'test1\' ]"
+  this.mapOutOfArrayRange = "(execute v2) input.lvl1.arrStr[2] must be in range of [ 0, 6 ]";
+  this.mapInputOtherThanNumber = "(execute v2) input.lvl0 must map with type Number (not String)"
+
   ///////////////////////////// Comparison outputs ///////////////////////////
 
   this.compareError = "(execute v2) input.lvl0 must be greater than 25";
   this.compareError1 = "(execute v2) input.lvl1.arrStr[0] must be greater than or equal to 'b'";
   this.compareUndefinedFunc = "(execute v2) input.lvl0 must be equal to undefined";
-  this.compareundefinedDir = "";
-  this.compareNewLineFunc = "(execute v2) input.lvl1.arrStr[0] must be equal to '\n'";
-  this.compareNewLineDir = "";
+  this.compareundefinedDir = { lvl0: 30 };
+  this.compareNewLineFunc = "(execute v2) input.lvl1.arrStr[0] must be equal to \'\\n\'";
+  this.compareNewLineDir = "(execute v2) input.lvl1.arrStr[0] must be equal to \'\\n\'";
 
   this.compareOtherModifiers = {
     lvl0: 'transformedValue',
@@ -213,23 +219,20 @@ var outputs = function(){
     lvl1: { arrStr: [ 'b', 5 ], lvl2: { RenamedAt2: 'undefined' } }
   }
 
-  this.renameInsideArray = {
-    RenameAt0: 'test66',
-    lvl1: { arrStr: [ 5 ], lvl2: { RenamedAt2: 'undefined' } }
-  }
+  this.renameInsideArray = '(compile) (execute v2) filter.$type.lvl1.$type.arrStr[0].$rename cannot rename if not inside object while filtering'
 
   this.renameOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl0.$rename must be type Function (not Number) or\nfilter.$type.lvl0.$rename must be type String (not Number)"
   this.renamePassNull = "(compile) (execute v2) one of\nfilter.$type.lvl0.$rename must be type Function (not null) or\nfilter.$type.lvl0.$rename must be type String (not null)"
 
   this.renameUndefined = {
     lvl0: 'test66',
-    lvl1: { arrStr: [ 5 ], lvl2: { RenamedAt2: 'undefined' } }
+    lvl1: { '5': [ 'b', 5 ], lvl2: { RenamedAt2: 'undefined' } }
   }
 
   this.renameOtherDatatypesFunc = {
     '123': 'test66',
     lvl1: {
-      arrStr: [ 5 ],
+      '1': [ 'b', 5 ],
       lvl2: { 'function Function() { [native code] }': 'undefined' }
     }
   }
@@ -237,7 +240,6 @@ var outputs = function(){
   this.renameOtherModifiers = {
     renamelvl1: { renameArr: [ 'b', 'a' ], renameLvl2: { Function: '22' } }
   }
-
 
   ////////////////////////////////// Array length outputs ///////////////////////////////////
 
@@ -256,24 +258,38 @@ var outputs = function(){
 
 ////////////////////////////////////  Includes Outputs  ///////////////////////////////////////////
 
-this.inFail = "(execute v2) input.lvl0 must be included in [ null, 0 ]"
+this.inFail = "(execute v2) input.lvl0 must be included in array or object [ null, 0 ]"
 this.ninFail = "(execute v2) input.lvl1.arrStr[3] must be excluded from {\n\ttrue: 1\n}"
+
+this.inNewLineInArray = {
+  lvl0: null,
+  lvl1: { arrStr: [ 'b', [ 'a' ], 0 ], lvl2: { test: Infinity } }
+}
 
 this.inStringError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$in must be type Function (not String),\nfilter.$type.lvl0.$in must be type Array (not String), or\nfilter.$type.lvl0.$in must be type Object (not String)"
 this.inNullError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$in must be type Function (not null),\nfilter.$type.lvl0.$in must be type Array (not null), or\nfilter.$type.lvl0.$in must be type Object (not null)"
 
 this.inOtherModifier = { lvl0: 5, lvl1: { arrStr: '123', lvl2: { test: [12] } } }
 
-this.incError = "(execute v2) input.lvl0 must include true"
+this.incError = "(execute v2) input.lvl0 must be of type array or object and include true"
 this.incFailAtTop = "(execute v2) input.lvl1 must be provided"
 this.nincFail = "(execute v2) input.lvl1.lvl2.test must exclude 1"
 
 this.incTypeError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$inc must be type Function (not Array),\nfilter.$type.lvl0.$inc must be type Boolean (not Array),\nfilter.$type.lvl0.$inc must be type Number (not Array),\nfilter.$type.lvl0.$inc must be type String (not Array),\nfilter.$type.lvl0.$inc must be type RegExp (not Array), or\nfilter.$type.lvl0.$inc must be type Date (not Array)"
 this.incTypeError1 = "(compile) (execute v2) one of\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Function (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Boolean (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Number (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type String (not Object),\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type RegExp (not Object), or\nfilter.$type.lvl1.$type.lvl2.$type.test.$inc must be type Date (not Object)"
-this.incTypError2 = "(execute v2) input.lvl1.arrStr must include ()=>{}";
+this.incTypError2 = "(execute v2) input.lvl1.arrStr must be of type array or object and include ()=>{}";
 
 this.incWithOtherModifier = { lvl0: [ 6 ], lvl1: { arrStr: '123', lvl2: { renamed:{'one':1,true:false } } }};
 
+this.inPassNumViaFunc = "(execute v2) input.lvl1.arrStr[0] must be included in array or object 0"
+
+this.incPassNewLineDir = {
+  lvl0: [ undefined, true, null, Infinity, '\n' ],
+  lvl1: { arrStr: [ 'test', 1, 5 ], lvl2: { test: { one: 1, true: false } } }
+}
+
+this.incPassNumberInput = "(execute v2) input.lvl1.arrStr must be of type array or object and include 5"
+this.incPassStringInput = "(execute v2) input.lvl0 must be of type array or object and include true"
 
 ///////////////////////////////// $toObject Outputs ///////////////////////////////////////
 
@@ -301,5 +317,6 @@ this.toObjectWithOtherModifier = {
     arrStr: [ { lvl2: { '11': {} } } ]
   }
 }
+
 }
 module.exports = new outputs();

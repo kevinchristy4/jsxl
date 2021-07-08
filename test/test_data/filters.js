@@ -2,144 +2,7 @@ const { filter } = require("async")
 
 var filters = function(){
 
-    this.modifierFilter1 = {
-        $filter:(context,object,next)=>{
-                next(null,(typeof object == 'object' && typeof object.insert == 'string'))
-        },
-        $type:
-        {
-            insert:{
-                $insert:'insertedID'
-            },
-            remove:{
-                $remove:true
-            },
-            jFormData:{
-                $filter:(context,dtd,next)=>{
-                    console.log(dtd)
-                    next(null,dtd)
-                },
-                $transform:(context,dd,next)=>{
-                    console.log(dd)
-                    next(null,dd)
-                },
-                $type:{
-                    default:{
-                        $type:String,
-                        $default:'test123'
-                    },
-                    optional:{
-                        $type:String,
-                        $optional:true      
-                    },
-                    fieldConfigs:[{
-                        map:{
-                            $type:Number,
-                            $map:{'triple_select':3},
-                        },
-                        mapTo:{
-                            $type:String,
-                            $map:['zero','one','double','triple']
-                        },
-                        className:{
-                            $type:String
-                        },
-                        templateOptions:{
-                            equal:{
-                                $type:String,
-                                $eq:(context,type,next)=>{
-                                    next(null,type.toLowerCase())
-                                }
-                            },
-                            any_gt_in:[{
-                                $any:[{
-                                    $type:Number,
-                                    $gte:10
-                                },
-                                {
-                                    $type:String,
-                                    $in:['a','b','c']
-                                }]
-                            }]
-                        }
-                    }]
-            }
-            }
-        }
-    };
-
-    this.typeFilter = {
-
-        $type:{
-            string:String,
-            number:Number,
-            boolean:Boolean,
-            date:{
-                $type: Date, 
-                $transform: (context, date, next) => {
-                    next(null, date.toString());
-                }  
-            },
-            array:[Number],
-            object:{"a":Number}
-        }
-    }
-
-    this.typeFilter2 = {
-
-        $type:{
-            string:String,
-            $type:null,
-            number:Number,
-            boolean:Boolean,
-            date:{
-                $type: Date, 
-                $transform: (context, date, next) => {
-                    next(null, date.toString());
-                }  
-            },
-            array:[Number],
-            object:{"a":Number}
-        }
-    }
-
-    // this.filterFilter={
-
-    //     $filter:(context,data,next)=>{
-    //         next(null, typeof data == 'object')
-    //     },
-    //     $type:{
-    //        $:[{
-    //            $filter:(context,data,next)=>{
-    //                 next(null,data %2 == 0)
-    //            }
-    //        }]
-    //     }
-    // }
-
-
-    this.transformFilter={
-
-        $transform:(context,data,next)=>{
-            for(let i in data){
-                if(Number(i)%2 != 0){
-                    delete data[i]
-                }
-            }
-            next(null,data)
-        },
-        $type:{
-           $:[{
-                $filter:(context,data,next)=>{
-                    next(null,data %2 == 0)
-                },
-               $transform:(context,data,next)=>{
-                    next(null,data*10)
-               }
-           }]
-        }
-    }
-
+  
     //////////////// Filters for $type modifier /////////////////////
 
     this.stringString = {
@@ -240,7 +103,7 @@ var filters = function(){
         }
     }
 
-//////////////////// Filters for $filter modifier ////////////////////////////
+    //////////////////// Filters for $filter modifier ////////////////////////////
 
 this.filter = {
     $filter:(context,data,next)=>{
@@ -259,7 +122,7 @@ this.filter = {
             $type:{
                 arrStr:[{
                     $filter:(context,data,next)=>{
-                        next(null,false)
+                        next(null,data)
                     }
                 }],
                 lvl2:{
@@ -469,7 +332,8 @@ this.transformObject = {
         lvl0:{           
             $transform:(context,data,next)=>{
                 next(null,'trueT')
-            }
+            },
+            $type:Number
         },
         lvl1:{
             $transform:(context,data,next)=>{
@@ -517,7 +381,7 @@ this.pass_null_Undefined = {
     $type:{
         lvl0:{           
                 $transform:(context,data,next)=>{
-                    next(null,"undefined")
+                    next(null,undefined)
                 }
         }
     }
@@ -538,12 +402,27 @@ this.passdownModifiedValues = {
         next(null,data)
     },
     $type:{
-        lvl0:{           
+        lvl0:{
+            $transform:(context,data,next)=>{
+                next(null,"secondTransform")
+            },           
             $filter:(context,data,next)=>{
-                if(data == 'fromInput'){
-                    next(null,true);
-                }else{
-                    next(null,false)
+                next(null,false)
+            }
+        },
+        lvl1:{
+            $transform:(context,data,next)=>{
+                data.lvl2 = 44
+                next(null,data)
+            },
+            $type:{
+                lvl2:{
+                    $transform:(context,data,next)=>{
+                        next(null,33)
+                    },
+                    $filter:(context,data,next)=>{
+                        next(null,false)
+                    }
                 }
             }
         }
@@ -651,12 +530,12 @@ this.insertAtAllLvl = {
             $type:{
                 arrStr:{
                     $insert:(context,data,next)=>{
-                        next(null,["inserted","value",1,true,false,undefined,null])
+                        next(null,'\n')
                     }
                 },
                 lvl2:{
                     $type:{
-                        test:{
+                        str:{
                            $type:String,
                            $insert:"Inserted"+"\n"+55
                         },
@@ -759,7 +638,6 @@ this.insertValuesNotPresent = {
         lvl0:{
             $insert:"test",
             $transform:(context,data,next)=>{
-                console.log(data)
                 next(null,25)
             }
         },
@@ -791,7 +669,6 @@ this.defaultMissingvalues =  {
         lvl0:{
             $default:"test",
             $transform:(context,data,next)=>{
-                console.log(data)
                 next(null,25)
             }
         },
@@ -890,6 +767,13 @@ this.defaultWithFilter_Type = {
                     $default:(context,data,next)=>{
                         next(null,undefined)
                     },
+                    $filter:(context,data,next)=>{
+                        if(data == undefined){
+                            next(null,false)
+                        }else{
+                            next(null,true)
+                        }
+                    }
                 }],
                 lvl2:{
                     $type:{
@@ -898,12 +782,12 @@ this.defaultWithFilter_Type = {
                                 next(null,null)
                            },
                            $type:Array
-                        },
-                    },
+                        }
+                    }
                 }
             }
-        },
-    },
+        }
+    }
 }
 
 this.defaultwithInsert_remove = {
@@ -926,12 +810,13 @@ this.defaultwithInsert_remove = {
                            $default:(context,data,next)=>{
                                 next(null,["Defaulted value"])
                            },
-                        },
-                    },
+                           $optional:false
+                        }
+                    }
                 }
             }
-        },
-    },
+        }
+    }
 }
 
 //////////////////////////////// $optional filters /////////////////////////////////
@@ -940,7 +825,6 @@ this.optionalTrue = {
     $type:{
         lvl0:{
             $transform:(context,data,next)=>{
-                console.log(data)
                 next(null,'transformed value')
             },
             $optional:true,
@@ -998,7 +882,6 @@ this.optionalAlongWithInsertDefault = {
         lvl0:{
             $insert:'test',
             $transform:(context,data,next)=>{
-                console.log(data)
                 next(null,'transformed value')
             },
             $optional:true,
@@ -1029,7 +912,6 @@ this.optionalWithOtherDatatype =  {
         lvl0:{
             $insert:'test',
             $transform:(context,data,next)=>{
-                console.log(data)
                 next(null,'transformed value')
             },
             $optional:123,
@@ -1067,7 +949,7 @@ this.mapSimpleFilter = {
                 arrStr:[{
                     $default:'test',
                     $map:{
-                        'test':['Mapped',console.log(44),1,new Error('ada')],
+                        'test':['Mapped',console.log(),1,new Error('ada')],
                         'test1':{1:undefined,2:{"n": 'g'},3:null}
                     }
                 }],
@@ -1089,14 +971,16 @@ this.mapSimpleFilter = {
 this.mapOtherDatatypes = {
     $type:{
         lvl0:{
-            $map:{0:0,true:new Date(),"qwe":'test'+'n'}
+            $map:(context,data,next)=>{
+                next(null,{0:0,true:new Date(),"qwe":'test'+'n'})
+            }
         },
         lvl1:{
             $type:{
                 arrStr:[{
                     $default:'test',
                     $map:{
-                        [1]:['Mapped',console.log(44),1,new Error('ada')],
+                        [1]:['Mapped',console.log(),1,new Error('ada')],
                         0:{1:undefined,2:{"n": 'g'},3:null}
                     }
                 }],
@@ -1193,6 +1077,7 @@ this.mapNumberToArray = {
         }
     }
 }
+
 
 ///////////////////////// Comparision filters /////////////////////////////////////
 
@@ -1665,9 +1550,9 @@ this.renamePassNumber = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
+                arrStr:{
                     $rename:'5'
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1690,9 +1575,9 @@ this.renamePassNull = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
+                arrStr:{
                     $rename:'5'
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1715,9 +1600,9 @@ this.renamePassUndefined = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
+                arrStr:{
                     $rename:'5'
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1742,11 +1627,11 @@ this.renameDatatypesViaFunc = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
+                arrStr:{
                     $rename:(context,data,next)=>{
                         next(null,[1])
                     }
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1773,11 +1658,11 @@ this.renamePassConstruc = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
+                arrStr:{
                     $rename:(context,data,next)=>{
                         next(null,[1])
                     }
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1802,11 +1687,11 @@ this.renamePassFunctionKeyword = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
+                arrStr:{
                     $rename:(context,data,next)=>{
                         next(null,[1])
                     }
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1831,11 +1716,11 @@ this.renamePassNewLine = {
         },
         lvl1:{
             $type:{
-                arrStr:[{
-                    $rename:(context,data,next)=>{
+                arrStr:{
+                    $filter:(context,data,next)=>{
                         next(null,[1])
                     }
-                }],
+                },
                 lvl2:{
                     $type:{
                         test:{
@@ -1851,7 +1736,6 @@ this.renamePassNewLine = {
 }
 
 this.renameWithOtherModifiers = {
-    $rename:"renameAtTop",
     $type:{
         lvl0:{
             $transform:(context,data,next)=>{
@@ -1882,6 +1766,7 @@ this.renameWithOtherModifiers = {
         }
     }
 }
+
 
 ////////////////////////////////////// Length modifier filters ///////////////////////////////////
 
@@ -2118,10 +2003,12 @@ this.inNewLineArr = {
         lvl1:{
             $type:{
                 arrStr:[{
+                    $type:null
                 }],
                 lvl2:{
                     $type:{
                         test:{
+                            $type:null
                         }
                     }
                 }
@@ -2139,11 +2026,15 @@ this.inNewLineObj = {
         lvl1:{
             $type:{
                 arrStr:[{
+                    $type:null
                 }],
                 lvl2:{
                     $type:{
                         test:{
-                            $in:{Infinity:0,'\n':0},
+                            $in:{
+                                Infinity:0,
+                                '\n':0
+                            },
                         }
                     }
                 }
@@ -2230,13 +2121,15 @@ this.inNumViaFunc = {
             $type:{
                 arrStr:[{
                     $in:(context,data,next)=>{
-                        next(null,55)
+                        next(null,0)
                     }
                 }],
                 lvl2:{
                     $type:{
                         test:{
-                            $in:{Infinity:0},
+                            $in:(context,data,next)=>{
+                                next(null,Infinity)
+                            },
                         }
                     }
                 }
@@ -2281,13 +2174,13 @@ this.incPass = {
     $type:{
         lvl0:{
             $inc:true,
-            $ninc:0
+            $ninc:'test'
         },
         lvl1:{
             $type:{
                 arrStr:{
                     $inc:(context,data,next)=>{
-                        next(null,1)
+                        next(null,5)
                     },
                     $ninc:(context,data,next)=>{
                         next(null,'Test')
@@ -2313,7 +2206,7 @@ this.incNewLine = {
     $type:{
         lvl0:{
             $inc:'\n',
-            $ninc:0
+            $ninc:'test'
         },
         lvl1:{
             $type:{
@@ -2322,7 +2215,7 @@ this.incNewLine = {
                         next(null,1)
                     },
                     $ninc:(context,data,next)=>{
-                        next(null,'Test')
+                        next(null,'\n')
                     } 
                 },
                 lvl2:{
@@ -2345,7 +2238,7 @@ this.incFuncDir = {
     $type:{
         lvl0:{
             $inc:true,
-            $ninc:0
+            $ninc:'test'
         },
         lvl1:{
             $type:{
@@ -2437,7 +2330,7 @@ this.incOtherDataTypesViafunc = {
     $type:{
         lvl0:{
             $inc:true,
-            $ninc:0
+            $ninc:'test'
         },
         lvl1:{
             $type:{
@@ -2502,86 +2395,88 @@ this.incWithOtherModifiers = {
     }
 }
 
+
 /////////////////////////////////// $toObject Filters //////////////////////////////////////
 
 this.toObjPass = {
-        $type:{
-            lvl0:{
-                $toObject:'test',
-            },
-            lvl1:{
-                $type:{
-                    arrObj:{
-                        $toObject:'lvl1'
-                    }
-                }
-            }
-        }
-}
-
-this.toObjFailNumber = {
-    $type:{
-        lvl0:{
-            $toObject:55,
-            $type:Array,
-        },
-        lvl1:{
-            $type:{
-                arrObj:{
-                    $toObject:Infinity
-                }
-            }
-        }
-    }
-}
-
-this.toObjFailFunction = {
-    $type:{
-        lvl0:{
-            $toObject:(context,data,next)=>{
-                next(null,'test')
-            },
-            $type:Array,
-        },
-        lvl1:{
-            $type:{
-                arrObj:{
-                    $toObject:Infinity
-                }
-            }
-        }
-    }
-}
-
-this.toObjOthModifier = {
     $type:{
         lvl0:{
             $toObject:'test',
-            $type:[{
-                $transform:(context,data,next)=>{
-                    next(null,{'test':'66'})
-                }
-            }],
         },
         lvl1:{
             $type:{
-                arrStr:{
-                    $type:[{
-                        lvl2:{
-                            $type:[{
-                                lvl3:String
-                            }],
-                            $toObject:'lvl3',
-                            $ninc:'11'
-                        }
-                    }]
+                arrObj:{
+                    $toObject:'lvl1'
                 }
             }
         }
     }
 }
 
+this.toObjFailNumber = {
+$type:{
+    lvl0:{
+        $toObject:55,
+        $type:Array,
+    },
+    lvl1:{
+        $type:{
+            arrObj:{
+                $toObject:Infinity
+            }
+        }
+    }
 }
+}
+
+this.toObjFailFunction = {
+$type:{
+    lvl0:{
+        $toObject:(context,data,next)=>{
+            next(null,'test')
+        },
+        $type:Array,
+    },
+    lvl1:{
+        $type:{
+            arrObj:{
+                $toObject:Infinity
+            }
+        }
+    }
+}
+}
+
+this.toObjOthModifier = {
+$type:{
+    lvl0:{
+        $toObject:'test',
+        $type:[{
+            $transform:(context,data,next)=>{
+                next(null,{'test':'66'})
+            }
+        }],
+    },
+    lvl1:{
+        $type:{
+            arrStr:{
+                $type:[{
+                    lvl2:{
+                        $type:[{
+                            lvl3:String
+                        }],
+                        $toObject:'lvl3',
+                        $ninc:'11'
+                    }
+                }]
+            }
+        }
+    }
+}
+}
+
+}
+
 
 module.exports = new filters();        
        

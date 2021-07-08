@@ -22,16 +22,22 @@ describe('In and Includes Modifier tests',()=>{
         //Pass invalid data types directly
 
         //passing \n inside array or object breaks application
-        // jsxlFunction.verifyResult('Pass \n in array',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineArr),'fail',null,"TBD");
-        // jsxlFunction.verifyResult('Pass \n in object',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineObj),'fail',null,"TBD");
+        //Fixed
+        jsxlFunction.verifyResult('Pass \n in array',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineArr),'pass',output.inNewLineInArray);
+
+        //Not fixed
+        // jsxlFunction.verifyResult('Pass \n in object',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineObj),'pass',"TBD");
+
+        //Not fixed
         // jsxlFunction.verifyResult('Pass Function directly',jsxlFunction.jsxlDirect(input.inPass,filter.inFuncDir),'fail',null,"TBD");
 
         //Passing string,undefined directly
         jsxlFunction.verifyResult('Pass String directly',jsxlFunction.jsxlDirect(input.inPass,filter.inStringDir),'fail',null,output.inStringError);
-        jsxlFunction.verifyResult('Pass String directly',jsxlFunction.jsxlDirect(input.inPass,filter.inUndefinedDir),'pass',input.inPass);
+        jsxlFunction.verifyResult('Pass Undefined directly',jsxlFunction.jsxlDirect(input.inPass,filter.inUndefinedDir),'pass',input.inPass);
 
         //Passing Number via next() - breaks application
-        // jsxlFunction.verifyResult('Pass number via next()',jsxlFunction.jsxlDirect(input.inPass,filter.inNumViaFunc),'fail',null,"TBD");
+        //Fixed
+        jsxlFunction.verifyResult('Pass number via next()',jsxlFunction.jsxlDirect(input.inPass,filter.inNumViaFunc),'fail',null,output.inPassNumViaFunc);
 
     })
 
@@ -55,7 +61,9 @@ describe('In and Includes Modifier tests',()=>{
     it('Pass invalid data types to $inc',()=>{
 
         // passing \n or Function keyword directly breaks the application
-        // jsxlFunction.verifyResult('$inc pass new line operator',jsxlFunction.jsxlDirect(input.incPass,filter.incNewLine),'fail',null,"TBD");
+        jsxlFunction.verifyResult('$inc pass new line operator',jsxlFunction.jsxlDirect(input.incPass,filter.incNewLine),'pass',output.incPassNewLineDir);
+
+        //Not fixed
         // jsxlFunction.verifyResult('$inc pass Function keyword',jsxlFunction.jsxlDirect(input.incPass,filter.incFuncDir),'fail',null,"TBD");
 
         jsxlFunction.verifyResult('$inc pass array directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassArrDir),'fail',null,output.incTypeError);
@@ -63,14 +71,15 @@ describe('In and Includes Modifier tests',()=>{
         jsxlFunction.verifyResult('$inc pass other datatypes via func',jsxlFunction.jsxlDirect(input.incPass,filter.incOtherDataTypesViafunc),'fail',null,output.incTypError2);
 
         //Passing values other than object or arrays breaks the application
-        // jsxlFunction.verifyResult('$inc pass number as input',jsxlFunction.jsxlDirect(input.incNumbe,filter.incPass),'fail',null,"TBD");
-        // jsxlFunction.verifyResult('$inc pass String as input',jsxlFunction.jsxlDirect(input.incString,filter.incPass),'fail',null,"TBD");
+        jsxlFunction.verifyResult('$inc pass number as input',jsxlFunction.jsxlDirect(input.incNumbe,filter.incPass),'fail',null,output.incPassNumberInput);
+        jsxlFunction.verifyResult('$inc pass String as input',jsxlFunction.jsxlDirect(input.incString,filter.incPass),'fail',null,output.incPassStringInput);
 
     })
 
     it('Use $inc with other modifiers',()=>{
 
         //the $inc is executes before $rename so can't verify the rename key
+        //Not fixed
         jsxlFunction.verifyResult('$inc with other modifiers',jsxlFunction.jsxlDirect(input.incWithOtherModifiers,filter.incWithOtherModifiers),'pass',output.incWithOtherModifier);
 
     })

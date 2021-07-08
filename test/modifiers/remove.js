@@ -22,8 +22,8 @@ describe('Remove modifier tests',()=>{
     it('Use $remove at the top level',()=>{
 
         //Using $remove at top level returns undefined - not an empty object - have to clarify
-    
-        // jsxlFunction.verifyResult('$remove at object top level',jsxlFunction.jsxlDirect(input.removeInput,filter.remove_topLevel),'pass',{});
+        //Fixed
+        jsxlFunction.verifyResult('$remove at object top level',jsxlFunction.jsxlDirect(input.removeInput,filter.remove_topLevel),'pass','undefined');
 
     })
 

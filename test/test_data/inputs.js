@@ -258,10 +258,10 @@ var inputs = function(){
         }
     }
 
-    //////////////////////////// Inputs for $transform //////////////////////
+       //////////////////////////// Inputs for $transform //////////////////////
 
-    this.transform1 = {
-        lvl0:'false',
+       this.transform1 = {
+        lvl0:5,
         lvl1:{
             arrStr:[false,true,false,true,null,'test',34,0,NaN],
             lvl2:{
@@ -286,7 +286,10 @@ var inputs = function(){
     }
 
     this.transform_validateModifiedValues = {
-        lvl0:'fromInput'
+        lvl0:'fromInput',
+        lvl1:{
+            lvl2:55
+        }
     }
 
     ////////////////////////// Inputs for $remove //////////////////////////////////
@@ -303,7 +306,7 @@ var inputs = function(){
 
     /////////////////////////// Inputs for $insert, $default and $optional /////////////////////////////////
 
-    this.insertInput = {
+      this.insertInput = {
         lvl0:'true',
         lvl1:{
             arrStr:[false,true,false,true,null,'test',34,0,NaN],
@@ -373,7 +376,7 @@ this.mapOtherDatatype = {
 }
 
 this.mapToValuesNotPresent = {
-    lvl0:'test',
+    lvl0:'test66',
     lvl1:{
         arrStr:['test','test1','test2'],
         lvl2:{
@@ -393,9 +396,9 @@ this.mapNumberToArray =  {
 }
 
 this.mapNumberOutOfRange ={
-    lvl0:0.1,
+    lvl0:0,
     lvl1:{
-        arrStr:[2,3,5,8],
+        arrStr:[2,3,6,9],
         lvl2:{
             test:-9
         }
@@ -403,9 +406,9 @@ this.mapNumberOutOfRange ={
 }
 
 this.mapOtherToArray = {
-    lvl0:null,
+    lvl0:'Infinity',
     lvl1:{
-        arrStr:[1,undefined,()=>{}],
+        arrStr:[1],
         lvl2:{
             test:[]
         }
@@ -463,7 +466,7 @@ this.compareUndefine = {
 this.compareNewLine = {
     lvl0:30,
     lvl1:{
-        arrStr:['a','b','f','i'],
+        arrStr:['1','2'],
     }
 }
 
@@ -665,9 +668,9 @@ this.inWithOtherModifier = {
 }
 
 this.incPass = {
-    lvl0:[undefined,true,null,Infinity],
+    lvl0:[undefined,true,null,Infinity,'\n'],
     lvl1:{
-        arrStr:['test',1],
+        arrStr:['test',1,5],
         lvl2:{
             test:{
                 'one':1,
@@ -697,7 +700,7 @@ this.incFailAtTop =  {
 this.nincFail =  {
     lvl0:[undefined,null,Infinity,true],
     lvl1:{
-        arrStr:['test',1],
+        arrStr:['test',1,5],
         lvl2:{
             test:{
                 'one':1,
@@ -806,5 +809,6 @@ this.toObjectWithotherModifier = {
 }
 
 }
+
 
 module.exports = new inputs();        

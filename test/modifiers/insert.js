@@ -11,7 +11,8 @@ describe('Insert Modifier Tests',()=>{
         jsxlFunction.verifyResult('Insert value at top level',jsxlFunction.jsxlDirect(input.insertInput,filter.insertFilterAtTop),'fail',null,output.topLvlInsert);
 
         //This test will not pass because using "\n" as value for insert throws error -  Uncaught SyntaxError: Invalid or unexpected token
-        // jsxlFunction.verifyResult('Insert value at all level',jsxlFunction.jsxlDirect(input.insertInput,filter.insertAtAllLvl),'pass',output.insertAlllvl);
+        //Fixed
+        jsxlFunction.verifyResult('Insert value at all level',jsxlFunction.jsxlDirect(input.insertInput,filter.insertAtAllLvl),'pass',output.insertAlllvl);
 
         jsxlFunction.verifyResult('Insert null and undefined at all level',jsxlFunction.jsxlDirect(input.insertInput,filter.insertNullUndefined),'pass',output.insertNullUndefined);
     })

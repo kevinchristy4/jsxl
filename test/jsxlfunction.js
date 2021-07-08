@@ -1,6 +1,7 @@
 const jsxl = require('../lib/jsxl');
 const { expect } = require('chai');
-const util = require('util')
+const util = require('util');
+const { type } = require('os');
 
 
 
@@ -44,8 +45,11 @@ var jsxlfunction = function(){
                         // console.log(err)
                         resolve([err,err.message])
                     }
-                    console.log(util.inspect(output,{showHidden: false, depth: null}))
+                    // console.log(util.inspect(output,{showHidden: false, depth: null}))
                     // console.log(output)
+                    if(output == undefined){
+                        resolve(typeof output)
+                    }
                     resolve(output)
                 }
             );
@@ -74,9 +78,9 @@ var jsxlfunction = function(){
 
   }
 
-    //Use await wherever result variable is called
+ //Use await wherever result variable is called
 
-  this.verifyResult = async(testName,result,expects,expValue,errMsg)=>{
+ this.verifyResult = async(testName,result,expects,expValue,errMsg)=>{
 
     describe('',()=>{
         it(testName,async()=>{
@@ -97,7 +101,7 @@ var jsxlfunction = function(){
                     expect(Object.values(await result)[1]).to.deep.equal(errMsg)
                 }catch(err){
                     console.log("Assertion error ------> "+err.message)
-                    if(!(Object.values(await result)[0].toString().includes('Error'))){
+                    if((Object.values(await result)[0] != null) && !(Object.values(await result)[0].toString().includes('Error'))){
                         throw new Error('Expected to fail but jsxl did not return any error');
                     }
                 }
@@ -107,8 +111,6 @@ var jsxlfunction = function(){
             }
         })
     })
-  
-
 
    
 

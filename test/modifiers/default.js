@@ -8,11 +8,12 @@ describe('Default modifier tests',()=>{
 
     it('Set default values and verify output',()=>{
 
-        jsxlFunction.verifyResult('verify default doesnot work if value already present',jsxlFunction.jsxlDirect(input.defaultWithValues,filter.defaultFilter),'pass',input.insertInput);
+        jsxlFunction.verifyResult('verify default doesnot work if value already present',jsxlFunction.jsxlDirect(input.defaultWithValues,filter.defaultFilter),'pass',output.defaultValuePresemt);
         jsxlFunction.verifyResult('Set default values if undefined',jsxlFunction.jsxlDirect(input.defaultInput,filter.defaultFilter),'pass',output.defaultOutput);
 
         //This test will not pass because using "\n" as value for default throws error -  Uncaught SyntaxError: Invalid or unexpected token
-        // jsxlFunction.verifyResult('Set default to undefined values',jsxlFunction.jsxlDirect(input.defaultInput,filter.defaultUndefinedFilter),'pass',output.defaultUndefinedOutput);
+        //Fixed
+        jsxlFunction.verifyResult('Set default to undefined values',jsxlFunction.jsxlDirect(input.defaultInput,filter.defaultUndefinedFilter),'pass',output.defaultUndefinedOutput);
 
         jsxlFunction.verifyResult('Set default at top level',jsxlFunction.jsxlDirect(undefined,filter.defaultAtTop),'pass',{one:1});
 

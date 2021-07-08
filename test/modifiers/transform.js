@@ -15,14 +15,14 @@ describe('Transform filter tests',()=>{
 
     it('$transform - Pass other data types',()=>{
 
-        //Currently passing "undefined" and "null" even as string has no effect on output from transform
         jsxlFunction.verifyResult('pass null and undefined in next()',jsxlFunction.jsxlDirect(input.transform_null_undefined,filter.pass_null_Undefined),'pass',output.nullUndefined);
         jsxlFunction.verifyResult('pass values directly',jsxlFunction.jsxlDirect(input.transform_otherDataTypes,filter.passOtherDataTypes),'fail',null,output.typeError);
 
     })
 
-    it('$transform - Verify if modified values are accesible in sub sections',()=>{
+    it('$transform - Values transformed at the top level are not transformed again at low levels',()=>{
 
+        // Doubt? - In the $filter for lvl0 - if false is passed, then lvl0 is appended to the end of object 
         jsxlFunction.verifyResult('Verify if modified values are accesible in sub sections',jsxlFunction.jsxlDirect(input.transform_validateModifiedValues,filter.passdownModifiedValues),'pass',output.verifyMofifiedValue);
 
     })
