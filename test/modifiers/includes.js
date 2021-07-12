@@ -25,8 +25,8 @@ describe('In and Includes Modifier tests',()=>{
         //Fixed
         jsxlFunction.verifyResult('Pass \n in array',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineArr),'pass',output.inNewLineInArray);
 
-        //Not fixed
-        // jsxlFunction.verifyResult('Pass \n in object',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineObj),'pass',"TBD");
+        //Fixed
+        jsxlFunction.verifyResult('Pass \n in object',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineObj),'pass',input.inPass);
 
         //Not fixed
         // jsxlFunction.verifyResult('Pass Function directly',jsxlFunction.jsxlDirect(input.inPass,filter.inFuncDir),'fail',null,"TBD");

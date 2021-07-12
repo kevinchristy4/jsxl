@@ -90,7 +90,7 @@ describe('Type Modifier Tests',()=>{
 
     })
 
-    it('Verify Array',()=>{
+    it('Verify Array',()=>{  
 
         //Test $type:Array against Array
         jsxlFunction.verifyResult('Array against Array',jsxlFunction.jsxlDirect(input.array,filter.array),'pass',input.array);

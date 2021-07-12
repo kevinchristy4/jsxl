@@ -22,7 +22,7 @@ describe('Comparision modifier tests',()=>{
         jsxlFunction.verifyResult('Pass undefined as value in a function',jsxlFunction.jsxlDirect(input.compareUndefine,filter.comparisonUndefined),'fail',null,output.compareUndefinedFunc);
         jsxlFunction.verifyResult('Pass undefined as value directly',jsxlFunction.jsxlDirect(input.compareUndefine,filter.comparisonUndefinedDirect),'pass',output.compareundefinedDir);
         jsxlFunction.verifyResult('Pass newline opeartor as value in a function',jsxlFunction.jsxlDirect(input.compareNewLine,filter.comparisonNewLine),'fail',null,output.compareNewLineFunc);
-        jsxlFunction.verifyResult('Pass new line operator as value in a function',jsxlFunction.jsxlDirect(input.compareNewLine,filter.comparisonNewLineDirect),'fail',null,output.compareNewLineDir);
+        jsxlFunction.verifyResult('Pass new line operator as direct value',jsxlFunction.jsxlDirect(input.compareNewLine,filter.comparisonNewLineDirect),'fail',null,output.compareNewLineDir);
 
 
     })

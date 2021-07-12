@@ -170,18 +170,18 @@ var outputs = function(){
   }
 
   this.mapOtherDattypeInput = "(execute v2) input.lvl0 must map with type String (not Number)"
-  this.mapInputNotPresentInFilter = "(execute v2) input.lvl1.arrStr[2] must be included in [ \'test\', \'test1\' ]"
+  this.mapInputNotPresentInFilter = '(execute v2) input.lvl1.arrStr[2] must be included in [ "test", "test1" ]'
   this.mapOutOfArrayRange = "(execute v2) input.lvl1.arrStr[2] must be in range of [ 0, 6 ]";
   this.mapInputOtherThanNumber = "(execute v2) input.lvl0 must map with type Number (not String)"
 
   ///////////////////////////// Comparison outputs ///////////////////////////
 
   this.compareError = "(execute v2) input.lvl0 must be greater than 25";
-  this.compareError1 = "(execute v2) input.lvl1.arrStr[0] must be greater than or equal to 'b'";
+  this.compareError1 = '(execute v2) input.lvl1.arrStr[0] must be greater than or equal to "b"';
   this.compareUndefinedFunc = "(execute v2) input.lvl0 must be equal to undefined";
   this.compareundefinedDir = { lvl0: 30 };
-  this.compareNewLineFunc = "(execute v2) input.lvl1.arrStr[0] must be equal to \'\\n\'";
-  this.compareNewLineDir = "(execute v2) input.lvl1.arrStr[0] must be equal to \'\\n\'";
+  this.compareNewLineFunc = '(execute v2) input.lvl1.arrStr[0] must be equal to "\\n"';
+  this.compareNewLineDir = '(execute v2) input.lvl1.arrStr[0] must be equal to "\\n"';
 
   this.compareOtherModifiers = {
     lvl0: 'transformedValue',
@@ -195,7 +195,7 @@ var outputs = function(){
 
   this.matchRegexFunc = "(execute v2) input.lvl0 must match /[test][0-5]/"
   this.matchRegexDir = "(execute v2) input.lvl1.arrStr[2] must match /[a-f]/"
-  this.matchString = "(execute v2) input.lvl1.lvl2.test1 must match 'rty'"
+  this.matchString = '(execute v2) input.lvl1.lvl2.test1 must match "rty"'
   this.matchUndefined = "(execute v2) input.lvl0 must match undefined"
   this.matchOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl1.$type.arrStr[0].$match must be type Function (not Number),\nfilter.$type.lvl1.$type.arrStr[0].$match must be type String (not Number), or\nfilter.$type.lvl1.$type.arrStr[0].$match must be type RegExp (not Number)"
   this.matchWithOthermodifier = {
@@ -211,6 +211,8 @@ var outputs = function(){
   this.messageTypeError1 = "(compile) (execute v2) filter.$type.lvl0.$message must be type String (not null)";
   this.messageTypeError2 = "(compile) (execute v2) filter.$type.lvl0.$message must be type String (not Function)"
 
+  this.msgNewLineMsg = "(execute v2) input.lvl0 \n"
+
 
   //////////////////////////////////// Rename outputs ///////////////////////////////////////
 
@@ -219,7 +221,7 @@ var outputs = function(){
     lvl1: { arrStr: [ 'b', 5 ], lvl2: { RenamedAt2: 'undefined' } }
   }
 
-  this.renameInsideArray = '(compile) (execute v2) filter.$type.lvl1.$type.arrStr[0].$rename cannot rename if not inside object while filtering'
+  this.renameInsideArray = '(compile) (execute v2) filter.$type.lvl1.$type.arrStr[0].$rename cannot rename when inside array while filtering'
 
   this.renameOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl0.$rename must be type Function (not Number) or\nfilter.$type.lvl0.$rename must be type String (not Number)"
   this.renamePassNull = "(compile) (execute v2) one of\nfilter.$type.lvl0.$rename must be type Function (not null) or\nfilter.$type.lvl0.$rename must be type String (not null)"
@@ -241,9 +243,17 @@ var outputs = function(){
     renamelvl1: { renameArr: [ 'b', 'a' ], renameLvl2: { Function: '22' } }
   }
 
+  this.renameNewLine = {
+    '\n': 'test66',
+    lvl1: {
+      arrStr: [ 'b', 5 ],
+      lvl2: { 'function Function() { [native code] }': 'undefined' }
+    }
+  }
+
   ////////////////////////////////// Array length outputs ///////////////////////////////////
 
-  this.lengthMax = "(execute v2) input.lvl0 must have maximum length '3'"
+  this.lengthMax = '(execute v2) input.lvl0 must have maximum length "3"'
   this.lengthMin = "(execute v2) input.lvl1.arrStr must have minimum length 3"
   this.lengthLen = "(execute v2) input.lvl1.lvl2.test must have exact length 1"
 

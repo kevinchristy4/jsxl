@@ -32,8 +32,8 @@ describe('Rename modifier tests',()=>{
         // jsxlFunction.verifyResult('Pass Function keyword directly',jsxlFunction.jsxlDirect(input.renameKeys,filter.renamePassConstruc),'fail',null,"TBD");
 
         //Passing new line operator breaks application
-        //Not Fixed
-        // jsxlFunction.verifyResult('Pass new line operator directly',jsxlFunction.jsxlDirect(input.renameKeys,filter.renamePassNewLine),'fail',null,"TBD");
+        //Fixed
+        jsxlFunction.verifyResult('Pass new line operator directly',jsxlFunction.jsxlDirect(input.renameKeys,filter.renamePassNewLine),'pass',output.renameNewLine);
 
     })
 

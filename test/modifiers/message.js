@@ -21,8 +21,8 @@ describe('Message modifier tests',()=>{
         jsxlFunction.verifyResult('Pass Function',jsxlFunction.jsxlDirect(input.message,filter.messageFunc),'fail',null,output.messageTypeError2);
 
         //Passing "\n" as a message causes the application to break
-        //Not Fixed
-        // jsxlFunction.verifyResult('Verify message present in error',jsxlFunction.jsxlDirect(input.message,filter.messageNewLine),'fail',null,"TBD");
+        //Fixed
+        jsxlFunction.verifyResult('Verify message present in error',jsxlFunction.jsxlDirect(input.message,filter.messageNewLine),'fail',null,output.msgNewLineMsg);
 
 
     })

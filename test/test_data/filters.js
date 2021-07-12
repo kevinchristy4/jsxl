@@ -2029,12 +2029,10 @@ this.inNewLineObj = {
                     $type:null
                 }],
                 lvl2:{
-                    $type:{
-                        test:{
-                            $in:{
-                                Infinity:0,
-                                '\n':0
-                            },
+                    test:{
+                        $in:{
+                            "Infinity":0,
+                            '\n':0
                         }
                     }
                 }
