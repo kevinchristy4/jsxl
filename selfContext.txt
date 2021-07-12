@@ -129,5 +129,9 @@ To do:
     - In input pass object with values other than string
     - With other modifiers
 
+- toArray:
+    - Use object of incompatible format
+    - Change to array on inner level and also on outer level at the same times
+
 
 

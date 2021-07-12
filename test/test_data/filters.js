@@ -2473,6 +2473,105 @@ $type:{
 }
 }
 
+
+////////////////////////////////////////////// $toArray filters ///////////////////////////////////////////
+
+this.toArrayPass = {
+    $type:{
+        lvl0:{
+            $toArray:'\n',
+            $type:Object
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:[{
+                        lvl2:{
+                            $toArray:'lastLvl',
+                        }
+                    }]
+                }
+            }
+        }
+    }
+}
+
+this.toArrayPassNull = {
+    $type:{
+        lvl0:{
+            $toArray:null,
+            $type:Object
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:[{
+                        lvl2:{
+                            $toArray:'lastLvl',
+                        }
+                    }]
+                }
+            }
+        }
+    }
+}
+
+this.toArrayWithOtherMod = {
+    $type:{
+        lvl0:{
+            $toArray:'\n',
+            $default:{
+                'test':{
+                    'one':1,
+                    'two':2
+                }
+            },
+            $rename:"renamed",
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:[{
+                        lvl2:{
+                            $toArray:'lastLvl',
+                            $type:{
+                                lvl3:{
+                                    $insert:{5:6}
+                                }
+                            }
+                        }
+                    }]
+                }
+            }
+        }
+    }
+}
+
+this.toArrayAtTop = {
+    $toArray:'testrrr',
+    $type:{
+        lvl0:{
+            $toArray:'test',
+        },
+        lvl1:{
+            $type:{
+                arrStr:{
+                    $type:[{
+                        lvl2:{
+                            $toArray:'lastLvl',
+                            $type:{
+                                lvl3:{
+                                    $insert:{5:6}
+                                }
+                            }
+                        }
+                    }]
+                }
+            }
+        }
+    }
+}
+
 }
 
 

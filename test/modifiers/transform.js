@@ -23,6 +23,7 @@ describe('Transform filter tests',()=>{
     it('$transform - Values transformed at the top level are not transformed again at low levels',()=>{
 
         // Doubt? - In the $filter for lvl0 - if false is passed, then lvl0 is appended to the end of object 
+        //cleared
         jsxlFunction.verifyResult('Verify if modified values are accesible in sub sections',jsxlFunction.jsxlDirect(input.transform_validateModifiedValues,filter.passdownModifiedValues),'pass',output.verifyMofifiedValue);
 
     })

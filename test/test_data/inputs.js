@@ -808,6 +808,37 @@ this.toObjectWithotherModifier = {
     }
 }
 
+
+//////////////////////////////////////////////////// $toArray inputs /////////////////////////////////////////////////////
+
+this.toArrInput = {
+    lvl0:{
+        'test':{
+            'one':1,
+            'two':2
+        }
+    },
+    lvl1:{
+        arrStr:[{lvl2:{lvl3:{5:6}}}],
+    }
+}
+
+this.toArrayWithOtherMod = {
+    lvl0:undefined,
+    lvl1:{
+        arrStr:[{lvl2:{lvl3:null}}],
+    }
+}
+
+this.toArrInputIncompatible = {
+    lvl0:{
+        'test':true
+    },
+    lvl1:{
+        arrStr:[{lvl2:{lvl3:{5:6}}}],
+    }
+}
+
 }
 
 

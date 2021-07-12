@@ -17,12 +17,20 @@ describe('Test Group - feature/context',()=>{
         const jsxl = require('../../lib/jsxl')
 
         var inp = {
-            a:[]
+            a:{
+                'one':{1:1},
+            },
+            b:{
+                'two':{2:2}
+            }
         }
 
         var filter = {
-            a:{
-                $toObject:'test'
+            $toArray:'topLevel',
+            $type:{
+                $:{
+                    $toArray:'lowerLevel'
+                }
             }
         }
 

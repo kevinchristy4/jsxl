@@ -328,5 +328,28 @@ this.toObjectWithOtherModifier = {
   }
 }
 
+
+///////////////////////////////////////// toArray outputs //////////////////////////////////////////////
+
+this.toArrayPass = {
+  lvl0: [ { one: 1, two: 2, '\n': 'test' } ],
+  lvl1: {
+    arrStr: [
+      { lvl2: [ { '5': 6, lastLvl: 'lvl3' } ] }
+    ]
+  }
+}
+
+this.toArrayNull = "(compile) (execute v2) filter.$type.lvl0.$toArray must be type String (not null)"
+
+this.toArrayOtherMod = {
+  renamed: [ { one: 1, two: 2, '\n': 'test' } ],
+  lvl1: {
+    arrStr: [
+      { lvl2: [ { '5': 6, lastLvl: 'lvl3' } ] }
+    ]
+  }
+}
+
 }
 module.exports = new outputs();
