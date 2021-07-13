@@ -236,6 +236,13 @@ var inputs = function(){
         }
     }
 
+    this.typeGenericFunc = {
+        lvl0:()=>{},
+        test:{
+            lvl1:()=>{}
+        }
+    }
+
     ////////////////////// Inputs for Filter modifier ///////////////////////
     
     this.filterTrue = {
@@ -812,6 +819,18 @@ this.toObjectWithotherModifier = {
 //////////////////////////////////////////////////// $toArray inputs /////////////////////////////////////////////////////
 
 this.toArrInput = {
+    lvl0:{
+        'test':{
+            'one':1,
+            'two':2
+        }
+    },
+    lvl1:{
+        arrStr:[{lvl2:{lvl3:{5:6}}}],
+    }
+}
+
+this.toArrInputTop = {
     lvl0:{
         'test':{
             'one':1,

@@ -23,6 +23,7 @@ var outputs = function(){
     this.stringUndefined = "(execute v2) input.lvl0 must be provided";
     this.stringUndefinedlvl2 = "(execute v2) input.lvl1.lvl2.str must be provided";
    
+    this.typePassGenericFunction = '(execute v2) input.lvl0 must be type lvl0 (not Function)'
 
     ///////////////////////// Outputs for $filter modifier //////////////////////////
 
@@ -350,6 +351,9 @@ this.toArrayOtherMod = {
     ]
   }
 }
+
+this.toArrayTopLevel = '(execute v2) input.lvl0 must be an object for input to convert to array';
+this.toArrayIncompatible = '(execute v2) input.lvl0.test must be an object for input.lvl0 to convert to array'
 
 }
 module.exports = new outputs();

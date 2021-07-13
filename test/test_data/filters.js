@@ -103,6 +103,15 @@ var filters = function(){
         }
     }
 
+    this.typePassGenericFunc = {
+        $type:{
+            lvl0:()=>{},
+            test:{
+                lvl1:Function
+            }
+        }
+    }
+
     //////////////////// Filters for $filter modifier ////////////////////////////
 
 this.filter = {

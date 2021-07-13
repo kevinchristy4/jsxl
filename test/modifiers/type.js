@@ -158,4 +158,10 @@ describe('Type Modifier Tests',()=>{
         jsxlFunction.verifyResult('String againt undefined - lvl2',jsxlFunction.jsxlDirect(input.stringUndefinedlvl2,filter.stringString),'fail',null,output.stringUndefinedlvl2);
 
     })
+
+    it('Pass incompatible data to $filter',()=>{
+
+        jsxlFunction.verifyResult('Pass a generic function to $type',jsxlFunction.jsxlDirect(input.typeGenericFunc,filter.typePassGenericFunc),'fail',null,output.typePassGenericFunction);
+
+    })
 })
