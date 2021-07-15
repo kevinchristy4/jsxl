@@ -17,22 +17,15 @@ describe('Test Group - feature/context',()=>{
         const jsxl = require('../../lib/jsxl')
 
         var inp = {
-            a:{
-                'one':{1:1},
-            },
-            b:{
-                'two':{2:2}
-            }
+            1:'one',
         }
 
         var filter = {
-            $toArray:'topLevel',
-            $type:{
-                $:{
-                    $toArray:'lowerLevel'
-                }
+            1:{
+                $map:{"one":0,'two':new Date()}
             }
         }
+        
 
         jsxlFunction.verifyResult('',jsxlFunction.jsxlDirect(inp,filter),"pass",inp,"(execute v2) input (source) must be like type Object (not String)")
 

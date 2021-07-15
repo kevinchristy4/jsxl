@@ -24,12 +24,12 @@ describe('Rename modifier tests',()=>{
         //Passing undefined has no effect on output
         jsxlFunction.verifyResult('Pass undefined directly',jsxlFunction.jsxlDirect(input.renameKeys,filter.renamePassUndefined),'pass',output.renameUndefined);
 
-        //Passing different data types via next() converts the input to string regardless of the datatype
+         //Passing different data types via next() converts the input to string regardless of the datatype
         jsxlFunction.verifyResult('Pass otherdatatypes inside function',jsxlFunction.jsxlDirect(input.renameKeys,filter.renameDatatypesViaFunc),'pass',output.renameOtherDatatypesFunc);
 
         //Passing a constructor directly breaks the application
-        //Not Fixed
-        // jsxlFunction.verifyResult('Pass Function keyword directly',jsxlFunction.jsxlDirect(input.renameKeys,filter.renamePassConstruc),'fail',null,"TBD");
+        //Fixed
+        jsxlFunction.verifyResult('Pass Function keyword directly',jsxlFunction.jsxlDirect(input.renameKeys,filter.renamePassConstruc),'pass',output.renamePassFunc);
 
         //Passing new line operator breaks application
         //Fixed

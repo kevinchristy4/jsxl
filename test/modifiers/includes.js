@@ -28,8 +28,8 @@ describe('In and Includes Modifier tests',()=>{
         //Fixed
         jsxlFunction.verifyResult('Pass \n in object',jsxlFunction.jsxlDirect(input.inPass,filter.inNewLineObj),'pass',input.inPass);
 
-        //Not fixed
-        // jsxlFunction.verifyResult('Pass Function directly',jsxlFunction.jsxlDirect(input.inPass,filter.inFuncDir),'fail',null,"TBD");
+        //fixed
+        jsxlFunction.verifyResult('Pass Function directly',jsxlFunction.jsxlDirect(input.inPass,filter.inFuncDir),'fail',null,output.PassFuncKeyword);
 
         //Passing string,undefined directly
         jsxlFunction.verifyResult('Pass String directly',jsxlFunction.jsxlDirect(input.inPass,filter.inStringDir),'fail',null,output.inStringError);
@@ -63,15 +63,15 @@ describe('In and Includes Modifier tests',()=>{
         // passing \n or Function keyword directly breaks the application
         jsxlFunction.verifyResult('$inc pass new line operator',jsxlFunction.jsxlDirect(input.incPass,filter.incNewLine),'pass',output.incPassNewLineDir);
 
-        //Not fixed
-        // jsxlFunction.verifyResult('$inc pass Function keyword',jsxlFunction.jsxlDirect(input.incPass,filter.incFuncDir),'fail',null,"TBD");
+        //fixed
+        jsxlFunction.verifyResult('$inc pass Function keyword',jsxlFunction.jsxlDirect(input.incPass,filter.incFuncDir),'fail',null,output.PassFuncKeyword);
 
         jsxlFunction.verifyResult('$inc pass array directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassArrDir),'fail',null,output.incTypeError);
         jsxlFunction.verifyResult('$inc pass object directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassObjDir),'fail',null,output.incTypeError1);
         jsxlFunction.verifyResult('$inc pass other datatypes via func',jsxlFunction.jsxlDirect(input.incPass,filter.incOtherDataTypesViafunc),'fail',null,output.incTypError2);
 
         //Passing values other than object or arrays breaks the application
-        jsxlFunction.verifyResult('$inc pass number as input',jsxlFunction.jsxlDirect(input.incNumbe,filter.incPass),'fail',null,output.incPassNumberInput);
+        jsxlFunction.verifyResult('$inc pass number as input',jsxlFunction.jsxlDirect(input.incNumbe,filter.incPass),'pass',input.incNumbe);
         jsxlFunction.verifyResult('$inc pass String as input',jsxlFunction.jsxlDirect(input.incString,filter.incPass),'fail',null,output.incPassStringInput);
 
     })

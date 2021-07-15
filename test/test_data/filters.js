@@ -103,15 +103,6 @@ var filters = function(){
         }
     }
 
-    this.typePassGenericFunc = {
-        $type:{
-            lvl0:()=>{},
-            test:{
-                lvl1:Function
-            }
-        }
-    }
-
     //////////////////// Filters for $filter modifier ////////////////////////////
 
 this.filter = {
@@ -1221,6 +1212,15 @@ this.comparisonOtherModifiers = {
     }
 }
 
+this.typePassGenericFunc = {
+    $type:{
+        lvl0:()=>{},
+        test:{
+            lvl1:Function
+        }
+    }
+}
+
 ////////////////////////// Match modifiers filter /////////////////////////////////////
 
 this.matchPass = {
@@ -1669,7 +1669,7 @@ this.renamePassConstruc = {
             $type:{
                 arrStr:{
                     $rename:(context,data,next)=>{
-                        next(null,[1])
+                        next(null,{})
                     }
                 },
                 lvl2:{
@@ -2585,5 +2585,3 @@ this.toArrayAtTop = {
 
 
 module.exports = new filters();        
-       
-    
