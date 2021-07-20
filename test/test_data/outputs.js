@@ -198,7 +198,8 @@ this.matchRegexFunc = "(execute v2) input.lvl0 must match /[test][0-5]/"
 this.matchRegexDir = "(execute v2) input.lvl1.arrStr[2] must match /[a-f]/"
 this.matchString = '(execute v2) input.lvl1.lvl2.test1 must match "rty"'
 this.matchUndefined = "(execute v2) input.lvl0 must match undefined"
-this.matchOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl1.$type.arrStr[0].$match must be type Function (not Number),\nfilter.$type.lvl1.$type.arrStr[0].$match must be type String (not Number), or\nfilter.$type.lvl1.$type.arrStr[0].$match must be type RegExp (not Number)"
+// this.matchOtherDatatype = "(compile) (execute v2) one of\nfilter.$type.lvl1.$type.arrStr[0].$match must be type Function (not Number),\nfilter.$type.lvl1.$type.arrStr[0].$match must be type String (not Number), or\nfilter.$type.lvl1.$type.arrStr[0].$match must be type RegExp (not Number)"
+this.matchOtherDatatype = `(execute v2) input.lvl1.arrStr[0] must match 8`
 this.matchWithOthermodifier = {
   lvl0: 'test5',
   lvl1: { arrStr: [ true, true, true ], lvl2: { test: 'undefined' } }
@@ -232,13 +233,7 @@ this.renameUndefined = {
   lvl1: { '5': [ 'b', 5 ], lvl2: { RenamedAt2: 'undefined' } }
 }
 
-this.renameOtherDatatypesFunc = {
-  '123': 'test66',
-  lvl1: {
-    '1': [ 'b', 5 ],
-    lvl2: { 'function Function() { [native code] }': 'undefined' }
-  }
-}
+this.renameOtherDatatypesFunc = '(execute v2) input.lvl0.$rename function must return a value of type String'
 
 this.renameOtherModifiers = {
   renamelvl1: { renameArr: [ 'b', 'a' ], renameLvl2: { Function: '22' } }
@@ -248,30 +243,24 @@ this.renameNewLine = {
   '\n': 'test66',
   lvl1: {
     arrStr: [ 'b', 5 ],
-    lvl2: { 'function Function() { [native code] }': 'undefined' }
+    lvl2: { 'lvl3Test': 'undefined' }
   }
 }
 
-this.renamePassFunc = {
-  'function Function() { [native code] }': 'test66',
-  lvl1: {
-    '[object Object]': [ 'b', 5 ],
-    lvl2: { 'function Function() { [native code] }': 'undefined' }
-  }
-}
+this.renamePassFunc = '(execute v2) throws error (Unexpected identifier) while renaming'
 
 ////////////////////////////////// Array length outputs ///////////////////////////////////
 
-this.lengthMax = '(execute v2) input.lvl0 must have maximum length "3"'
+this.lengthMax = '(execute v2) input.lvl0 must have maximum length 3'
 this.lengthMin = "(execute v2) input.lvl1.arrStr must have minimum length 3"
 this.lengthLen = "(execute v2) input.lvl1.lvl2.test must have exact length 1"
 
 this.lengthTypeError = "(compile) (execute v2) one of\nfilter.$type.lvl0.$maxlen must be type Function (not String) or\nfilter.$type.lvl0.$maxlen must be type Number (not String)"
 this.lengthTypeError1 = "(compile) (execute v2) one of\nfilter.$type.lvl0.$maxlen must be type Function (not null) or\nfilter.$type.lvl0.$maxlen must be type Number (not null)"
 
-this.lengthErrorFunc = "(execute v2) input.lvl1.arrStr must have minimum length Function";
-this.lengthErrorObj = "(execute v2) input.lvl1.arrStr must have minimum length {\n\tone: 1\n}"
-this.lengthUndefined = "(execute v2) input.lvl1.arrStr must have minimum length undefined";
+this.lengthErrorFunc = "(execute v2) input.lvl1.arrStr.$minlen function must return a value of type Number";
+this.lengthErrorObj = "(execute v2) input.lvl1.arrStr.$minlen function must return a value of type Number"
+this.lengthUndefined = "(execute v2) input.lvl1.arrStr.$minlen function must return a value of type Number";
 
 this.lengthWithOtherModifier = { lvl0: [ 0, 1, 2 ], lvl1: { arrStr: '123', lvl2: { test: [ 1, 2 ] } } }
 
@@ -302,7 +291,7 @@ this.incTypError2 = "(execute v2) input.lvl1.arrStr must include ()=>{}";
 
 this.incWithOtherModifier = { lvl0: [ 6 ], lvl1: { arrStr: '123', lvl2: { renamed:{'one':1,true:false } } }};
 
-this.inPassNumViaFunc = "(execute v2) input.lvl1.arrStr[0] must be included in 0"
+this.inPassNumViaFunc = "(execute v2) input.lvl1.arrStr[0].$in function must return a value of type [ Array, Object ]"
 
 this.incPassNewLineDir = {
 lvl0: [ undefined, true, null, Infinity, '\n' ],

@@ -17,12 +17,12 @@ describe('Test Group - feature/context',()=>{
         const jsxl = require('../../lib/jsxl')
 
         var inp = {
-            1:'one',
+            a:['one',true],
         }
 
         var filter = {
-            1:{
-                $map:{"one":0,'two':new Date()}
+            a:{
+                $inc:['one',true]
             }
         }
         

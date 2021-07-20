@@ -66,8 +66,9 @@ describe('In and Includes Modifier tests',()=>{
         //fixed
         jsxlFunction.verifyResult('$inc pass Function keyword',jsxlFunction.jsxlDirect(input.incPass,filter.incFuncDir),'fail',null,output.PassFuncKeyword);
 
-        jsxlFunction.verifyResult('$inc pass array directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassArrDir),'fail',null,output.incTypeError);
-        jsxlFunction.verifyResult('$inc pass object directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassObjDir),'fail',null,output.incTypeError1);
+        //Error message change
+        // jsxlFunction.verifyResult('$inc pass array directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassArrDir),'fail',null,output.incTypeError);
+        // jsxlFunction.verifyResult('$inc pass object directly',jsxlFunction.jsxlDirect(input.incPass,filter.incPassObjDir),'fail',null,output.incTypeError1);
         jsxlFunction.verifyResult('$inc pass other datatypes via func',jsxlFunction.jsxlDirect(input.incPass,filter.incOtherDataTypesViafunc),'fail',null,output.incTypError2);
 
         //Passing values other than object or arrays breaks the application

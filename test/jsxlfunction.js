@@ -7,6 +7,8 @@ const { type } = require('os');
 
 var jsxlfunction = function(){
 
+    var errMessage = 'Error: (execute v2)';
+
 
     this.jsxlCompileOnceAndExecute = async(inputs,filters)=>{
 
@@ -89,7 +91,9 @@ var jsxlfunction = function(){
                 try{
                     expect(await result).to.be.a(typeof expValue).and.to.deep.equal(expValue)
                 }catch(err){
-                    console.log("Assertion error ------> "+err.message)
+                    if(!Object.values(await result)[0].toString().includes(errMessage)){
+                        console.log("Assertion error ------> "+err.message)
+                    }
                     if((await result != undefined || null) && Object.keys(await result).length != 0 && (Object.values(await result)[0] != null||undefined) && Object.values(await result)[0].toString().includes('Error')){
                         throw new Error('Expected to pass but jsxl gave an error  ------> ' + Object.values(await result)[1] );
                     }

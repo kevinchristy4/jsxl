@@ -6,7 +6,7 @@ const output = require('../test_data/outputs');
 
 describe('Map modifiers test',()=>{
 
-    xit('Map String to values along with other modifers',()=>{
+    it('Map String to values along with other modifers',()=>{
 
         jsxlFunction.verifyResult('Map string to any values',jsxlFunction.jsxlDirect(input.mapStringInput,filter.mapSimpleFilter),'pass',output.mapWithString);
 
@@ -23,7 +23,7 @@ describe('Map modifiers test',()=>{
 
     })
 
-    xit('Map Number To array',()=>{
+    it('Map Number To array',()=>{
 
         jsxlFunction.verifyResult('Map Number to Objects',jsxlFunction.jsxlDirect(input.mapNumberToArray,filter.mapNumberToArray),'pass',output.mapNumberToArray);
 

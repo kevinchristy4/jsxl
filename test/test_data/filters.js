@@ -1314,7 +1314,7 @@ this.matchFailOtherdatatype = {
         lvl1:{
             $type:{
                 arrStr:[{
-                   $match:123
+                   $match:8
                 }],
                 lvl2:{
                     $type:{
@@ -1322,7 +1322,7 @@ this.matchFailOtherdatatype = {
                             $match:undefined
                         },
                         test1:{
-                            $match:'rty'
+                            $match:true
                         }
                     }
                 }
@@ -1661,9 +1661,7 @@ this.renamePassConstruc = {
             $match:(context,data,next)=>{
                 next(null,/[test][0-6]/)
             },
-            $rename:(context,data,next)=>{
-                next(null,Function)
-            }
+            $rename:Function
         },
         lvl1:{
             $type:{
@@ -1734,7 +1732,7 @@ this.renamePassNewLine = {
                     $type:{
                         test:{
                             $rename:(context,data,next)=>{
-                                next(null,Function)
+                                next(null,'lvl3Test')
                             }   
                         }
                     }
@@ -1783,7 +1781,7 @@ this.lengthPass = {
     $type:{
         lvl0:{
                 $maxlen:(context,data,next)=>{
-                next(null,'3')
+                next(null,3)
             }
         },
         lvl1:{
@@ -1956,7 +1954,7 @@ this.lengthWithOtherModifiers = {
                         next(null,'123')
                     },
                     $minlen:(context,data,next)=>{
-                            next(null,'\n')
+                            next(null,-5)
                     }   
                 },
                 lvl2:{
